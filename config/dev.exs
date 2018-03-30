@@ -1,5 +1,14 @@
 use Mix.Config
 
+# DO NOT USE THIS CONFIGURATION FOR PRODUCTION!
+# for production mode you have to use the prod configuration
+# and add your own secret_key in 
+
+config :gatehouse, Gatehouse.Guardian,
+  issuer: "Gatehouse.#{Mix.env}",
+  secret_key: to_string(Mix.env) <> "_A1yzSKfmfiQgwZ08vIeuXUQqkG8",
+  ttl: {10, :minute}
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -43,8 +52,3 @@ config :gatehouse, Gatehouse.Repo,
   hostname: "localhost",
   pool_size: 10,
   port: 13306
-
-config :gatehouse, Gatehouse.Guardian,
-  issuer: "Gatehouse.#{Mix.env}",
-  secret_key: to_string(Mix.env) <> "_A1yzSKfmfiQgwZ08vIeuXUQqkG8",
-  ttl: {10, :minute}
