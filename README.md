@@ -34,6 +34,17 @@ Start the integrationtest application:
 
 Open the url [`localhost:8000`](http://localhost:8000) from your browser.
 
+## environment
+
+To runthe service you must create a secret file: `config/prod.secret.exs`
+Start the service in prod environment:
+
+    export MIX_ENV=prod
+    export PORT={{ your_port }}
+    mix phx.server
+
+
+ATTENTION: Use the 'dev' environment for testing only!
 
 ## Learn more
 

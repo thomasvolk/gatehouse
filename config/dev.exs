@@ -1,7 +1,7 @@
 use Mix.Config
 
-# DO NOT USE THIS CONFIGURATION FOR PRODUCTION!
-# for production mode you have to use the prod configuration
+# USE THIS CONFIGURATION FOR TESTION ONLY!
+# to run the service you have to use the prod configuration
 # and add your own secret_key in 
 
 config :gatehouse, Gatehouse.Guardian,
