@@ -1,0 +1,5 @@
+#!/bin/bash
+set -e
+export SERVER=off
+export PORT=4000
+iex -S mix
