@@ -61,7 +61,7 @@ class TestRequestHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         token = self._get_token_from_url()
         if token != None:
-            self._do_response('access_token=%s' % token.token)
+            self._do_response(cookie = 'access_token=%s' % token.token)
         else:
             token = self._get_token_from_cookie()
             if token != None:
