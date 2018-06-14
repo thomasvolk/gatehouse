@@ -1,6 +1,7 @@
 services:
   - docker
 before_install:
+  - docker network create gatehouse_default
   - docker-compose pull
   - docker-compose create
   - docker-compose start
