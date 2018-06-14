@@ -1,0 +1,21 @@
+env:
+  DOCKER_COMPOSE_VERSION: 1.8.0
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+
+  - docker-compose --version
+
+  - docker-compose pull
+  - docker-compose build
+  - docker-compose start
+
+  - docker ps
+language: elixir
+elixir:
+  - 1.5
+otp_release:
+  - 20.0
+env:
+  - MIX_ENV=test
+script: mix test
