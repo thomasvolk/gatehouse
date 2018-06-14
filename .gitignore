@@ -5,6 +5,7 @@
 /*.ez
 mix.lock
 package-lock.json
+*.swp
 
 # Generated on crash by the VM
 erl_crash.dump
