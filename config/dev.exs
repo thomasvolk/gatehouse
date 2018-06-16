@@ -2,7 +2,7 @@ use Mix.Config
 
 # USE THIS CONFIGURATION FOR TESTION ONLY!
 # to run the service you have to use the prod configuration
-# and add your own secret_key in 
+# and add your own secret_key in
 
 config :gatehouse, Gatehouse.Guardian,
   issuer: "Gatehouse.#{Mix.env}",

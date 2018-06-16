@@ -1,0 +1,8 @@
+FROM library/elixir:1.6
+COPY . .
+RUN export MIX_ENV=prod && \
+    rm -Rf _build && \
+    mix local.hex --force && \
+    mix local.rebar --force && \
+    mix deps.get && \
+    mix release

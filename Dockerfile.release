@@ -1,0 +1,12 @@
+#FROM alpine
+FROM buildpack-deps:stretch
+COPY gatehouse.tar.gz /tmp/
+#RUN apk add --no-cache openssl bash
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
+RUN cd /usr/local/lib/ \
+       && mkdir gatehouse \
+       && cd gatehouse \
+       && tar xfz /tmp/gatehouse.tar.gz
+CMD [ "/usr/local/lib/gatehouse/bin/gatehouse", "foreground" ]
