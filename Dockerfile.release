@@ -1,5 +1,5 @@
 #FROM alpine
-FROM buildpack-deps:stretch
+FROM buildpack-deps:stretch-scm
 COPY gatehouse.tar.gz /tmp/
 #RUN apk add --no-cache openssl bash
 RUN apt-get update \
