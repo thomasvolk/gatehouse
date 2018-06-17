@@ -14,7 +14,7 @@ config :gatehouse, GatehouseWeb.Endpoint,
 # database
 config :gatehouse, Gatehouse.Repo,
   adapter: Ecto.Adapters.MySQL,
-  username:   {:system, "GATEHOUSE_DB_USER_NAME"},
+  username:   {:system, "GATEHOUSE_DB_USER"},
   password:   {:system, "GATEHOUSE_DB_PASSWORD"},
   database:   {:system, "GATEHOUSE_DB_NAME"},
   pool_size:  {:system, "GATEHOUSE_DB_POOL_SIZE"},
