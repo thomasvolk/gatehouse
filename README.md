@@ -48,6 +48,18 @@ ATTENTION: Use the 'dev' environment for testing only!
 
 ## release
 
+### build the docker container
+
+Run the build script to compile and pack the gatehouse archive file:
+
+   ./build.sh
+
+To create the docker container run the release script:
+
+    ./release.sh
+
+### run the container
+
 To run the release you must set the following environment variables:
 
 | Name                             | Description                        |
@@ -61,13 +73,22 @@ To run the release you must set the following environment variables:
 | GATEHOUSE_AUTH_SECRET_KEY        |  authentication secret key         |
 | GATEHOUSE_AUTH_TOKEN_TTL         |  authentication token time to live |
 
-test the release:
+
+Yous can test the release with the local test databse:
+
+    docker-compose up
+
+Now get the host ip address from the gatehouse-release docker container:
+
+    HOST_IP=$(docker run gatehouse-release ip route | awk '/default/ { print $3 }')
+
+Run gatehouse container:
 
     docker run \
     -e REPLACE_OS_VARS=true \
     -e PORT=9998 \
     -e GATEHOUSE_WEB_SECRET_KEY_BASE=Dn0MUHCWLaC1zC6JnAWqZrl5hs2M71f8F6PxXTPfJXAc8Lv82OYcV/uwuB42YA9K \
-    -e GATEHOUSE_DB_HOST=172.17.0.1 \
+    -e GATEHOUSE_DB_HOST=$HOST_IP \
     -e GATEHOUSE_DB_NAME=gatehouse \
     -e GATEHOUSE_DB_USER=gatehouse \
     -e GATEHOUSE_DB_PASSWORD=gatehouse \
@@ -76,6 +97,8 @@ test the release:
     -e GATEHOUSE_AUTH_TOKEN_TTL=3600 \
     -p 9998:9998 \
     gatehouse-release
+
+Open gatehose with http://localhost:9998
 
 ## Learn more
 
