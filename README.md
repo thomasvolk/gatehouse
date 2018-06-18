@@ -52,30 +52,29 @@ To run the release you must set the following environment variables:
 
 | Name                             | Description                        |
 |:-------------------------------- |:-----------------------------------|
-| GATEHOUSE_DB_HOST                |  database host name                |
+| GATEHOUSE_DATABASE_URL           |  database host name                |
 | GATEHOUSE_DB_NAME                |  database name                     |
 | GATEHOUSE_DB_USER                |  database user name                |
 | GATEHOUSE_DB_PASSWORD            |  database user passoerd            |
 | GATEHOUSE_DB_PORT                |  database port                     |
-| GATEHOUSE_DB_POOL_SIZE           |  default: 10                       |
 | GATEHOUSE_WEB_SECRET_KEY_BASE    |  webserver secret key base         |
-| GATEHOUSE_AUTH_ISSUER            |  authentication issuer             |
 | GATEHOUSE_AUTH_SECRET_KEY        |  authentication secret key         |
 | GATEHOUSE_AUTH_TOKEN_TTL         |  authentication token time to live |
 
 test the release:
 
     docker run \
+    -e REPLACE_OS_VARS=true \
     -e PORT=9998 \
-    -e GATEHOUSE_WEB_SECRET_KEY_BASE=Dn0MUHCWLaC1zC6JnAWqZrl5hs2M71f8F6PxXTPfJXAc8Lv82OYcV \
+    -e GATEHOUSE_WEB_SECRET_KEY_BASE=Dn0MUHCWLaC1zC6JnAWqZrl5hs2M71f8F6PxXTPfJXAc8Lv82OYcV/uwuB42YA9K \
     -e GATEHOUSE_DB_HOST=172.17.0.1 \
     -e GATEHOUSE_DB_NAME=gatehouse \
     -e GATEHOUSE_DB_USER=gatehouse \
     -e GATEHOUSE_DB_PASSWORD=gatehouse \
-    -e GATEHOUSE_DB_POOL_SIZE=10 \
     -e GATEHOUSE_DB_PORT=13306 \
-    -e GATEHOUSE_AUTH_ISSUER=Gatehouse \
     -e GATEHOUSE_AUTH_SECRET_KEY=dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8 \
+    -e GATEHOUSE_AUTH_TOKEN_TTL=3600 \
+    -p 9998:9998 \
     gatehouse-release
 
 ## Learn more
