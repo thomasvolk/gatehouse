@@ -16,5 +16,13 @@ jobs:
       env:
         - MIX_ENV=test
       script: mix test
+    - stage: build
+      services:
+        - docker
+      script:
+        - ./build.sh
+        - ./release.sh
+      
 stages:
   - test
+  - build
