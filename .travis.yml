@@ -22,13 +22,9 @@ jobs:
       script:
         - ./build.sh
         - ./release.sh
-    - stage: deploy
-      services:
-        - docker
-      script:
         - ./deploy.sh
-      
       
 stages:
   - test
-  - build
+  - name: deploy
+    if: branch = master
