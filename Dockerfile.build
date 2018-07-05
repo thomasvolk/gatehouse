@@ -1,8 +1,12 @@
 FROM library/elixir:1.6
 COPY . .
 RUN export MIX_ENV=prod && \
+    curl -sL https://deb.nodesource.com/setup_9.x | bash - && \
+    apt-get update && \
+    apt-get install -y nodejs && \
     rm -Rf _build && \
     mix local.hex --force && \
     mix local.rebar --force && \
     mix deps.get && \
+    (cd assets && npm install && ./node_modules/brunch/bin/brunch build) && \
     mix release
