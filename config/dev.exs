@@ -5,7 +5,7 @@ use Mix.Config
 # and add your own secret_key in
 
 config :gatehouse, Gatehouse.Guardian,
-  issuer: "Gatehouse.#{Mix.env}",
+  issuer: "Gatehouse",
   secret_key: to_string(Mix.env) <> "_A1yzSKfmfiQgwZ08vIeuXUQqkG8",
   ttl: {10, :minute}
 

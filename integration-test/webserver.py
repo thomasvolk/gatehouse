@@ -7,8 +7,9 @@ from urllib.parse import parse_qs
 from jwt.exceptions import InvalidTokenError
 import jwt
 JWT_SECRET="dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8"
-AUDIENCE='Gatehouse.dev'
-ISSUER='Gatehouse.dev'
+AUDIENCE='Gatehouse.prod'
+ISSUER='Gatehouse'
+URL='http://0.0.0.0:4000'
 
 class Token(object):
     @staticmethod
@@ -47,7 +48,7 @@ class TestRequestHandler(SimpleHTTPRequestHandler):
         (host, port) = self.server.server_address
         target = "http://%s:%s%s" % (host, port, self.path)
         self.send_response(302)
-        self.send_header('Location', "http://0.0.0.0:4000?target=%s" % target)
+        self.send_header('Location', "%s?target=%s" % (URL, target))
         self.end_headers()
 
     def _do_response(self, cookie = None):
