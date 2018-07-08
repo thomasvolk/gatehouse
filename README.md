@@ -78,17 +78,14 @@ Yous can test the release with the local test databse:
 
     docker-compose up
 
-Now get the host ip address from the gatehouse-release docker container:
-
-    HOST_IP=$(docker run gatehouse-release ip route | awk '/default/ { print $3 }')
-
 Run the gatehouse container as server:
 
     docker run \
+    --network host \
     -e REPLACE_OS_VARS=true \
     -e PORT=9998 \
     -e GATEHOUSE_WEB_SECRET_KEY_BASE=Dn0MUHCWLaC1zC6JnAWqZrl5hs2M71f8F6PxXTPfJXAc8Lv82OYcV/uwuB42YA9K \
-    -e GATEHOUSE_DB_HOST=$HOST_IP \
+    -e GATEHOUSE_DB_HOST=localhost \
     -e GATEHOUSE_DB_NAME=gatehouse \
     -e GATEHOUSE_DB_USER=gatehouse \
     -e GATEHOUSE_DB_PASSWORD=gatehouse \
@@ -103,10 +100,11 @@ Open gatehose with http://localhost:9998
 Run gatehouse container:
 
     docker run -it \
+    --network host \
     -e REPLACE_OS_VARS=true \
     -e PORT=9998 \
     -e GATEHOUSE_WEB_SECRET_KEY_BASE=Dn0MUHCWLaC1zC6JnAWqZrl5hs2M71f8F6PxXTPfJXAc8Lv82OYcV/uwuB42YA9K \
-    -e GATEHOUSE_DB_HOST=$HOST_IP \
+    -e GATEHOUSE_DB_HOST=localhost \
     -e GATEHOUSE_DB_NAME=gatehouse \
     -e GATEHOUSE_DB_USER=gatehouse \
     -e GATEHOUSE_DB_PASSWORD=gatehouse \
@@ -124,4 +122,3 @@ Run gatehouse container:
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
-
