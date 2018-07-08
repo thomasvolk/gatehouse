@@ -115,6 +115,25 @@ Run gatehouse container:
     gatehouse-release \
     /usr/local/lib/gatehouse/bin/gatehouse console
 
+start a container from the lastest image:
+
+    docker run \
+    --network host \
+    -e REPLACE_OS_VARS=true \
+    -e PORT=9998 \
+    -e GATEHOUSE_WEB_SECRET_KEY_BASE=Dn0MUHCWLaC1zC6JnAWqZrl5hs2M71f8F6PxXTPfJXAc8Lv82OYcV/uwuB42YA9K \
+    -e GATEHOUSE_DB_HOST=localhost \
+    -e GATEHOUSE_DB_NAME=gatehouse \
+    -e GATEHOUSE_DB_USER=gatehouse \
+    -e GATEHOUSE_DB_PASSWORD=gatehouse \
+    -e GATEHOUSE_DB_PORT=13306 \
+    -e GATEHOUSE_AUTH_SECRET_KEY=dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8 \
+    -e GATEHOUSE_AUTH_TOKEN_TTL=3600 \
+    -p 9998:9998 \
+     thomasvolk-docker-gatehouse.bintray.io/gatehouse/gatehouse
+
+
+
 ## Learn more
 
   * Official website: http://www.phoenixframework.org/
