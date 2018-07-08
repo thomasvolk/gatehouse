@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-import re
+import re, sys
 from http import cookies
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
 from jwt.exceptions import InvalidTokenError
-import jwt
+try:
+    import jwt
+except ImportError:
+    print("ERROR: JWT library not found, install pyjwt")
+    print("    pip3 install pyjwt")
+    sys.exit(1)
 JWT_SECRET="dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8"
 AUDIENCE='Gatehouse.prod'
 ISSUER='Gatehouse'
