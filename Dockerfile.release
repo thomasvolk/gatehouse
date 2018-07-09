@@ -1,7 +1,5 @@
-#FROM alpine
 FROM debian:stretch
 COPY gatehouse.tar.gz /tmp/
-#RUN apk add --no-cache openssl bash
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssl \
     && rm -rf /var/lib/apt/lists/*
