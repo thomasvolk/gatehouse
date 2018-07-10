@@ -9,5 +9,4 @@ RUN export MIX_ENV=prod && \
     mix local.rebar --force && \
     mix deps.get && \
     (cd assets && npm install && ./node_modules/brunch/bin/brunch build) && \
-    mix release && \
-    ./mkdeb.sh
+    mix release
