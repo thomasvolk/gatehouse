@@ -23,7 +23,6 @@ jobs:
         - ./build.sh
         - ./release.sh
         - ./deploy.sh
-        - ./deploy-deb.sh
 
 stages:
   - test
