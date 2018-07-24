@@ -50,4 +50,3 @@ release :gatehouse do
     :runtime_tools
   ]
 end
-
