@@ -9,6 +9,8 @@ defmodule Gatehouse.Principal do
     field :password, :string, virtual: true
 
     timestamps()
+
+    many_to_many :roles, Gatehouse.Role, join_through: "principals_to_roles"
   end
 
   @required_fields ~w(email password)
