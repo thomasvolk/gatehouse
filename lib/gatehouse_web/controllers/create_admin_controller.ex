@@ -16,20 +16,21 @@ defmodule GatehouseWeb.CreateAdminController do
                                   "password" => password,
                                   "password_repeat" => password_repeat}}) do
     if not PrincipalManager.has_admin(Gatehouse.Repo) do
-      # TODO: Transaction, password repead check, check if role exists
       if password != password_repeat do
         conn |> put_flash(:error, "Wrong email or password")
              |> redirect(to: "/create_admin")
       else
-        role = case PrincipalManager.get_role(Repo, Role.admin_role) do
-          nil ->
-            {:ok,  role} = PrincipalManager.create_role(Repo, Role.admin_role)
-            role
-          role -> role
-        end
+        Repo.transaction(fn ->
+          role = case PrincipalManager.get_role(Repo, Role.admin_role) do
+            nil ->
+              {:ok,  role} = PrincipalManager.create_role(Repo, Role.admin_role)
+              role
+            role -> role
+          end
 
-        {:ok, admin} = PrincipalManager.create_principal(Repo, email, password)
-        PrincipalManager.link_pricipal_to_role(Repo, admin, role)
+          {:ok, admin} = PrincipalManager.create_principal(Repo, email, password)
+          PrincipalManager.link_pricipal_to_role(Repo, admin, role)
+        end)
       end
     end
     conn |> redirect(to: "/")
