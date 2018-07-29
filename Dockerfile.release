@@ -7,4 +7,5 @@ RUN cd /usr/local/lib/ \
        && mkdir gatehouse \
        && cd gatehouse \
        && tar xfz /tmp/gatehouse.tar.gz
-CMD [ "sh", "-c", "/usr/local/lib/gatehouse/bin/gatehouse command Elixir.Release.Tasks migrate && /usr/local/lib/gatehouse/bin/gatehouse foreground" ]
+CMD [ "sh", "-c", "/usr/local/lib/gatehouse/bin/gatehouse command Elixir.Gatehouse.Release.Tasks migrate \
+                   && /usr/local/lib/gatehouse/bin/gatehouse foreground" ]

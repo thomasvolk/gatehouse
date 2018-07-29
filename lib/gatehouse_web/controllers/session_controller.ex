@@ -2,10 +2,6 @@ defmodule GatehouseWeb.SessionController do
   use GatehouseWeb, :controller
   alias Gatehouse.Target
 
-  def error(conn, _params) do
-    render conn, "index.html"
-  end
-
   def index(conn, %{ "target" => target }) do
     render conn, "index.html", target: target
   end
@@ -46,4 +42,9 @@ defmodule GatehouseWeb.SessionController do
     |> put_flash(:info, "Logged out")
     |> redirect(to: "/")
   end
+
+  def error(conn, _params) do
+    render conn, "index.html"
+  end
+
 end

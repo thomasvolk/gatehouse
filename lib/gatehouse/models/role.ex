@@ -3,6 +3,8 @@ defmodule Gatehouse.Role do
   import Ecto.Changeset
   alias Gatehouse.Role
 
+  @admin :GatehouseAdmin
+
   schema "role" do
     field :name, :string
 
