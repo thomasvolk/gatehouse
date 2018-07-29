@@ -7,6 +7,17 @@ defmodule Gatehouse.PrincipalManager do
     repo.get_by(Role, name: name)
   end
 
+  def create_role(repo, name) do
+    Role.changeset(%Role{}, %{name: name}) |> repo.insert()
+  end
+
+  def link_pricipal_to_role(repo, principal, role) do
+    role = role |> repo.preload(:principals)
+    principal = principal |> repo.preload(:roles)
+    changeset = Ecto.Changeset.change(principal) |> Ecto.Changeset.put_assoc(:roles, [role])
+    repo.update(changeset)
+  end
+
   def get_principal(repo, email) do
     repo.get_by(Principal, email: String.downcase(email))
   end

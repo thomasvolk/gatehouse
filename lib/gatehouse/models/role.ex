@@ -8,7 +8,7 @@ defmodule Gatehouse.Role do
 
   def role_admin, do: @role_admin
 
-  schema "role" do
+  schema "roles" do
     field :name, :string
 
     timestamps()

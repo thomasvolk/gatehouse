@@ -4,6 +4,7 @@ defmodule Gatehouse.Repo.Migrations.CreateRoles do
   def change do
     create table(:roles) do
       add :name, :string
+      timestamps()
     end
     create unique_index(:roles, [:name])
   end
