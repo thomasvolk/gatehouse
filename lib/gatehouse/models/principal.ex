@@ -2,6 +2,7 @@ defmodule Gatehouse.Principal do
   use Ecto.Schema
   import Ecto.Changeset
   alias Gatehouse.Principal
+  alias Gatehouse.Role
 
   schema "principals" do
     field :email, :string
@@ -10,7 +11,7 @@ defmodule Gatehouse.Principal do
 
     timestamps()
 
-    many_to_many :roles, Gatehouse.Role, join_through: "principals_to_roles"
+    many_to_many :roles, Role, join_through: "principals_to_roles"
   end
 
   @required_fields ~w(email password)

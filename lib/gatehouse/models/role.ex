@@ -2,15 +2,18 @@ defmodule Gatehouse.Role do
   use Ecto.Schema
   import Ecto.Changeset
   alias Gatehouse.Role
+  alias Gatehouse.Principal
 
-  @admin :GatehouseAdmin
+  @role_admin :GatehouseAdmin
+
+  def role_admin, do: @role_admin
 
   schema "role" do
     field :name, :string
 
     timestamps()
 
-    many_to_many :principals, Gatehouse.Principal, join_through: "principals_to_roles"
+    many_to_many :principals, Principal, join_through: "principals_to_roles"
   end
 
   @required_fields ~w(name)

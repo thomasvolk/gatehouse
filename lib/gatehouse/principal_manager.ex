@@ -1,5 +1,7 @@
 defmodule Gatehouse.PrincipalManager do
   import Ecto.Changeset, only: [put_change: 3]
+  alias Gatehouse.Principal
+  alias Gatehouse.Role
 
   def get_role(repo, name) do
     repo.get_by(Role, name: name)
@@ -10,7 +12,7 @@ defmodule Gatehouse.PrincipalManager do
   end
 
   def create_principal(repo, email, password) do
-    changeset = Gatehouse.Principal.changeset(%Gatehouse.Principal{},
+    changeset = Principal.changeset(%Principal{},
         %{email: email, password: password})
     changeset
     |> put_change(:crypted_password, hashed_password(changeset.params["password"]))
