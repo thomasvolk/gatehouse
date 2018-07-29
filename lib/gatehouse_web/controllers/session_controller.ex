@@ -1,9 +1,14 @@
 defmodule GatehouseWeb.SessionController do
   use GatehouseWeb, :controller
   alias Gatehouse.Target
+  alias Gatehouse.PrincipalManager
 
   def index(conn, %{ "target" => target }) do
-    render conn, "index.html", target: target
+    if PrincipalManager.has_admin(Gatehouse.Repo) do
+      render conn, "index.html", target: target
+    else
+      conn |> redirect(to: "/create_admin")
+    end
   end
 
   def index(conn, params) do

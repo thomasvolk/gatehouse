@@ -21,9 +21,11 @@ defmodule GatehouseWeb.Router do
   scope "/", GatehouseWeb do
     pipe_through [:browser]
 
-    get    "/",         SessionController, :index
-    get    "/error",    SessionController, :error
-    post   "/login",    SessionController, :create
+    get    "/",              SessionController, :index
+    get    "/create_admin",  CreateAdminController, :index
+    post   "/create_admin",  CreateAdminController, :create
+    get    "/error",         SessionController, :error
+    post   "/login",         SessionController, :create
 
     scope "/" do
       pipe_through [:login_required]

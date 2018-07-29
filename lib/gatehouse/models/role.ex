@@ -6,7 +6,7 @@ defmodule Gatehouse.Role do
 
   @role_admin :GatehouseAdmin
 
-  def role_admin, do: @role_admin
+  def admin_role, do: to_string(@role_admin)
 
   schema "roles" do
     field :name, :string

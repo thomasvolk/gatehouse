@@ -1,0 +1,19 @@
+<h2>Register Administrator</h2>
+
+<%= form_for @conn, create_admin_path(@conn, :create), [as: :admin], fn f -> %>
+  <div class="form-group">
+    <label>Email</label>
+    <%= text_input f, :email, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <label>Password</label>
+    <%= password_input f, :password, class: "form-control" %>
+    <label>Repeat the password</label>
+    <%= password_input f, :password_repeat, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Create", class: "btn btn-primary" %>
+  </div>
+<% end %>

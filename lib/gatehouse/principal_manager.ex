@@ -6,12 +6,11 @@ defmodule Gatehouse.PrincipalManager do
   alias Gatehouse.PrincipalRole
 
   def has_admin(repo) do
-    admin_role = to_string(Role.role_admin)
     query = from p in Principal,
       preload: [:roles],
       left_join: pr in PrincipalRole, on: p.id == pr.principal_id,
       left_join: r in Role, on: r.id == pr.role_id,
-      where: r.name == ^admin_role
+      where: r.name == ^Role.admin_role
     repo.all(query) |> length > 0
   end
 
