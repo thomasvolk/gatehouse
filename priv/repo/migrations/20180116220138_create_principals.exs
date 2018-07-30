@@ -7,7 +7,6 @@ defmodule Gatehouse.Repo.Migrations.CreatePricipals do
       add :crypted_password, :string
       timestamps()
     end
-
     create unique_index(:principals, [:email])
   end
 end
