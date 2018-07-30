@@ -41,6 +41,19 @@ defmodule Gatehouse.PrincipalManager do
     |> repo.insert()
   end
 
+  def create_principal(repo, email, password, role_name) do
+    repo.transaction(fn ->
+      role = case get_role(repo, role_name) do
+        nil ->
+          {:ok,  role} = create_role(repo, role_name)
+          role
+        role -> role
+      end
+      {:ok, admin} = create_principal(repo, email, password)
+      link_pricipal_to_role(repo, admin, role)
+    end)
+  end
+
   defp hashed_password(password), do: Comeonin.Bcrypt.hashpwsalt(password)
 
   def generate_random_password(length \\ 16), do: RandomBytes.base62(length)
