@@ -16,6 +16,7 @@ jobs:
       env:
         - MIX_ENV=test
       script: mix test
+
     - stage: build
       services:
         - docker
@@ -26,5 +27,5 @@ jobs:
 
 stages:
   - test
-  - name: deploy
+  - name: build
     if: branch = master
