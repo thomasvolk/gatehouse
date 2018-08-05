@@ -2,7 +2,6 @@ defmodule GatehouseWeb.AdminAccessPlug do
   import Plug.Conn
   import Guardian.Plug
   import Phoenix.Controller
-  alias GarehouseWeb.Router.Helpers
 
   def init(opts), do: opts
 
