@@ -14,6 +14,11 @@ defmodule GatehouseWeb.Router do
     plug Gatehouse.CurrentSession
   end
 
+  pipeline :admin_role do
+    plug GatehouseWeb.AdminAccessPlug
+  end
+
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -34,7 +39,10 @@ defmodule GatehouseWeb.Router do
       get    "/session",  SessionController, :session
       delete "/logout",   SessionController, :delete
 
-      get    "/administration", AdministrationController, :index
+      scope "/administration" do
+        pipe_through [:admin_role]
+        get    "/", AdministrationController, :index
+      end
     end
 
   end

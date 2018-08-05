@@ -33,6 +33,20 @@ defmodule Gatehouse.PrincipalManager do
     repo.get_by(Principal, email: String.downcase(email))
   end
 
+  def get_roles(repo, principal_id) do
+    query = from r in Role,
+      preload: [:principals],
+      left_join: pr in PrincipalRole, on: r.id == pr.role_id,
+      where: pr.principal_id == ^principal_id
+    repo.all(query)
+  end
+
+  def get_principal_resource(repo, id) do
+    principal = repo.get_by(Principal, id: id)
+    role_names = get_roles(repo, id) |> Enum.map(fn r -> r.name end)
+    %{id: principal.id, email: principal.email, roles: Enum.join(role_names, ",")}
+  end
+
   def create_principal(repo, email, password) do
     changeset = Principal.changeset(%Principal{},
         %{email: email, password: password})

@@ -20,7 +20,7 @@ defmodule Gatehouse.Guardian do
       # found in the `"sub"` key. In `above subject_for_token/2` we returned
       # the resource id so here we'll rely on that to look it up.
       id = claims["sub"]
-      resource = Gatehouse.Repo.get_by(Gatehouse.Principal, id: id)
+      resource = Gatehouse.PrincipalManager.get_principal_resource(Gatehouse.Repo, id)
       {:ok,  resource}
     end
     #def resource_from_claims(_claims) do
@@ -28,7 +28,9 @@ defmodule Gatehouse.Guardian do
     #end
 
     def build_claims(claims, resource, _opts) do
-      {:ok, Map.put(claims, "principal", resource.email)}
+      claims = Map.put(claims, "principal", resource.email)
+               |> Map.put("roles", resource.roles)
+      {:ok, claims}
     end
 
 end
