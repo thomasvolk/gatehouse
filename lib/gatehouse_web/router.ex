@@ -33,6 +33,8 @@ defmodule GatehouseWeb.Router do
       get    "/goto",     SessionController, :goto
       get    "/session",  SessionController, :session
       delete "/logout",   SessionController, :delete
+
+      get    "/administration", AdministrationController, :index
     end
 
   end

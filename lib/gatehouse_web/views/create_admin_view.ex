@@ -1,3 +1,3 @@
-defmodule GatehouseWeb.CreateAdminView do
+defmodule GatehouseWeb.AdministrationView do
   use GatehouseWeb, :view
 end
