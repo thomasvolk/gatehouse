@@ -1,10 +1,11 @@
 
 import React from "react"
 import ReactDOM from "react-dom"
+import T from 'i18n-react';
 
 class AdminApp extends React.Component {
   render() {
-    return (<h1>Gateouse Administration</h1>)
+    return (<T.text tag='h2' text="title"/>)
   }
 }
 

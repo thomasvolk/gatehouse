@@ -1,2 +1,3 @@
 
-import "./components/admin_app"
+import "./admin/i18n"
+import "./admin/components/admin_app"
