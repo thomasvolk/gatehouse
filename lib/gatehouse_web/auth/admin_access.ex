@@ -2,6 +2,7 @@ defmodule GatehouseWeb.AdminAccessPlug do
   import Plug.Conn
   import Guardian.Plug
   import Phoenix.Controller
+  import GatehouseWeb.Gettext
 
   def init(opts), do: opts
 
@@ -9,7 +10,7 @@ defmodule GatehouseWeb.AdminAccessPlug do
     principal = current_resource(conn)
     case Enum.find(principal.roles, &(&1 == Gatehouse.Role.admin_role)) do
       nil -> conn
-          |> put_flash(:error, "Not allowed!")
+          |> put_flash(:error, gettext "Not allowed!")
           |> redirect(to: "/")
           |> halt()
       _ -> conn

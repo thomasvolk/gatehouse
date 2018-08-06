@@ -17,7 +17,7 @@ defmodule GatehouseWeb.CreateAdminController do
                                   "password_repeat" => password_repeat}}) do
     if not PrincipalManager.has_admin(Gatehouse.Repo) do
       if password != password_repeat do
-        conn |> put_flash(:error, "Passwords do not match!")
+        conn |> put_flash(:error, gettext("Passwords do not match!"))
              |> redirect(to: "/create_admin")
       else
         PrincipalManager.create_principal(Repo, email, password, Role.admin_role)

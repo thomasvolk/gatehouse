@@ -32,11 +32,11 @@ defmodule GatehouseWeb.SessionController do
       {:ok, user} ->
         conn
         |> Gatehouse.Guardian.Plug.sign_in(user)
-        |> put_flash(:info, "Logged in")
+        |> put_flash(:info, gettext("Logged in"))
         |> redirect(to: "/goto?target=#{target}")
       :error ->
         conn
-        |> put_flash(:error, "Wrong email or password")
+        |> put_flash(:error, gettext("Wrong email or password"))
         |> redirect(to: "/")
     end
   end
@@ -44,7 +44,7 @@ defmodule GatehouseWeb.SessionController do
   def delete(conn, _) do
     conn
     |> Gatehouse.Guardian.Plug.sign_out()
-    |> put_flash(:info, "Logged out")
+    |> put_flash(:info, gettext("Logged out"))
     |> redirect(to: "/")
   end
 

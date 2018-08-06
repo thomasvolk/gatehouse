@@ -1,12 +1,13 @@
 defmodule GatehouseWeb.GuardianErrorHandler do
   import GatehouseWeb.Router.Helpers
+  import GatehouseWeb.Gettext
 
   def auth_error(conn, {type, _reason}, _opts) do
-    redirect(conn, "an error occured: #{to_string(type)}")
+    redirect(conn, gettext("an error occured: %{type}", type: to_string(type)))
   end
 
   def unauthenticated(conn, _params) do
-    redirect(conn, "You must be signed in to access that page.")
+    redirect(conn, gettext "You must be signed in to access that page.")
   end
 
   defp redirect(conn, message) do

@@ -69,3 +69,38 @@ msgstr ""
 #: lib/gatehouse_web/templates/session/session.html.eex:10
 msgid "Token from Session"
 msgstr ""
+
+#, elixir-format
+#: lib/gatehouse_web/controllers/session_controller.ex:35
+msgid "Logged in"
+msgstr ""
+
+#, elixir-format
+#: lib/gatehouse_web/controllers/session_controller.ex:47
+msgid "Logged out"
+msgstr ""
+
+#, elixir-format
+#: lib/gatehouse_web/auth/admin_access.ex:13
+msgid "Not allowed!"
+msgstr ""
+
+#, elixir-format
+#: lib/gatehouse_web/controllers/create_admin_controller.ex:20
+msgid "Passwords do not match!"
+msgstr ""
+
+#, elixir-format
+#: lib/gatehouse_web/controllers/session_controller.ex:39
+msgid "Wrong email or password"
+msgstr ""
+
+#, elixir-format
+#: lib/gatehouse_web/auth/guardian_error_handler.ex:10
+msgid "You must be signed in to access that page."
+msgstr ""
+
+#, elixir-format
+#: lib/gatehouse_web/auth/guardian_error_handler.ex:6
+msgid "an error occured: %{type}"
+msgstr ""
