@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Gatehouse Administration</title>
+    <title>Gatehouse <%= gettext "Administration" %></title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -17,9 +17,9 @@
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
             <%= if logged_in?(@conn) do %>
-              <li><%= link "Logout - #{current_user(@conn).email}", to: session_path(@conn, :delete), method: :delete %></li>
+              <li><%= link "#{gettext "Logout"} - #{current_user(@conn).email}", to: session_path(@conn, :delete), method: :delete %></li>
             <% else %>
-              <li><%= link "Login",    to: "/" %></li>
+              <li><%= link "#{gettext "Login"}",    to: "/" %></li>
             <% end %>
           </ul>
         </nav>

@@ -2,19 +2,19 @@
 
 <p>
   <div>
-    <label>Email:</label>
+    <label><%= gettext "Email" %>:</label>
     <span><%= @session.principal.email %></span>
   </div>
 
   <div>
-    <label>Token from session: </label>
+    <label><%= gettext "Token from Session" %>: </label>
     <div>
     <textarea rows="4" cols="30"><%= @session.token %></textarea>
     </div
   </div>
 
   <div>
-    <label>Decoded token form URL: </label>
+    <label><%= gettext "Decoded token form URL" %>: </label>
     <div>
     <textarea rows="4" cols="30"><%= @claims %></textarea>
     </div

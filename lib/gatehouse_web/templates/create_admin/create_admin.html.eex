@@ -7,13 +7,13 @@
   </div>
 
   <div class="form-group">
-    <label>Password</label>
+    <label><%= gettext "Password" %></label>
     <%= password_input f, :password, class: "form-control" %>
-    <label>Repeat the password</label>
+    <label><%= gettext "Repeat Password" %></label>
     <%= password_input f, :password_repeat, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%= submit "Create", class: "btn btn-primary" %>
+    <%= submit "#{gettext "Create"}", class: "btn btn-primary" %>
   </div>
 <% end %>

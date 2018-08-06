@@ -22,7 +22,7 @@
       </header>
 
       <main role="main">
-        <h2>Sorry an error occured!</h2>
+        <h2><%= gettext "Sorry an error occured!" %></h2>
       </main>
 
     </div>
