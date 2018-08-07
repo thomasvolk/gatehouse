@@ -48,8 +48,8 @@ defmodule GatehouseWeb.SessionController do
     |> redirect(to: "/")
   end
 
-  def error(conn, _params) do
-    render conn, "index.html"
+  def error(conn, params) do
+    index conn, params
   end
 
 end
