@@ -9,10 +9,10 @@ export default class AdminApp extends React.Component {
     return (
         <div className="container-fluid">
           <div className="row">
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div className="col-xs-4">
               <PrincipalList/>
             </div>
-            <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            <div className="col-xs-8">
               <PrincipalDetails/>
             </div>
           </div>
