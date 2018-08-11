@@ -1,6 +1,6 @@
 import React from "react"
 
-export default class PasswordUpdate extends React.Component {
+export default class Password extends React.Component {
   render() {
     return (
       <form>
@@ -12,7 +12,7 @@ export default class PasswordUpdate extends React.Component {
         <input type="password" id="password-repeat" className="form-control" placeholder="Password repeat">
         </input>
       </div>
-      <button type="submit" className="btn btn-primary">Update</button>
+      <button type="submit" className="btn btn-primary">Update Password</button>
       </form>
     )
   }

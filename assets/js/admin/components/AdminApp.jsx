@@ -2,7 +2,7 @@
 import React from "react"
 import T from 'i18n-react'
 import PrincipalList from "./PrincipalList"
-import PrincipalDetails from "./PrincipalDetails"
+import Principal from "./Principal"
 
 export default class AdminApp extends React.Component {
   render() {
@@ -13,7 +13,7 @@ export default class AdminApp extends React.Component {
               <PrincipalList/>
             </div>
             <div className="col-xs-8">
-              <PrincipalDetails/>
+              <Principal/>
             </div>
           </div>
         </div>
