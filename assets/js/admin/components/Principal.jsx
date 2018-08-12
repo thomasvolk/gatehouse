@@ -8,10 +8,16 @@ export default class Principal extends React.Component {
     return (
         <div className="card">
           <div className="card-body">
+          <div className="container-fluid">
+              <div className="row">
+                <div className="col-xs-8">
+                  <Email/>
+                </div>
+              </div>
+            </div>
             <div className="container-fluid">
               <div className="row">
                 <div className="col-xs-6">
-                  <Email/>
                   <Password/>
                 </div>
                 <div className="col-xs-6">
