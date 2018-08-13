@@ -3,7 +3,28 @@ import React from "react"
 export default class Roles extends React.Component {
   render() {
     return (
-      <div>Select Roles</div>
+      <div>
+        <ul className="list-group">
+          <li className="list-group-item">
+            <input className="form-check-input" type="checkbox" checked/>
+            <label className="form-check-label" for="defaultCheck1">
+              GatehouseAdmin
+            </label>
+          </li>
+          <li className="list-group-item">
+            <input className="form-check-input" type="checkbox"/>
+            <label className="form-check-label" for="defaultCheck1">
+              Foo
+            </label>
+          </li>
+          <li className="list-group-item">
+            <input className="form-check-input" type="checkbox"/>
+            <label className="form-check-label" for="defaultCheck1">
+              Bar
+            </label>
+            </li>
+        </ul>
+      </div>
     )
   }
 }

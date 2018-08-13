@@ -12,7 +12,7 @@ export default class Principal extends React.Component {
               <div className="row">
                 <div className="col-xs-8">
                   <Email/>
-                </div>
+                </div>  
               </div>
             </div>
             <div className="container-fluid">
