@@ -33,6 +33,14 @@ defmodule Gatehouse.PrincipalManager do
     repo.get_by(Principal, email: String.downcase(email))
   end
 
+  def get_principals(repo) do
+    query = from p in Principal,
+      preload: [:roles],
+      left_join: pr in PrincipalRole, on: p.id == pr.principal_id,
+      left_join: r in Role, on: r.id == pr.role_id
+    repo.all(query)
+  end
+
   def get_roles(repo, principal_id) do
     query = from r in Role,
       preload: [:principals],
