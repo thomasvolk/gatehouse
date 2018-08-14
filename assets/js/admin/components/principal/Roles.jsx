@@ -6,20 +6,20 @@ export default class Roles extends React.Component {
       <div>
         <ul className="list-group">
           <li className="list-group-item">
-            <input className="form-check-input" type="checkbox" checked/>
-            <label className="form-check-label" for="defaultCheck1">
+            <input className="form-check-input" type="checkbox"/>
+            <label className="form-check-label" htmlFor="defaultCheck1">
               GatehouseAdmin
             </label>
           </li>
           <li className="list-group-item">
             <input className="form-check-input" type="checkbox"/>
-            <label className="form-check-label" for="defaultCheck1">
+            <label className="form-check-label" htmlFor="defaultCheck1">
               Foo
             </label>
           </li>
           <li className="list-group-item">
             <input className="form-check-input" type="checkbox"/>
-            <label className="form-check-label" for="defaultCheck1">
+            <label className="form-check-label" htmlFor="defaultCheck1">
               Bar
             </label>
             </li>

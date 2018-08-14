@@ -2,14 +2,33 @@
 import React from "react"
 
 export default class PrincipalList extends React.Component {
+
+  constructor() {
+    super()
+    this.state = { principals: [] }
+  }
+
+  fetchFromServer(url) {
+    return fetch(url)
+      .then(response => response.json())
+      .catch(ex => {
+        alert("ERROR: " + ex);
+      })
+  }
+
+  componentWillMount() {
+    this.fetchFromServer('/administration/principal').then( principals => {
+      this.setState({ principals: principals })
+    } )
+  }
+
   render() {
+    var principals = this.state.principals
+
     return (
       <div>
         <ul className="list-group">
-          <li className="list-group-item">admin@example.com</li>
-          <li className="list-group-item">test@example.com</li>
-          <li className="list-group-item">foo@example.com</li>
-          <li className="list-group-item">bar@example.com</li>
+          {principals.map(p => <li className="list-group-item" key={p.id} >{p.email}</li>)}
         </ul>
       </div>
        )
