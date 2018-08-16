@@ -1,5 +1,6 @@
 
 import React from "react"
+import server from "./server"
 
 export default class PrincipalList extends React.Component {
 
@@ -8,28 +9,22 @@ export default class PrincipalList extends React.Component {
     this.state = { principals: [] }
   }
 
-  fetchFromServer(url) {
-    return fetch(url)
-      .then(response => response.json())
-      .catch(ex => {
-        alert("ERROR: " + ex);
-      })
-  }
-
-  componentWillMount() {
-    this.fetchFromServer('/administration/principal').then( principals => {
+  componentDidMount() {
+    server.get('/administration/principal').then( principals => {
       this.setState({ principals: principals })
     } )
+  }
+
+  selectPrincipal(principalId) {
+    console.log(principalId)
   }
 
   render() {
     var principals = this.state.principals
 
     return (
-      <div>
-        <ul className="list-group">
-          {principals.map(p => <li className="list-group-item" key={p.id} >{p.email}</li>)}
-        </ul>
+      <div className="list-group">
+          {principals.map(p => <a href="#" className="list-group-item" key={p.id} onClick={() => this.selectPrincipal(p.id)}>{p.email}</a>)}
       </div>
        )
   }

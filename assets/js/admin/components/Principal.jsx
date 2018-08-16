@@ -4,29 +4,36 @@ import Password from "./principal/Password"
 import Roles from "./principal/Roles"
 
 export default class Principal extends React.Component {
-  render() {
-    return (
-        <div className="card">
-          <div className="card-body">
-          <div className="container-fluid">
-              <div className="row">
-                <div className="col-xs-8">
-                  <Email/>
-                </div>  
-              </div>
+  
+  renderDetails() {
+    return 
+      <div className="card">
+        <div className="card-body">
+        <div className="container-fluid">
+            <div className="row">
+              <div className="col-xs-8">
+                <Email/>
+              </div>  
             </div>
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-xs-6">
-                  <Password/>
-                </div>
-                <div className="col-xs-6">
-                  <Roles/>
-                </div>
+          </div>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-xs-6">
+                <Password/>
+              </div>
+              <div className="col-xs-6">
+                <Roles/>
               </div>
             </div>
           </div>
         </div>
-       )
+      </div>
+  }
+  
+  render() {
+    if(this.props.principal === undefined) {
+      return (<div></div>)
+    }
+    return (this.renderDetails()) 
   }
 }
