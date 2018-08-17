@@ -43,8 +43,14 @@ defmodule GatehouseWeb.Router do
       scope "/administration" do
         pipe_through [:admin_role]
         get    "/",           AdministrationController, :index
-        get    "/principal",  AdministrationController, :principal
+        
+        scope "/api" do
+          get    "/principal",      AdministrationController, :principal_list
+          get    "/principal/:id",  AdministrationController, :principal_details
+        end
+
       end
+
     end
 
   end

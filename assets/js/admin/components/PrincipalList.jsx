@@ -10,7 +10,7 @@ export default class PrincipalList extends React.Component {
   }
 
   componentDidMount() {
-    server.get('/administration/principal').then( principals => {
+    server.get('/administration/api/principal').then( principals => {
       this.setState({ principals: principals })
     } )
   }
