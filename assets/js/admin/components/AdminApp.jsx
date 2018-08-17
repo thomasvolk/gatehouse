@@ -4,7 +4,7 @@ import T from 'i18n-react'
 import PrincipalList from "./PrincipalList"
 import CreatePrincipal from "./CreatePrincipal"
 import Principal from "./Principal"
-import Dispatcher from "./dispatcher";
+import Dispatcher from "../dispatcher";
 
 export default class AdminApp extends React.Component {
   constructor() {
