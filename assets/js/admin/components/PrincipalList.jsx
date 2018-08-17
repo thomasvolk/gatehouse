@@ -15,8 +15,8 @@ export default class PrincipalList extends React.Component {
     } )
   }
 
-  selectPrincipal(principalId) {
-    console.log(principalId)
+  onItemClicked(principalId) {
+      this.props.dispatcher.pricipalSelected(principalId)
   }
 
   render() {
@@ -24,7 +24,8 @@ export default class PrincipalList extends React.Component {
 
     return (
       <div className="list-group">
-          {principals.map(p => <a href="#" className="list-group-item" key={p.id} onClick={() => this.selectPrincipal(p.id)}>{p.email}</a>)}
+          {principals.map(p => <a href="#" className="list-group-item"
+               key={p.id} onClick={() => this.onItemClicked(p.id)}>{p.email}</a>)}
       </div>
        )
   }
