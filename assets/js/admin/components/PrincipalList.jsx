@@ -1,6 +1,6 @@
 
 import React from "react"
-import server from "./server"
+import server from "../server"
 
 export default class PrincipalList extends React.Component {
 
