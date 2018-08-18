@@ -4,8 +4,8 @@ import server from "../server"
 
 export default class PrincipalList extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = { principals: [] }
   }
 
@@ -16,7 +16,7 @@ export default class PrincipalList extends React.Component {
   }
 
   onItemClicked(principalId) {
-      this.props.dispatcher.pricipalSelected(principalId)
+      this.props.pricipalSelected(principalId)
   }
 
   render() {

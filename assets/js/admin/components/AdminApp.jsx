@@ -17,7 +17,7 @@ export default class AdminApp extends React.Component {
           <div className="row">
             <div className="col-xs-4">
               <CreatePrincipal/>
-              <PrincipalList dispatcher={this.dispatcher}/>
+              <PrincipalList pricipalSelected={this.dispatcher.pricipalSelected}/>
             </div>
             <div className="col-xs-8">
               <Principal/>
