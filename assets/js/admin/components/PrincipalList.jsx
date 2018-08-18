@@ -10,9 +10,16 @@ export default class PrincipalList extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
     server.get('/administration/api/principal').then( principals => {
-      this.setState({ principals: principals })
-    } )
+      if(this.mounted) {
+        this.setState({ principals: principals })
+      }
+    })
+  }
+  
+  componentWillUnmount(){
+    this.mounted = false;
   }
 
   onItemClicked(principalId) {

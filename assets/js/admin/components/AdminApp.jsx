@@ -9,7 +9,6 @@ import Dispatcher from "../dispatcher";
 export default class AdminApp extends React.Component {
   constructor() {
     super()
-    this.dispatcher = new Dispatcher()
   }
   render() {
     return (
@@ -17,7 +16,7 @@ export default class AdminApp extends React.Component {
           <div className="row">
             <div className="col-xs-4">
               <CreatePrincipal/>
-              <PrincipalList pricipalSelected={this.dispatcher.pricipalSelected}/>
+              <PrincipalList pricipalSelected={Dispatcher.pricipalSelected}/>
             </div>
             <div className="col-xs-8">
               <Principal/>

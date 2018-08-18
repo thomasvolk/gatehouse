@@ -19,7 +19,7 @@ class Observable {
  
 }
 
-export default class Dispatcher {
+class Dispatcher {
     
     constructor() {
        this.pricipalSelectedObservable = new Observable()
@@ -29,3 +29,7 @@ export default class Dispatcher {
         console.log("Dispatcher: " + principalId)
     }
 }
+
+const DISPATCHER = new Dispatcher() 
+
+export  default DISPATCHER
