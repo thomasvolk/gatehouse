@@ -2,9 +2,22 @@ import React from "react"
 import Email from "./principal/Email"
 import Password from "./principal/Password"
 import Roles from "./principal/Roles"
+import Dispatcher from "../dispatcher";
 
 export default class Principal extends React.Component {
   
+  callback(pid) {
+    console.log("Principal" + pid)
+  }
+
+  componentDidMount() {
+    Dispatcher.pricipalSelected.addObserver( this.callback )
+  }
+
+  componentWillUnmount(){
+    Dispatcher.pricipalSelected.removeObserver( this.callback )
+  }
+
   renderDetails() {
     return 
       <div className="card">

@@ -1,6 +1,7 @@
 
 import React from "react"
 import server from "../server"
+import Dispatcher from "../dispatcher";
 
 export default class PrincipalList extends React.Component {
 
@@ -17,13 +18,13 @@ export default class PrincipalList extends React.Component {
       }
     })
   }
-  
+
   componentWillUnmount(){
     this.mounted = false;
   }
 
   onItemClicked(principalId) {
-      this.props.pricipalSelected(principalId)
+    Dispatcher.pricipalSelected.update(principalId)
   }
 
   render() {

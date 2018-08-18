@@ -19,17 +19,6 @@ class Observable {
  
 }
 
-class Dispatcher {
-    
-    constructor() {
-       this.pricipalSelectedObservable = new Observable()
-    }
-
-    pricipalSelected(principalId) {
-        console.log("Dispatcher: " + principalId)
-    }
+export default {
+    pricipalSelected: new Observable()
 }
-
-const DISPATCHER = new Dispatcher() 
-
-export  default DISPATCHER
