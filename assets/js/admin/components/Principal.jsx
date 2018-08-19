@@ -6,16 +6,12 @@ import Dispatcher from "../dispatcher";
 
 export default class Principal extends React.Component {
   
-  callback(pid) {
-    console.log("Principal" + pid)
-  }
-
   componentDidMount() {
-    Dispatcher.pricipalSelected.addObserver( this.callback )
+    this.pricipalSelectedCallback = Dispatcher.pricipalSelected.addObserver( (pid) => console.log("Principal: " + pid) )
   }
 
   componentWillUnmount(){
-    Dispatcher.pricipalSelected.removeObserver( this.callback )
+    Dispatcher.pricipalSelected.removeObserver( this.pricipalSelectedCallback )
   }
 
   renderDetails() {

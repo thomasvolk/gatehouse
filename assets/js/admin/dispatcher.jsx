@@ -7,6 +7,7 @@ class Observable {
 
      addObserver(obs) {
         this.observer = this.observer.concat(obs)
+        return obs
      }
 
      removeObserver(obs) {
