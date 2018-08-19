@@ -2,6 +2,7 @@ import React from "react"
 import Email from "./principal/Email"
 import Password from "./principal/Password"
 import Roles from "./principal/Roles"
+import server from "../server"
 import Dispatcher from "../dispatcher";
 
 export default class Principal extends React.Component {
@@ -16,11 +17,18 @@ export default class Principal extends React.Component {
   }
 
   componentWillUnmount(){
-    Dispatcher.pricipalSelected.removeObserver( this.pricipalSelectedCallback )
+    if(this.pricipalSelectedCallback) {
+      Dispatcher.pricipalSelected.removeObserver( this.pricipalSelectedCallback )
+    }
+    this.pricipalSelectedCallback = undefined
   }
 
   update(principalId) {
-    this.setState({ principal: principalId })
+    server.get(`/administration/api/principal/${principalId}`).then( principal => {
+      if(this.pricipalSelectedCallback) {
+        this.setState({ principal: principal })
+      }
+    })
   }
 
   renderDetails() {
