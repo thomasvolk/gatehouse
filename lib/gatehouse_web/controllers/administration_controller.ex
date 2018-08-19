@@ -23,4 +23,10 @@ defmodule GatehouseWeb.AdministrationController do
     json conn, map_principal(principal)
   end
 
+  def role_list(conn, _params) do
+    roles = Gatehouse.PrincipalManager.get_roles(Gatehouse.Repo)
+      |> Enum.map(fn r -> %{id: r.id, name: r.name} end)
+    json conn, roles
+  end
+
 end

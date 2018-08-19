@@ -54,7 +54,11 @@ defmodule Gatehouse.PrincipalManager do
     repo.all(query)
   end
 
-  def get_roles(repo, principal_id) do
+  def get_roles(repo) do
+    repo.all(Role)
+  end
+
+  def get_roles_for_principal(repo, principal_id) do
     query = from r in Role,
       preload: [:principals],
       left_join: pr in PrincipalRole, on: r.id == pr.role_id,
@@ -64,7 +68,7 @@ defmodule Gatehouse.PrincipalManager do
 
   def get_principal_as_token_resource(repo, id) do
     principal = get_principal_by_id(repo, id)
-    role_names = get_roles(repo, id) |> Enum.map(fn r -> r.name end)
+    role_names = get_roles_for_principal(repo, id) |> Enum.map(fn r -> r.name end)
     %{id: principal.id, email: principal.email, roles: role_names}
   end
 
