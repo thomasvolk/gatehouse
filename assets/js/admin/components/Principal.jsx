@@ -31,24 +31,24 @@ export default class Principal extends React.Component {
     })
   }
 
-  renderDetails() {
+  renderDetails(principal) {
     return (
       <div className="card">
         <div className="card-body">
         <div className="container-fluid">
             <div className="row">
               <div className="col-xs-8">
-                <Email/>
+                <Email email={principal.email}/>
               </div>  
             </div>
           </div>
           <div className="container-fluid">
             <div className="row">
               <div className="col-xs-6">
-                <Password/>
+                <Password principalId={principal.id}/>
               </div>
               <div className="col-xs-6">
-                <Roles/>
+                <Roles roles={principal.roles} principalId={principal.id}/>
               </div>
             </div>
           </div>
@@ -61,6 +61,6 @@ export default class Principal extends React.Component {
     if(principal === undefined) {
       return (<div></div>)
     }
-    return (this.renderDetails()) 
+    return (this.renderDetails(principal)) 
   }
 }

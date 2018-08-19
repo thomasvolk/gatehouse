@@ -29,8 +29,21 @@ defmodule Gatehouse.PrincipalManager do
     repo.update(changeset)
   end
 
-  def get_principal(repo, email) do
+  def get_principal_by_email(repo, email) do
     repo.get_by(Principal, email: String.downcase(email))
+  end
+
+  def get_principal_by_id(repo, id) do
+    repo.get_by(Principal, id: id)
+  end
+
+  def get_principal_with_roles_by_id(repo, id) do
+    query = from p in Principal,
+      preload: [:roles],
+      left_join: pr in PrincipalRole, on: p.id == pr.principal_id,
+      left_join: r in Role, on: r.id == pr.role_id,
+      where: p.id == ^id
+    repo.one(query)
   end
 
   def get_principals(repo) do
@@ -49,8 +62,8 @@ defmodule Gatehouse.PrincipalManager do
     repo.all(query)
   end
 
-  def get_principal_resource(repo, id) do
-    principal = repo.get_by(Principal, id: id)
+  def get_principal_as_token_resource(repo, id) do
+    principal = get_principal_by_id(repo, id)
     role_names = get_roles(repo, id) |> Enum.map(fn r -> r.name end)
     %{id: principal.id, email: principal.email, roles: role_names}
   end
