@@ -58,6 +58,15 @@ defmodule Gatehouse.PrincipalManager do
     repo.all(Role)
   end
 
+
+  def get_roles_with_principals(repo) do
+    query = from r in Role,
+      preload: [:principals],
+      left_join: pr in PrincipalRole, on: r.id == pr.role_id,
+      left_join: p in Principal, on: p.id == pr.principal_id
+    repo.all(query)
+  end
+
   def get_roles_for_principal(repo, principal_id) do
     query = from r in Role,
       preload: [:principals],
