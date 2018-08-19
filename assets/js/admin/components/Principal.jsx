@@ -5,17 +5,26 @@ import Roles from "./principal/Roles"
 import Dispatcher from "../dispatcher";
 
 export default class Principal extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = { principal: undefined }
+  }
   
   componentDidMount() {
-    this.pricipalSelectedCallback = Dispatcher.pricipalSelected.addObserver( (pid) => console.log("Principal: " + pid) )
+    this.pricipalSelectedCallback = Dispatcher.pricipalSelected.addObserver((pid) => this.update(pid))
   }
 
   componentWillUnmount(){
     Dispatcher.pricipalSelected.removeObserver( this.pricipalSelectedCallback )
   }
 
+  update(principalId) {
+    this.setState({ principal: principalId })
+  }
+
   renderDetails() {
-    return 
+    return (
       <div className="card">
         <div className="card-body">
         <div className="container-fluid">
@@ -36,11 +45,12 @@ export default class Principal extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </div>)
   }
   
   render() {
-    if(this.props.principal === undefined) {
+    const principal = this.state.principal
+    if(principal === undefined) {
       return (<div></div>)
     }
     return (this.renderDetails()) 
