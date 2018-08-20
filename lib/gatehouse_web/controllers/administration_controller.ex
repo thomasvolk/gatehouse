@@ -7,8 +7,7 @@ defmodule GatehouseWeb.AdministrationController do
 
   defp map_principal(p) do
     %{ id: p.id, 
-        email: p.email, 
-        roles: Enum.map(p.roles, fn r -> %{ id: r.id, name: r.name  } end ) 
+        email: p.email
      } 
   end
 
@@ -19,24 +18,13 @@ defmodule GatehouseWeb.AdministrationController do
   end
 
   def principal_details(conn, %{"id" => id} = _params) do
-    principal = Gatehouse.PrincipalManager.get_principal_with_roles_by_id(Gatehouse.Repo, id)
-    json conn, map_principal(principal)
-  end
-
-  def role_list(conn, %{"markForPrincipalId" => markForPrincipalId} = _params) do
-    pid = String.to_integer(markForPrincipalId)
+    principal = map_principal(Gatehouse.PrincipalManager.get_principal_by_id(Gatehouse.Repo, id))
     roles = Gatehouse.PrincipalManager.get_roles_with_principals(Gatehouse.Repo)
-      |> Enum.map(fn r -> %{id: r.id, 
-                            name: r.name, 
-                            active: r.principals |> Enum.count(fn p -> p.id == pid end) > 0 } 
-                  end)
-    json conn, roles
-  end
-
-  def role_list(conn, _params) do
-    roles = Gatehouse.PrincipalManager.get_roles(Gatehouse.Repo)
-      |> Enum.map(fn r -> %{id: r.id, name: r.name} end)
-    json conn, roles
+                |> Enum.map(fn r -> %{id: r.id, 
+                          name: r.name, 
+                          active: r.principals |> Enum.count(fn p -> p.id == String.to_integer(id) end) > 0 } 
+                end)
+    json conn, Map.put(principal, :roles, roles) 
   end
 
 end
