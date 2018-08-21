@@ -30,7 +30,7 @@ defmodule Gatehouse.PrincipalManager do
       roles = if active do
         Enum.concat(principal.roles, [role])
       else
-        Enum.filter(principal.roles, fn r -> r.id == role.id end)
+        Enum.filter(principal.roles, fn r -> r.id != role.id end)
       end
       changeset = Ecto.Changeset.change(principal) |> Ecto.Changeset.put_assoc(:roles, roles)
       repo.update!(changeset)
