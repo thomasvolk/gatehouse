@@ -22,22 +22,18 @@ defmodule Gatehouse.PrincipalManager do
     Role.changeset(%Role{}, %{name: name}) |> repo.insert()
   end
 
-  def link_pricipal_to_role(repo, principal, role) do
-    role = role |> repo.preload(:principals)
-    principal = principal |> repo.preload(:roles)
-    changeset = Ecto.Changeset.change(principal) |> Ecto.Changeset.put_assoc(:roles, [role])
-    repo.update(changeset)
-  end
-
   def update_pricipal_to_role_relation(repo, {principal_id, role_id, active}) do
     repo.transaction(fn ->
       principal = get_principal_by_id(repo, principal_id)
       role = repo.get_by(Role, id: role_id)
-      if active do
-        link_pricipal_to_role(repo, principal, role)
+      principal = principal |> repo.preload(:roles)
+      roles = if active do
+        Enum.concat(principal.roles, [role])
       else
-        # TODO remove association
+        Enum.filter(principal.roles, fn r -> r.id == role.id end)
       end
+      changeset = Ecto.Changeset.change(principal) |> Ecto.Changeset.put_assoc(:roles, roles)
+      repo.update!(changeset)
     end)
   end
 
@@ -93,7 +89,10 @@ defmodule Gatehouse.PrincipalManager do
         role -> role
       end
       {:ok, admin} = create_principal(repo, email, password)
-      link_pricipal_to_role(repo, admin, role)
+      role = role |> repo.preload(:principals)
+      admin = admin |> repo.preload(:roles)
+      changeset = Ecto.Changeset.change(admin) |> Ecto.Changeset.put_assoc(:roles, [role])
+      repo.update(changeset)
     end)
   end
 
