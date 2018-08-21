@@ -27,4 +27,9 @@ defmodule GatehouseWeb.AdministrationController do
     json conn, Map.put(principal, :roles, roles) 
   end
 
+  def update_role_relation(conn, %{"principal_id" => principal_id, "role_id" => role_id, "active" => active}) do
+    Gatehouse.PrincipalManager.update_pricipal_to_role_relation(Gatehouse.Repo,
+       {principal_id, role_id, active})
+  end
+
 end

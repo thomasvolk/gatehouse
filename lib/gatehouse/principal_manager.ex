@@ -29,6 +29,18 @@ defmodule Gatehouse.PrincipalManager do
     repo.update(changeset)
   end
 
+  def update_pricipal_to_role_relation(repo, {principal_id, role_id, active}) do
+    repo.transaction(fn ->
+      principal = get_principal_by_id(repo, principal_id)
+      role = repo.get_by(Role, id: role_id)
+      if active do
+        link_pricipal_to_role(repo, principal, role)
+      else
+        # TODO remove association
+      end
+    end)
+  end
+
   def get_principal_by_email(repo, email) do
     repo.get_by(Principal, email: String.downcase(email))
   end
@@ -38,23 +50,15 @@ defmodule Gatehouse.PrincipalManager do
   end
 
   def get_principals(repo) do
-    query = from p in Principal,
-      preload: [:roles],
-      left_join: pr in PrincipalRole, on: p.id == pr.principal_id,
-      left_join: r in Role, on: r.id == pr.role_id
-    repo.all(query)
+    repo.all(Principal)
   end
 
   def get_roles(repo) do
     repo.all(Role)
   end
 
-
   def get_roles_with_principals(repo) do
-    query = from r in Role,
-      preload: [:principals],
-      left_join: pr in PrincipalRole, on: r.id == pr.role_id,
-      left_join: p in Principal, on: p.id == pr.principal_id
+    query = from r in Role, preload: [:principals]
     repo.all(query)
   end
 
