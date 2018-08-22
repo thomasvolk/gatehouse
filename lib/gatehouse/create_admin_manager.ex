@@ -4,37 +4,39 @@ defmodule Gatehouse.CreateAdminManager do
     alias Gatehouse.Principal
     alias Gatehouse.Role
     alias Gatehouse.PrincipalRole
+    alias Gatehouse.Repo
 
-    def has_admin(repo) do
+    def has_admin() do
         query = from p in Principal,
             preload: [:roles],
             left_join: pr in PrincipalRole, on: p.id == pr.principal_id,
             left_join: r in Role, on: r.id == pr.role_id,
             where: r.name == ^Role.admin_role
-        repo.all(query) |> length > 0
+        Repo.all(query) |> length > 0
     end
 
-    def create_principal(repo, email, password) do
+    def create_principal(email, password) do
         changeset = Principal.changeset(%Principal{},
             %{email: email, password: password})
         changeset
         |> put_change(:crypted_password, hashed_password(changeset.params["password"]))
-        |> repo.insert()
+        |> Repo.insert()
     end
 
-    def create_principal(repo, email, password, role_name) do
-        repo.transaction(fn ->
-        role = case repo.get_by(Role, name: role_name) do
+    def create_admin(email, password) do
+        role_name = Role.admin_role
+        Repo.transaction(fn ->
+        role = case Repo.get_by(Role, name: role_name) do
             nil ->
-            {:ok,  role} = Role.changeset(%Role{}, %{name: role_name}) |> repo.insert()
+            {:ok,  role} = Role.changeset(%Role{}, %{name: role_name}) |> Repo.insert()
             role
             role -> role
         end
-        {:ok, admin} = create_principal(repo, email, password)
-        role = role |> repo.preload(:principals)
-        admin = admin |> repo.preload(:roles)
+        {:ok, admin} = create_principal(email, password)
+        role = role |> Repo.preload(:principals)
+        admin = admin |> Repo.preload(:roles)
         changeset = Ecto.Changeset.change(admin) |> Ecto.Changeset.put_assoc(:roles, [role])
-        repo.update(changeset)
+        Repo.update(changeset)
         end)
     end
 

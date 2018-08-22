@@ -1,11 +1,9 @@
 defmodule GatehouseWeb.CreateAdminController do
   use GatehouseWeb, :controller
   alias Gatehouse.CreateAdminManager
-  alias Gatehouse.Repo
-  alias Gatehouse.Role
 
   def index(conn, _params) do
-    if CreateAdminManager.has_admin(Gatehouse.Repo) do
+    if CreateAdminManager.has_admin() do
       conn |> redirect(to: "/")
     else
       render conn, "create_admin.html"
@@ -15,12 +13,12 @@ defmodule GatehouseWeb.CreateAdminController do
   def create(conn, %{"admin" => %{"email" => email,
                                   "password" => password,
                                   "password_repeat" => password_repeat}}) do
-    if not CreateAdminManager.has_admin(Gatehouse.Repo) do
+    if not CreateAdminManager.has_admin() do
       if password != password_repeat do
         conn |> put_flash(:error, gettext("Passwords do not match!"))
              |> redirect(to: "/create_admin")
       else
-        CreateAdminManager.create_principal(Repo, email, password, Role.admin_role)
+        CreateAdminManager.create_admin(email, password)
       end
     end
     conn |> redirect(to: "/")

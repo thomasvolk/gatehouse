@@ -1,9 +1,7 @@
 defmodule Gatehouse.AdministrationManager do
-    import Ecto.Changeset, only: [put_change: 3]
     import Ecto.Query, only: [from: 2]
     alias Gatehouse.Principal
     alias Gatehouse.Role
-    alias Gatehouse.PrincipalRole
 
     def get_principal_by_id(repo, id) do
         repo.get_by(Principal, id: id)

@@ -5,7 +5,7 @@ defmodule GatehouseWeb.SessionController do
   alias Gatehouse.Session
 
   def index(conn, %{ "target" => target }) do
-    if CreateAdminManager.has_admin(Gatehouse.Repo) do
+    if CreateAdminManager.has_admin() do
       render conn, "index.html", target: target
     else
       conn |> redirect(to: "/create_admin")
