@@ -18,7 +18,7 @@ defmodule Gatehouse.AdministrationManager do
         Repo.all(Principal)
     end
 
-    def update_pricipal_to_role_relation({principal_id, role_id, active}) do
+    def update_pricipal_to_role_relation(principal_id, role_id, active) do
         Repo.transaction(fn ->
             principal = get_principal_by_id(principal_id)
             role = Repo.get_by(Role, id: role_id)
