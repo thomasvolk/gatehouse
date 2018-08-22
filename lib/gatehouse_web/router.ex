@@ -46,7 +46,7 @@ defmodule GatehouseWeb.Router do
         
         scope "/api" do
           get    "/principal",      AdministrationController, :principal_list
-          get    "/principal/:id",  AdministrationController, :principal_details
+          get    "/principal/:id/roles_selection_list",  AdministrationController, :principal_with_roles_selection_list
           put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
         end
 

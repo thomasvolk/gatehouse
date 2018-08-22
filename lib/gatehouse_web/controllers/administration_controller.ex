@@ -18,14 +18,14 @@ defmodule GatehouseWeb.AdministrationController do
     json conn, principals
   end
 
-  def principal_details(conn, %{"id" => id} = _params) do
+  def principal_with_roles_selection_list(conn, %{"id" => id} = _params) do
     principal = map_principal(AdministrationManager.get_principal_by_id(id))
     roles = AdministrationManager.get_roles_with_principals()
                 |> Enum.map(fn r -> %{id: r.id, 
                           name: r.name, 
                           active: r.principals |> Enum.count(fn p -> p.id == String.to_integer(id) end) > 0 } 
                 end)
-    json conn, Map.put(principal, :roles, roles) 
+    json conn, Map.put(principal, :roles_selection_list, roles) 
   end
 
   def update_role_relation(conn, %{"principal_id" => principal_id, "role_id" => role_id, "active" => active}) do
