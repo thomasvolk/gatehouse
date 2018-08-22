@@ -2,6 +2,7 @@ defmodule GatehouseWeb.SessionController do
   use GatehouseWeb, :controller
   alias Gatehouse.Target
   alias Gatehouse.CreateAdminManager
+  alias Gatehouse.Session
 
   def index(conn, %{ "target" => target }) do
     if CreateAdminManager.has_admin(Gatehouse.Repo) do
@@ -28,7 +29,7 @@ defmodule GatehouseWeb.SessionController do
   def create(conn, %{"session" => %{"email" => email,
                                   "password" => password,
                                   "target" => target}}) do
-    case Gatehouse.Session.login(Gatehouse.Repo, email, password) do
+    case Session.login(email, password) do
       {:ok, user} ->
         conn
         |> Gatehouse.Guardian.Plug.sign_in(user)
