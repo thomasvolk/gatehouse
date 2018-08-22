@@ -1,5 +1,6 @@
 defmodule GatehouseWeb.AdministrationController do
   use GatehouseWeb, :controller
+  alias Gatehouse.AdministrationManager
 
   def index(conn, _params) do
     render conn, "index.html", layout: {GatehouseWeb.LayoutView, "administration.html"}
@@ -12,14 +13,14 @@ defmodule GatehouseWeb.AdministrationController do
   end
 
   def principal_list(conn, _params) do
-    principals = Gatehouse.PrincipalManager.get_principals(Gatehouse.Repo)
+    principals = AdministrationManager.get_principals(Gatehouse.Repo)
       |> Enum.map(&map_principal/1)
     json conn, principals
   end
 
   def principal_details(conn, %{"id" => id} = _params) do
-    principal = map_principal(Gatehouse.PrincipalManager.get_principal_by_id(Gatehouse.Repo, id))
-    roles = Gatehouse.PrincipalManager.get_roles_with_principals(Gatehouse.Repo)
+    principal = map_principal(AdministrationManager.get_principal_by_id(Gatehouse.Repo, id))
+    roles = AdministrationManager.get_roles_with_principals(Gatehouse.Repo)
                 |> Enum.map(fn r -> %{id: r.id, 
                           name: r.name, 
                           active: r.principals |> Enum.count(fn p -> p.id == String.to_integer(id) end) > 0 } 
@@ -28,7 +29,7 @@ defmodule GatehouseWeb.AdministrationController do
   end
 
   def update_role_relation(conn, %{"principal_id" => principal_id, "role_id" => role_id, "active" => active}) do
-    Gatehouse.PrincipalManager.update_pricipal_to_role_relation(Gatehouse.Repo,
+    AdministrationManager.update_pricipal_to_role_relation(Gatehouse.Repo,
        {principal_id, role_id, active})
        json conn, "OK" 
   end

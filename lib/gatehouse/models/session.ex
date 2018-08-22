@@ -1,7 +1,7 @@
 defmodule Gatehouse.Session do
 
   def login(repo, email, password) do
-    user = Gatehouse.PrincipalManager.get_principal_by_email(repo, email)
+    user = Gatehouse.SessionManager.get_principal_by_email(repo, email)
     case authenticate(user, password) do
       true ->
         {:ok, user}
