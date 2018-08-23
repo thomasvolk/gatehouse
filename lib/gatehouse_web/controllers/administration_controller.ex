@@ -19,7 +19,7 @@ defmodule GatehouseWeb.AdministrationController do
   def update_role_relation(conn, %{"principal_id" => principal_id, 
                                  "role_id" => role_id, "active" => active}) do
     AdministrationManager.update_pricipal_to_role_relation(principal_id, role_id, active)
-       json conn, true
+    json conn, true
   end
   
 end

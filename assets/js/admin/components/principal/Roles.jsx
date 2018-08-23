@@ -1,9 +1,10 @@
 import React from "react"
+import Server from "../../server";
 
 export default class Roles extends React.Component {
 
   onChange(rid, newState) {
-    console.log(`rid=${rid} state=${newState}`)
+    Server.put(`/administration/api/principal/${this.props.principalId}/role/${rid}`, { active: newState })
   }
 
   render() {

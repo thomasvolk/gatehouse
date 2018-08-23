@@ -6,6 +6,17 @@ function get(url) {
     })
 }
 
+function put(url, body) {
+    return fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify(body)
+    });
+}
+
 export default {
-    get: get
+    get: get,
+    put: put
 }
