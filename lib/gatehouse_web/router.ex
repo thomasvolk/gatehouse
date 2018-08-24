@@ -16,6 +16,7 @@ defmodule GatehouseWeb.Router do
 
   pipeline :admin_role do
     plug GatehouseWeb.AdminAccessPlug
+    plug GatehouseWeb.CSRFToken
   end
 
 
