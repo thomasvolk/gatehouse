@@ -8,6 +8,8 @@ defmodule Gatehouse.Role do
 
   def admin_role, do: to_string(@role_admin)
 
+  def is_admin_role(name), do: admin_role == name
+
   schema "roles" do
     field :name, :string
 

@@ -1,6 +1,5 @@
 defmodule Gatehouse.Guardian do
   use Guardian, otp_app: :gatehouse
-  require Logger
   alias Gatehouse.SessionManager
 
   def subject_for_token(resource, _claims) do
