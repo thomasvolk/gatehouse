@@ -2,6 +2,7 @@ defmodule GatehouseWeb.SessionController do
   use GatehouseWeb, :controller
   alias Gatehouse.Target
   alias Gatehouse.CreateAdminManager
+  alias Gatehouse.AdministrationManager
   alias Gatehouse.Session
 
   def index(conn, %{ "target" => target }) do
@@ -18,7 +19,8 @@ defmodule GatehouseWeb.SessionController do
 
   def session(conn, %{ "access_token" => token }) do
     {:ok, claims} = Gatehouse.Guardian.decode_and_verify(token)
-    render conn, "session.html", claims: inspect(claims)
+    currnet_principal = Gatehouse.Guardian.Plug.current_resource(conn)  
+    render conn, "session.html", claims: inspect(claims), is_admin: AdministrationManager.is_admin(currnet_principal)
   end
 
   def goto(conn, %{"target" => target}) do

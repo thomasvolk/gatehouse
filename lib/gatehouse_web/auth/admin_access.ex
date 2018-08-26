@@ -8,7 +8,7 @@ defmodule GatehouseWeb.AdminAccessPlug do
 
   def call(conn, _opts) do
     principal = current_resource(conn)
-    case Enum.find(principal.roles, &Gatehouse.Role.is_admin_role/1) do
+    case Gatehouse.AdministrationManager.is_admin(principal) do
       nil -> conn
           |> put_flash(:error, gettext "Not allowed!")
           |> redirect(to: "/")

@@ -16,6 +16,10 @@ defmodule Gatehouse.AdministrationManager do
         Repo.all(Principal) |> Enum.map(&map_principal/1)
     end
 
+    def is_admin(principal) do
+        Enum.find(principal.roles, &Role.is_admin_role/1)
+    end
+
     def update_password(principal_id, password) do
         Repo.transaction(fn ->
             principal = Repo.get_by(Principal, id: principal_id)
