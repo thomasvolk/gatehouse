@@ -14,6 +14,7 @@ export default class Principal extends React.Component {
   
   componentDidMount() {
     this.principalSelectedCallback = Dispatcher.principalSelected.addObserver((pid) => this.update(pid))
+    this.principalChangedCallback = Dispatcher.principalChanged.addObserver((pid) => this.update(pid))
   }
 
   componentWillUnmount(){
@@ -21,6 +22,11 @@ export default class Principal extends React.Component {
       Dispatcher.principalSelected.removeObserver( this.principalSelectedCallback )
     }
     this.principalSelectedCallback = undefined
+
+    if(this.principalChangedCallback) {
+      Dispatcher.principalChanged.removeObserver( this.principalChangedCallback )
+    }
+    this.principalChangedCallback = undefined
   }
 
   update(principalId) {
