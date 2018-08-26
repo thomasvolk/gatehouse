@@ -24,7 +24,7 @@ export default class PrincipalList extends React.Component {
   }
 
   onItemClicked(principalId) {
-    Dispatcher.pricipalSelected.update(principalId)
+    Dispatcher.principalSelected.update(principalId)
   }
 
   render() {

@@ -13,20 +13,20 @@ export default class Principal extends React.Component {
   }
   
   componentDidMount() {
-    this.pricipalSelectedCallback = Dispatcher.pricipalSelected.addObserver((pid) => this.update(pid))
+    this.principalSelectedCallback = Dispatcher.principalSelected.addObserver((pid) => this.update(pid))
   }
 
   componentWillUnmount(){
-    if(this.pricipalSelectedCallback) {
-      Dispatcher.pricipalSelected.removeObserver( this.pricipalSelectedCallback )
+    if(this.principalSelectedCallback) {
+      Dispatcher.principalSelected.removeObserver( this.principalSelectedCallback )
     }
-    this.pricipalSelectedCallback = undefined
+    this.principalSelectedCallback = undefined
   }
 
   update(principalId) {
     server.get(`/administration/api/principal/${principalId}/roles_selection_list`).then( 
       principal => {
-      if(this.pricipalSelectedCallback) {
+      if(this.principalSelectedCallback) {
         this.setState({ principal: principal })
       }
     })

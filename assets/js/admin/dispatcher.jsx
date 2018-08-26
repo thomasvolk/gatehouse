@@ -21,5 +21,6 @@ class Observable {
 }
 
 export default {
-    pricipalSelected: new Observable()
+    principalSelected: new Observable(),
+    principalChanged: new Observable()
 }

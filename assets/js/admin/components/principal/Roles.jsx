@@ -1,10 +1,13 @@
 import React from "react"
-import Server from "../../server";
+import Server from "../../server"
+import Dispatcher from "../../dispatcher"
 
 export default class Roles extends React.Component {
 
   onChange(rid, newState) {
-    Server.put(`/administration/api/principal/${this.props.principalId}/role/${rid}`, { active: newState })
+    Server.put(`/administration/api/principal/${this.props.principalId}/role/${rid}`, 
+      { active: newState })
+    Dispatcher.principalChanged.update(this.props.principalId)
   }
 
   render() {
