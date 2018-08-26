@@ -19,7 +19,7 @@ defmodule Gatehouse.CreateAdminManager do
         changeset = Principal.changeset(%Principal{},
             %{email: email, password: password})
         changeset
-        |> put_change(:crypted_password, hashed_password(changeset.params["password"]))
+        |> put_change(:crypted_password, Principal.pwhash(changeset.params["password"]))
         |> Repo.insert()
     end
 
@@ -39,7 +39,5 @@ defmodule Gatehouse.CreateAdminManager do
         Repo.update(changeset)
         end)
     end
-
-    defp hashed_password(password), do: Comeonin.Bcrypt.hashpwsalt(password)
 
 end

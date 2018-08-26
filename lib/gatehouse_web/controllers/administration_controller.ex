@@ -21,7 +21,13 @@ defmodule GatehouseWeb.AdministrationController do
     currnet_principal = Gatehouse.Guardian.Plug.current_resource(conn)        
     AdministrationManager.update_pricipal_to_role_relation(
       currnet_principal, principal_id, role_id, active)
-    json conn, true
+    json conn, nil
+  end
+
+  def update_password(conn, %{"principal_id" => principal_id, 
+                              "password" => password}) do
+    AdministrationManager.update_password(principal_id, password)
+    json conn, nil
   end
   
 end

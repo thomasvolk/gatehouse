@@ -4,6 +4,8 @@ defmodule Gatehouse.Principal do
   alias Gatehouse.Principal
   alias Gatehouse.Role
 
+  def pwhash(password), do: Comeonin.Bcrypt.hashpwsalt(password)
+
   schema "principals" do
     field :email, :string
     field :crypted_password, :string

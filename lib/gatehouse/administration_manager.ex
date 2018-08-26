@@ -1,4 +1,5 @@
 defmodule Gatehouse.AdministrationManager do
+    import Ecto.Changeset, only: [put_change: 3]
     require Logger
     import Ecto.Query, only: [from: 2]
     alias Gatehouse.Principal
@@ -15,11 +16,21 @@ defmodule Gatehouse.AdministrationManager do
         Repo.all(Principal) |> Enum.map(&map_principal/1)
     end
 
+    def update_password(principal_id, password) do
+        Repo.transaction(fn ->
+            principal = Repo.get_by(Principal, id: principal_id)
+            Ecto.Changeset.change(principal) 
+                |> put_change(:password, password)
+                |> put_change(:crypted_password, Principal.pwhash(password))
+                |> Repo.update()
+        end)
+    end
+
     def update_pricipal_to_role_relation(current_principal, principal_id, role_id, active) do
         Repo.transaction(fn ->
             role = Repo.get_by(Role, id: role_id)
-            if (Role.is_admin_role(role.name) 
-                and String.to_integer(principal_id) == current_principal.id) do
+            if Role.is_admin_role(role.name) 
+                and String.to_integer(principal_id) == current_principal.id do
                 Logger.info "admin can not change his own admin privileges!"
             else
                 principal = Repo.get_by(Principal, id: principal_id)
