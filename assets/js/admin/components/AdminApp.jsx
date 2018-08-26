@@ -25,7 +25,7 @@ export default class AdminApp extends React.Component {
           <div className="row">
             <div className="col-xs-4">
               <div>
-                <button type="button" className="btn btn-primary"
+                <button type="button" className="btn btn-primary" disabled="true"
                   onClick={() => this.onCreatePrincipal()}>Create Principal</button>
               </div>
               <PrincipalList/>
