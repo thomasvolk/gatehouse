@@ -50,6 +50,14 @@ defmodule Gatehouse.AdministrationManager do
         end)
     end
 
+    def create_principal(email) do
+        password = generate_random_password()
+        changeset = Principal.changeset(%Principal{}, %{email: email, password: password})
+        {:ok, principal} = changeset
+            |> put_change(:crypted_password, Principal.pwhash(changeset.params["password"]))
+            |> Repo.insert()
+        map_principal(principal) |> Map.put("password", password)    
+    end
 
     def principal_with_roles_selection_list(id) do
         principal = map_principal(Repo.get_by(Principal, id: id))

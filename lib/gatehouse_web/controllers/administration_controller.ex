@@ -29,5 +29,10 @@ defmodule GatehouseWeb.AdministrationController do
     AdministrationManager.update_password(principal_id, password)
     json conn, nil
   end
+
+  def create_principal(conn, %{"email" => email}) do
+    result = AdministrationManager.create_principal(email)
+    json conn, result
+  end
   
 end

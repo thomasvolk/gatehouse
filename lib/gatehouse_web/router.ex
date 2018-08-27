@@ -50,6 +50,7 @@ defmodule GatehouseWeb.Router do
           get    "/principal/:id/roles_selection_list",  AdministrationController, :principal_with_roles_selection_list
           put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
           put    "/principal/:principal_id/password", AdministrationController, :update_password
+          post   "/principal", AdministrationController, :create_principal
         end
 
       end
