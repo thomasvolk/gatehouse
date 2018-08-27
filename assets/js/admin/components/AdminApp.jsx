@@ -15,7 +15,7 @@ export default class AdminApp extends React.Component {
     this.setState({createPrincipal: true})
   }
 
-  onCancelCreatePrincipal() {
+  onCloseCreatePrincipal() {
     this.setState({createPrincipal: false})
   }
 
@@ -25,7 +25,7 @@ export default class AdminApp extends React.Component {
           <div className="row">
             <div className="col-xs-4">
               <div>
-                <button type="button" className="btn btn-primary" disabled="true"
+                <button type="button" className="btn btn-primary"
                   onClick={() => this.onCreatePrincipal()}>Create Principal</button>
               </div>
               <PrincipalList/>
@@ -40,7 +40,7 @@ export default class AdminApp extends React.Component {
 
   renderCreatePrincipal() {
     return (
-      <CreatePrincipal onCancel={() => this.onCancelCreatePrincipal()}/>
+      <CreatePrincipal close={() => this.onCloseCreatePrincipal()}/>
     )
   }
 

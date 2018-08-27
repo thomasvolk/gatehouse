@@ -17,9 +17,9 @@ function get(url) {
     })
 }
 
-function put(url, body) {
+function sendData(method, url, body) {
     return fetch(url, {
-        method: 'PUT',
+        method: method,
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           'x-csrf-token': getCSRFToken()
@@ -31,7 +31,16 @@ function put(url, body) {
     });
 }
 
+function put(url, body) {
+    return sendData('PUT', url, body)
+}
+
+function post(url, body) {
+    return sendData('POST', url, body)
+}
+
 export default {
     get: get,
-    put: put
+    put: put,
+    post: post
 }

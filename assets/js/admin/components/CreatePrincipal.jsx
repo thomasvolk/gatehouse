@@ -1,19 +1,35 @@
 import React from "react"
+import Server from "../server"
 
 export default class CreatePrincipal extends React.Component {
   
+  constructor(props) {
+    super(props)
+    this.state = { email: "" }
+  }
+  
   onCancel() {
-    this.props.onCancel()
+    this.props.close()
+  }
+
+  updateEmail(event) {
+    this.setState({email: event.target.value})
+  }
+
+  handleSubmit(event) {
+    Server.post(`/administration/api/principal`, 
+        { email: this.state.email })
+    this.props.close()
   }
   
   render() {
     return (
        <div>
          <h2>Create Principal</h2>
-         <form>
+         <form onSubmit={(e) => this.handleSubmit(e)}>
          <label htmlFor="password">Password</label>
             <input type="text" id="email" className="form-control" 
-              placeholder="Email">
+              placeholder="Email" onChange={(e) => this.updateEmail(e)}>
             </input>
             <button type="button" className="btn btn-secundary"
               onClick={() => this.onCancel()}>Cancel</button>
