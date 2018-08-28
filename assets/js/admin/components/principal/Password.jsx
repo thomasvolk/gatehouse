@@ -36,14 +36,14 @@ export default class Password extends React.Component {
       <div className="form-group">
         <label htmlFor="password">Password</label>
         <input type="password" id="password" className="form-control" 
-           placeholder="Password" onChange={(e) => this.updatePassword(e)}>
+           placeholder="New Password" onChange={(e) => this.updatePassword(e)}>
         </input>
         <label htmlFor="password-repeat">Password repeat</label>
         <input type="password" id="password-repeat" className="form-control" 
-          placeholder="Password repeat" onChange={(e) => this.updatePasswordRepeat(e)}>
+          placeholder="New Password repeat" onChange={(e) => this.updatePasswordRepeat(e)}>
         </input>
       </div>
-      <button type="submit" className="btn btn-primary">Update Password</button>
+      <button type="submit" className="btn btn-primary">Change Password</button>
       </form>
     )
   }

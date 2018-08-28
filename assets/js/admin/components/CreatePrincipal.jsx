@@ -1,5 +1,6 @@
 import React from "react"
 import Server from "../server"
+import Dispatcher from "../dispatcher"
 
 export default class CreatePrincipal extends React.Component {
   
@@ -18,8 +19,10 @@ export default class CreatePrincipal extends React.Component {
 
   handleSubmit(event) {
     Server.post(`/administration/api/principal`, 
-        { email: this.state.email })
-    this.props.close()
+        { email: this.state.email }).then((principal) => {
+          Dispatcher.principalCreated.update(principal.id)
+          this.props.close()
+        })
   }
   
   render() {

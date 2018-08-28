@@ -1,7 +1,7 @@
 
 import React from "react"
 import server from "../server"
-import Dispatcher from "../dispatcher";
+import Dispatcher from "../dispatcher"
 
 export default class PrincipalList extends React.Component {
 
@@ -10,8 +10,7 @@ export default class PrincipalList extends React.Component {
     this.state = { principals: [] }
   }
 
-  componentDidMount() {
-    this.mounted = true;
+  loadList() {
     server.get('/administration/api/principal').then( principals => {
       if(this.mounted) {
         this.setState({ principals: principals })
@@ -19,8 +18,17 @@ export default class PrincipalList extends React.Component {
     })
   }
 
+  componentDidMount() {
+    this.mounted = true;
+    this.loadList()
+    this.principalCreatedCallback = Dispatcher.principalCreated.addObserver(() => this.loadList())
+  }
+
   componentWillUnmount(){
     this.mounted = false;
+    if(this.principalCreatedCallback) {
+      Dispatcher.principalCreated.removeObserver(this.principalCreatedCallback)
+    }
   }
 
   onItemClicked(principalId) {
