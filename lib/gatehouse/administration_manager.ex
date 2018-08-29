@@ -1,5 +1,5 @@
 defmodule Gatehouse.AdministrationManager do
-    import Ecto.Changeset, only: [put_change: 3]
+    import Ecto.Changeset, only: [put_change: 3, validate_length: 3]
     require Logger
     import Ecto.Query, only: [from: 2]
     alias Gatehouse.Principal
@@ -25,6 +25,7 @@ defmodule Gatehouse.AdministrationManager do
             principal = Repo.get_by(Principal, id: principal_id)
             case Ecto.Changeset.change(principal) 
                     |> put_change(:password, password)
+                    |> validate_length(:password, min: 8)
                     |> put_change(:crypted_password, Principal.pwhash(password))
                     |> Repo.update() do
                 {:ok, _principal} -> {:ok, true}

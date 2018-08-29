@@ -28,15 +28,27 @@ defmodule GatehouseWeb.AdministrationController do
                               "password" => password}) do
     case AdministrationManager.update_password(principal_id, password) do
       {:ok, success} -> json conn, success
-      {:error, _errors} -> conn |> send_resp(400, "")
+      {:error, errors} -> handle_error(conn, errors)
     end
   end
 
   def create_principal(conn, %{"email" => email}) do
     case AdministrationManager.create_principal(email) do
       {:ok, principal} -> json conn, principal
-      {:error, _errors} -> conn |> send_resp(400, "")
+      {:error, errors} -> handle_error(conn, errors)
     end
+  end
+
+  defp handle_error(conn, [email: {msg, [validation: :format]}]) do
+    conn |> send_resp(400, msg)
+  end
+
+  defp handle_error(conn, [password: {msg, _values}]) do
+    conn |> send_resp(400, msg)
+  end
+
+  defp handle_error(conn, _errors) do
+    conn |> send_resp(400, "unkonwn")
   end
   
 end
