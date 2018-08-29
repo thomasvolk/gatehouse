@@ -21,21 +21,26 @@ defmodule Gatehouse.AdministrationManager do
     end
 
     def update_password(principal_id, password) do
-        Repo.transaction(fn ->
+        {:ok, result} = Repo.transaction(fn ->
             principal = Repo.get_by(Principal, id: principal_id)
-            Ecto.Changeset.change(principal) 
-                |> put_change(:password, password)
-                |> put_change(:crypted_password, Principal.pwhash(password))
-                |> Repo.update()
+            case Ecto.Changeset.change(principal) 
+                    |> put_change(:password, password)
+                    |> put_change(:crypted_password, Principal.pwhash(password))
+                    |> Repo.update() do
+                {:ok, _principal} -> {:ok, true}
+                {:error, %{ errors: errors }}  -> {:error, errors}      
+            end
         end)
+        result
     end
 
     def update_pricipal_to_role_relation(current_principal, principal_id, role_id, active) do
-        Repo.transaction(fn ->
+        {:ok, success} = Repo.transaction(fn ->
             role = Repo.get_by(Role, id: role_id)
             if Role.is_admin_role(role.name) 
-                and String.to_integer(principal_id) == current_principal.id do
+                and principal_id == current_principal.id do
                 Logger.info "admin can not change his own admin privileges!"
+                false
             else
                 principal = Repo.get_by(Principal, id: principal_id)
                 principal = principal |> Repo.preload(:roles)
@@ -46,17 +51,21 @@ defmodule Gatehouse.AdministrationManager do
                 end
                 changeset = Ecto.Changeset.change(principal) |> Ecto.Changeset.put_assoc(:roles, roles)
                 Repo.update!(changeset)
+                true
             end
         end)
+        success
     end
 
     def create_principal(email) do
         password = generate_random_password()
         changeset = Principal.changeset(%Principal{}, %{email: email, password: password})
-        {:ok, principal} = changeset
-            |> put_change(:crypted_password, Principal.pwhash(changeset.params["password"]))
-            |> Repo.insert()
-        map_principal(principal) |> Map.put("password", password)    
+        case changeset
+                |> put_change(:crypted_password, Principal.pwhash(changeset.params["password"]))
+                |> Repo.insert() do
+            {:ok, principal} -> {:ok, map_principal(principal) |> Map.put("password", password) }
+            {:error, %{ errors: errors }}  -> {:error, errors}
+        end    
     end
 
     def principal_with_roles_selection_list(id) do

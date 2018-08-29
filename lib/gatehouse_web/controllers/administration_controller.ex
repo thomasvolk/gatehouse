@@ -19,20 +19,24 @@ defmodule GatehouseWeb.AdministrationController do
   def update_role_relation(conn, %{"principal_id" => principal_id, 
                                  "role_id" => role_id, "active" => active}) do
     currnet_principal = Gatehouse.Guardian.Plug.current_resource(conn)        
-    AdministrationManager.update_pricipal_to_role_relation(
-      currnet_principal, principal_id, role_id, active)
-    json conn, nil
+    success = AdministrationManager.update_pricipal_to_role_relation(
+      currnet_principal, String.to_integer(principal_id), role_id, active)
+    json conn, success
   end
 
   def update_password(conn, %{"principal_id" => principal_id, 
                               "password" => password}) do
-    AdministrationManager.update_password(principal_id, password)
-    json conn, nil
+    case AdministrationManager.update_password(principal_id, password) do
+      {:ok, success} -> json conn, success
+      {:error, _errors} -> conn |> send_resp(400, "")
+    end
   end
 
   def create_principal(conn, %{"email" => email}) do
-    result = AdministrationManager.create_principal(email)
-    json conn, result
+    case AdministrationManager.create_principal(email) do
+      {:ok, principal} -> json conn, principal
+      {:error, _errors} -> conn |> send_resp(400, "")
+    end
   end
   
 end
