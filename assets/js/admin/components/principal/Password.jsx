@@ -25,21 +25,23 @@ export default class Password extends React.Component {
       Server.put(`/administration/api/principal/${this.props.principalId}/password`, 
         { password: this.state.password })
       Dispatcher.principalChanged.update(this.props.principalId)
-      document.getElementById("change-password-form").reset()
+      this.setState({password: "", passwordRepeat: ""})
     }
     event.preventDefault()
   }
 
   render() {
+    const password = this.state.password
+    const passwordRepeat = this.state.passwordRepeat
     return (
       <form id="change-password-form" onSubmit={(e) => this.handleSubmit(e)}>
       <div className="form-group">
         <label htmlFor="password">Password</label>
-        <input type="password" id="password" className="form-control" 
+        <input type="password" id="password" className="form-control" value={password}
            placeholder="New Password" onChange={(e) => this.updatePassword(e)}>
         </input>
         <label htmlFor="password-repeat">Password repeat</label>
-        <input type="password" id="password-repeat" className="form-control" 
+        <input type="password" id="password-repeat" className="form-control" value={passwordRepeat}
           placeholder="New Password repeat" onChange={(e) => this.updatePasswordRepeat(e)}>
         </input>
       </div>
