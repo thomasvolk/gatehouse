@@ -25,7 +25,7 @@ defmodule Gatehouse.Principal do
       |> cast(attrs, @required_fields, @optional_fields)
       |> validate_required([:password, :email])
       |> unique_constraint(:email)
-      |> validate_format(:email, ~r/@/)
+      |> validate_format(:email, ~r/.+@.+\..+/)
       |> validate_length(:password, min: 8)
   end
 end
