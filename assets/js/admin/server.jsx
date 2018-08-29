@@ -12,9 +12,6 @@ function get(url) {
             setCSRFToken(response.headers.get("x-csrf-token"))
             return response.json()
         })
-        .catch(ex => {
-        alert("ERROR: " + ex);
-    })
 }
 
 function sendData(method, url, body) {

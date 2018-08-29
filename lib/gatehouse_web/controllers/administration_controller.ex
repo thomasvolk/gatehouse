@@ -39,7 +39,7 @@ defmodule GatehouseWeb.AdministrationController do
     end
   end
 
-  defp handle_error(conn, [email: {msg, [validation: :format]}]) do
+  defp handle_error(conn, [email: {msg, _values}]) do
     conn |> send_resp(400, msg)
   end
 
@@ -48,7 +48,7 @@ defmodule GatehouseWeb.AdministrationController do
   end
 
   defp handle_error(conn, _errors) do
-    conn |> send_resp(400, "unkonwn")
+    conn |> send_resp(500, "unkonwn")
   end
   
 end
