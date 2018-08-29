@@ -6,9 +6,9 @@ defmodule Gatehouse.Role do
 
   @role_admin :GatehouseAdmin
 
-  def admin_role, do: to_string(@role_admin)
+  def admin_role(), do: to_string(@role_admin)
 
-  def is_admin_role(name), do: admin_role == name
+  def is_admin_role(name), do: admin_role() == name
 
   schema "roles" do
     field :name, :string
@@ -25,6 +25,7 @@ defmodule Gatehouse.Role do
   def changeset(%Role{} = role, attrs) do
     role
       |> cast(attrs, @required_fields, @optional_fields)
+      |> validate_required([:name])
       |> unique_constraint(:name)
   end
 end
