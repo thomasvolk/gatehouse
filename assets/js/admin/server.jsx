@@ -45,8 +45,21 @@ function post(url, body) {
     return sendData('POST', url, body)
 }
 
+function del(url) {
+    return fetch(url, {
+        method: "DELETE",
+        headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'x-csrf-token': getCSRFToken()
+        }
+    })
+    .then(handleErrors)
+    .then(handleRespose)
+}
+
 export default {
     get: get,
     put: put,
-    post: post
+    post: post,
+    del: del
 }

@@ -2,6 +2,7 @@ import React from "react"
 import Email from "./principal/Email"
 import Password from "./principal/Password"
 import Roles from "./principal/Roles"
+import DeletePrincipal from "./principal/DeletePrincipal"
 import server from "../server"
 import Dispatcher from "../dispatcher";
 
@@ -15,6 +16,7 @@ export default class Principal extends React.Component {
   componentDidMount() {
     this.principalSelectedCallback = Dispatcher.principalSelected.addObserver((pid) => this.update(pid))
     this.principalChangedCallback = Dispatcher.principalChanged.addObserver((pid) => this.update(pid))
+    this.principalDeletedCallback = Dispatcher.principalDeleted.addObserver((pid) => this.setState({ principal: undefined }))
   }
 
   componentWillUnmount(){
@@ -27,6 +29,10 @@ export default class Principal extends React.Component {
       Dispatcher.principalChanged.removeObserver( this.principalChangedCallback )
     }
     this.principalChangedCallback = undefined
+    if(this.principalDeletedCallback) {
+      Dispatcher.principalDeleted.removeObserver( this.principalDeletedCallback )
+    }
+    this.principalDeletedCallback = undefined
   }
 
   update(principalId) {
@@ -42,7 +48,7 @@ export default class Principal extends React.Component {
     return (
       <div className="card">
         <div className="card-body">
-        <div className="container-fluid">
+          <div className="container-fluid">
             <div className="row">
               <div className="col-xs-8">
                 <Email email={principal.email}/>
@@ -56,6 +62,13 @@ export default class Principal extends React.Component {
               </div>
               <div className="col-xs-6">
                 <Roles roles={principal.roles_selection_list} principalId={principal.id}/>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-xs-6">
+              </div>
+              <div className="col-xs-6">
+                <DeletePrincipal principalId={principal.id}/>
               </div>
             </div>
           </div>
