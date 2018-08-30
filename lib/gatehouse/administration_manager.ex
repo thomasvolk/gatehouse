@@ -1,5 +1,5 @@
 defmodule Gatehouse.AdministrationManager do
-    import Ecto.Changeset, only: [put_change: 3, validate_length: 3]
+    import Ecto.Changeset, only: [put_change: 3, validate_length: 3, put_assoc: 3]
     require Logger
     import Ecto.Query, only: [from: 2]
     alias Gatehouse.Principal
@@ -50,7 +50,7 @@ defmodule Gatehouse.AdministrationManager do
                 else
                     Enum.filter(principal.roles, fn r -> r.id != role.id end)
                 end
-                changeset = Ecto.Changeset.change(principal) |> Ecto.Changeset.put_assoc(:roles, roles)
+                changeset = Ecto.Changeset.change(principal) |> put_assoc(:roles, roles)
                 Repo.update!(changeset)
                 true
             end
@@ -78,7 +78,6 @@ defmodule Gatehouse.AdministrationManager do
                 principal = Repo.get_by(Principal, id: principal_id)
                 if principal != nil do
                     {:ok, _principal} = principal 
-                        |> Repo.preload(:roles)
                         |> Repo.delete
                     true
                 else
@@ -94,7 +93,8 @@ defmodule Gatehouse.AdministrationManager do
         roles = Repo.all(from r in Role, preload: [:principals])
                     |> Enum.map(fn r -> %{id: r.id, 
                                 name: r.name, 
-                                active: r.principals |> Enum.count(fn p -> p.id == String.to_integer(id) end) > 0 } 
+                                active: r.principals 
+                                |> Enum.count(fn p -> p.id == String.to_integer(id) end) > 0 } 
                     end)
         Map.put(principal, :roles_selection_list, roles) 
     end
