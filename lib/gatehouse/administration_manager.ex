@@ -77,6 +77,9 @@ defmodule Gatehouse.AdministrationManager do
             {:ok, success} = Repo.transaction(fn ->
                 principal = Repo.get_by(Principal, id: principal_id)
                 if principal != nil do
+                    principal = principal |> Repo.preload(:roles)
+                    changeset = Ecto.Changeset.change(principal) |> put_assoc(:roles, [])
+                    Repo.update!(changeset)
                     {:ok, _principal} = principal 
                         |> Repo.delete
                     true
