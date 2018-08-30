@@ -6,26 +6,35 @@ function getCSRFToken() {
     return sessionStorage.getItem("csrf-token")
 }
 
+function handleErrors(response) {
+    if (!response.ok) {
+        throw response
+    }
+    return response
+}
+
+function handleRespose(response) {
+    setCSRFToken(response.headers.get("x-csrf-token"))
+    return response.json()
+}
+
 function get(url) {
     return fetch(url)
-        .then(response => {
-            setCSRFToken(response.headers.get("x-csrf-token"))
-            return response.json()
-        })
+        .then(handleErrors)
+        .then(handleRespose)
 }
 
 function sendData(method, url, body) {
     return fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'x-csrf-token': getCSRFToken()
-        },
-        body: JSON.stringify(body)
-    }).then(response => {
-        setCSRFToken(response.headers.get("x-csrf-token"))
-        return response.json()
-    });
+            method: method,
+            headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            'x-csrf-token': getCSRFToken()
+            },
+            body: JSON.stringify(body)
+        })
+        .then(handleErrors)
+        .then(handleRespose)
 }
 
 function put(url, body) {

@@ -6,7 +6,7 @@ export default class CreatePrincipal extends React.Component {
   
   constructor(props) {
     super(props)
-    this.state = { email: "" }
+    this.state = { email: "", errorMessage: undefined }
   }
   
   onCancel() {
@@ -22,13 +22,22 @@ export default class CreatePrincipal extends React.Component {
         { email: this.state.email }).then((principal) => {
           Dispatcher.principalCreated.update(principal.id)
           this.props.close()
+        }).catch((err) => {
+          err.json().then( errorMessage => this.setState({errorMessage: errorMessage.error}) )
         })
+    event.preventDefault();
   }
   
   render() {
+    const errorMessage = this.state.errorMessage
+    let alertBox = <div></div>
+    if(errorMessage) {
+      alertBox = <div class="alert alert-warning" role="alert">{errorMessage}</div>
+    }
     return (
        <div>
          <h2>Create Principal</h2>
+         {alertBox}
          <form onSubmit={(e) => this.handleSubmit(e)}>
          <label htmlFor="password">Password</label>
             <input type="text" id="email" className="form-control" 

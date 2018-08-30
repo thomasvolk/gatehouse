@@ -40,15 +40,15 @@ defmodule GatehouseWeb.AdministrationController do
   end
 
   defp handle_error(conn, [email: {msg, _values}]) do
-    conn |> send_resp(400, msg)
+    conn |> put_status(:bad_request) |> json(%{error: msg})
   end
 
   defp handle_error(conn, [password: {msg, _values}]) do
-    conn |> send_resp(400, msg)
+    conn |> put_status(:bad_request) |> json(%{error: msg})
   end
 
   defp handle_error(conn, _errors) do
-    conn |> send_resp(500, "unkonwn")
+    conn |> put_status(:internal_server_error) |> json(%{error: "unknown error"})
   end
   
 end
