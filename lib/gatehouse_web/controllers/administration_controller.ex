@@ -40,7 +40,9 @@ defmodule GatehouseWeb.AdministrationController do
   end
 
   def delete_principal(conn, %{"principal_id" => principal_id}) do
-    success = AdministrationManager.delete_principal(String.to_integer(principal_id))
+    currnet_principal = Gatehouse.Guardian.Plug.current_resource(conn)  
+    success = AdministrationManager.delete_principal(currnet_principal, 
+                String.to_integer(principal_id))
     json conn, success
   end
 
