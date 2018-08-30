@@ -39,6 +39,11 @@ defmodule GatehouseWeb.AdministrationController do
     end
   end
 
+  def delete_principal(conn, %{"principal_id" => principal_id}) do
+    success = AdministrationManager.delete_principal(String.to_integer(principal_id))
+    json conn, success
+  end
+
   defp handle_error(conn, [email: {msg, _values}]) do
     conn |> put_status(:bad_request) |> json(%{error: msg})
   end

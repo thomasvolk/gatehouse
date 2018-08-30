@@ -69,6 +69,21 @@ defmodule Gatehouse.AdministrationManager do
         end    
     end
 
+    def delete_principal(principal_id) do
+        {:ok, success} = Repo.transaction(fn ->
+            principal = Repo.get_by(Principal, id: principal_id)
+            if principal != nil do
+                {:ok, _principal} = principal 
+                    |> Repo.preload(:roles)
+                    |> Repo.delete
+                true
+            else
+                false
+            end
+        end)
+        success
+    end
+
     def principal_with_roles_selection_list(id) do
         principal = map_principal(Repo.get_by(Principal, id: id))
         roles = Repo.all(from r in Role, preload: [:principals])

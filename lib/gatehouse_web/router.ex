@@ -51,6 +51,7 @@ defmodule GatehouseWeb.Router do
           put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
           put    "/principal/:principal_id/password", AdministrationController, :update_password
           post   "/principal", AdministrationController, :create_principal
+          delete "/principal/:principal_id", AdministrationController, :delete_principal
         end
 
       end
