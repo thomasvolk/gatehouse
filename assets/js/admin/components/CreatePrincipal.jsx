@@ -1,6 +1,7 @@
 import React from "react"
 import Server from "../server"
 import Dispatcher from "../dispatcher"
+import AlertBox from "./AlertBox"
 
 export default class CreatePrincipal extends React.Component {
   
@@ -30,14 +31,11 @@ export default class CreatePrincipal extends React.Component {
   
   render() {
     const errorMessage = this.state.errorMessage
-    let alertBox = <div></div>
-    if(errorMessage) {
-      alertBox = <div class="alert alert-warning" role="alert">{errorMessage}</div>
-    }
     return (
+      <div>
+      <AlertBox errorMessage={errorMessage}/>
        <div>
          <h2>Create Principal</h2>
-         {alertBox}
          <form onSubmit={(e) => this.handleSubmit(e)}>
          <label htmlFor="password">Password</label>
             <input type="text" id="email" className="form-control" 
@@ -47,6 +45,7 @@ export default class CreatePrincipal extends React.Component {
               onClick={() => this.onCancel()}>Cancel</button>
             <button type="submit" className="btn btn-primary">Create</button>
          </form>
+       </div>
        </div>
       )
   }
