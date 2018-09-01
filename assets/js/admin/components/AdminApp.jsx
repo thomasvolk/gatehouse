@@ -4,6 +4,7 @@ import T from 'i18n-react'
 import PrincipalList from "./PrincipalList"
 import CreatePrincipal from "./CreatePrincipal"
 import Principal from "./Principal"
+import AlertBox from "./AlertBox"
 
 export default class AdminApp extends React.Component {
   constructor(props) {
@@ -21,6 +22,8 @@ export default class AdminApp extends React.Component {
 
   renderPrincipalList() {
     return (
+      <div>
+        <AlertBox/>
         <div className="container-fluid">
           <div className="row">
             <div className="col-xs-4">
@@ -35,12 +38,18 @@ export default class AdminApp extends React.Component {
             </div>
           </div>
         </div>
+      </div>
     )
   }
 
   renderCreatePrincipal() {
     return (
-      <CreatePrincipal close={() => this.onCloseCreatePrincipal()}/>
+      <div>
+        <AlertBox/>
+        <div>
+          <CreatePrincipal close={() => this.onCloseCreatePrincipal()}/>
+        </div>
+      </div>
     )
   }
 

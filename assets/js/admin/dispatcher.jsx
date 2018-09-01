@@ -24,5 +24,6 @@ export default {
     principalSelected: new Observable(),
     principalChanged: new Observable(),
     principalCreated: new Observable(),
-    principalDeleted: new Observable()
+    principalDeleted: new Observable(),
+    onError: new Observable()
 }
