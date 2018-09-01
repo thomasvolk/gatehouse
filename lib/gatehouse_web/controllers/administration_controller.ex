@@ -1,12 +1,14 @@
 defmodule GatehouseWeb.AdministrationController do
   use GatehouseWeb, :controller
   alias Gatehouse.AdministrationManager
+  require Logger
 
   def index(conn, _params) do
     render conn, "index.html", layout: {GatehouseWeb.LayoutView, "administration.html"}
   end
 
   def principal_list(conn, _params) do
+    Logger.info("######################### #{inspect(conn)}")
     principals = AdministrationManager.get_principals()
     json conn, principals
   end
