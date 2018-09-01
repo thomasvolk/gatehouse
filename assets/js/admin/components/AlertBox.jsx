@@ -8,7 +8,11 @@ export default class AlertBox extends React.Component {
     }
 
     componentDidMount() {
-        this.onErrorCallback = Dispatcher.onError.addObserver((message) => this.setState({errorMessage: message}))
+        this.onErrorCallback = Dispatcher.onError.addObserver((message) => this.update(message))
+    }
+
+    update(message) {
+        this.setState({errorMessage: message})
     }
 
     componentWillUnmount(){

@@ -21,6 +21,7 @@ function handleErrors(response) {
         }
         throw response
     }
+    Dispatcher.onError.update(undefined)
     return response
 }
 
