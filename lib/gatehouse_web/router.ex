@@ -14,8 +14,8 @@ defmodule GatehouseWeb.Router do
     plug Gatehouse.CurrentSession
   end
 
-  pipeline :admin_role do
-    plug GatehouseWeb.AdminAccessPlug
+  pipeline :administration do
+    plug GatehouseWeb.AdminAccessPlug, redirect: "/"
     plug GatehouseWeb.CSRFToken
   end
 
@@ -44,7 +44,7 @@ defmodule GatehouseWeb.Router do
       get    "/logout",   SessionController, :delete
 
       scope "/administration" do
-        pipe_through [:admin_role]
+        pipe_through [:administration]
         get    "/",           AdministrationController, :index
       end
 

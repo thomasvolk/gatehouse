@@ -17,7 +17,7 @@ defmodule Gatehouse.AdministrationManager do
     end
 
     def is_admin(principal) do
-        Enum.find(principal.roles, &Role.is_admin_role/1)
+        Enum.find(principal.roles, &Role.is_admin_role/1) != nil
     end
 
     def update_password(principal_id, password) do

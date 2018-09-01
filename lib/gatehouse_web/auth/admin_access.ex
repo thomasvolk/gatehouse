@@ -6,14 +6,19 @@ defmodule GatehouseWeb.AdminAccessPlug do
 
   def init(opts), do: opts
 
-  def call(conn, _opts) do
+  def call(conn, opts) do
     principal = current_resource(conn)
-    case Gatehouse.AdministrationManager.is_admin(principal) do
-      nil -> conn
-          |> put_flash(:error, gettext "Not allowed!")
-          |> redirect(to: "/")
-          |> halt()
-      _ -> conn
+    is_admin = Gatehouse.AdministrationManager.is_admin(principal)
+    case {is_admin, opts} do
+      {false, [redirect: path]} -> conn
+                                    |> put_flash(:error, gettext "Not allowed!")
+                                    |> redirect(to: path)
+                                    |> halt()
+      {false, [redirect: path]} -> conn
+                                    |> put_status(:forbidden) 
+                                    |> json(%{error: "Forbidden"})
+                                    |> halt()
+      {true, _}                 -> conn
     end
   end
 
