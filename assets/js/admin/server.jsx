@@ -1,3 +1,5 @@
+import Dispatcher from "./dispatcher"
+
 const BASE_PATH = "/api"
 
 function url(path) {
@@ -14,6 +16,9 @@ function getCSRFToken() {
 
 function handleErrors(response) {
     if (!response.ok) {
+        if(response.status == 401 || response.status == 403) {
+            Dispatcher.onError.update("Unauthorized!")
+        }
         throw response
     }
     return response
