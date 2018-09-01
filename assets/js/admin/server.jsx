@@ -1,3 +1,9 @@
+const BASE_PATH = "/api"
+
+function url(path) {
+    return `${BASE_PATH}/${path}`
+}
+
 function setCSRFToken(token) {
     sessionStorage.setItem("csrf-token", token)
 }
@@ -18,14 +24,14 @@ function handleRespose(response) {
     return response.json()
 }
 
-function get(url) {
-    return fetch(url)
+function get(path) {
+    return fetch(url(path))
         .then(handleErrors)
         .then(handleRespose)
 }
 
-function sendData(method, url, body) {
-    return fetch(url, {
+function sendData(method, path, body) {
+    return fetch(url(path), {
             method: method,
             headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -37,16 +43,16 @@ function sendData(method, url, body) {
         .then(handleRespose)
 }
 
-function put(url, body) {
-    return sendData('PUT', url, body)
+function put(path, body) {
+    return sendData('PUT', path, body)
 }
 
-function post(url, body) {
-    return sendData('POST', url, body)
+function post(path, body) {
+    return sendData('POST', path, body)
 }
 
-function del(url) {
-    return fetch(url, {
+function del(path) {
+    return fetch(url(path), {
         method: "DELETE",
         headers: {
         'Content-Type': 'application/json; charset=utf-8',

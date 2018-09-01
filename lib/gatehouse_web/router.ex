@@ -22,6 +22,8 @@ defmodule GatehouseWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug GatehouseWeb.AdminAccessPlug
+    plug GatehouseWeb.CSRFToken
   end
 
   scope "/", GatehouseWeb do
@@ -44,16 +46,16 @@ defmodule GatehouseWeb.Router do
       scope "/administration" do
         pipe_through [:admin_role]
         get    "/",           AdministrationController, :index
-        
-        scope "/api" do
-          get    "/principal",      AdministrationController, :principal_list
-          get    "/principal/:id/roles_selection_list",  AdministrationController, :principal_with_roles_selection_list
-          put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
-          put    "/principal/:principal_id/password", AdministrationController, :update_password
-          post   "/principal", AdministrationController, :create_principal
-          delete "/principal/:principal_id", AdministrationController, :delete_principal
-        end
+      end
 
+      scope "/api" do
+        pipe_through [:api]
+        get    "/principal",      AdministrationController, :principal_list
+        get    "/principal/:id/roles_selection_list",  AdministrationController, :principal_with_roles_selection_list
+        put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
+        put    "/principal/:principal_id/password", AdministrationController, :update_password
+        post   "/principal", AdministrationController, :create_principal
+        delete "/principal/:principal_id", AdministrationController, :delete_principal
       end
 
     end

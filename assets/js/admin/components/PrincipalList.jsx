@@ -11,7 +11,7 @@ export default class PrincipalList extends React.Component {
   }
 
   loadList() {
-    server.get('/administration/api/principal').then( principals => {
+    server.get('principal').then( principals => {
       if(this.mounted) {
         this.setState({ principals: principals })
       }

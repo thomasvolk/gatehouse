@@ -36,7 +36,7 @@ export default class Principal extends React.Component {
   }
 
   update(principalId) {
-    server.get(`/administration/api/principal/${principalId}/roles_selection_list`).then( 
+    server.get(`principal/${principalId}/roles_selection_list`).then( 
       principal => {
       if(this.principalSelectedCallback) {
         this.setState({ principal: principal })

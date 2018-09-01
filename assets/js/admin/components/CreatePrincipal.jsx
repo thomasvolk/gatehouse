@@ -19,7 +19,7 @@ export default class CreatePrincipal extends React.Component {
   }
 
   handleSubmit(event) {
-    Server.post(`/administration/api/principal`, 
+    Server.post(`principal`, 
         { email: this.state.email }).then((principal) => {
           Dispatcher.principalCreated.update(principal.id)
           this.props.close()

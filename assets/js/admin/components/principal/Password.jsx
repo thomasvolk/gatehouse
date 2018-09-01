@@ -29,7 +29,7 @@ export default class Password extends React.Component {
     }
     else if(this.state.password == this.state.passwordRepeat 
        && this.state.password.length >= MIN_PASSWORD_LENGTH) {
-      Server.put(`/administration/api/principal/${this.props.principalId}/password`, 
+      Server.put(`principal/${this.props.principalId}/password`, 
         { password: this.state.password }).catch((err) => {
           err.json().then( errorMessage => this.setState({errorMessage: errorMessage.error}) )
         })

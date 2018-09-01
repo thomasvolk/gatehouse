@@ -18,7 +18,7 @@ export default class DeletePrincipal extends React.Component {
     }
 
     onCommit() {
-      Server.del(`/administration/api/principal/${this.props.principalId}`).then((response) => {
+      Server.del(`principal/${this.props.principalId}`).then((response) => {
         this.setState({ deleteRequest : false })
         Dispatcher.principalDeleted.update(this.props.principalId)
       })
