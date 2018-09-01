@@ -1,7 +1,6 @@
 defmodule GatehouseWeb.GuardianErrorHandler do
   import GatehouseWeb.Router.Helpers
   import GatehouseWeb.Gettext
-  require Logger
 
   def auth_error(conn, {type, _reason}, _opts) do
     redirect(conn, gettext("an error occured: %{type}", type: to_string(type)))
@@ -12,7 +11,6 @@ defmodule GatehouseWeb.GuardianErrorHandler do
   end
 
   defp redirect(conn, message) do
-    Logger.info("######################### #{inspect(conn)}")
     conn
     |> Phoenix.Controller.put_flash(:error, message)
     |> Phoenix.Controller.redirect(to: session_path(conn, :error))
