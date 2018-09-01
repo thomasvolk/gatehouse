@@ -3,23 +3,29 @@ defmodule GatehouseWeb.AdminAccessPlug do
   import Guardian.Plug
   import Phoenix.Controller
   import GatehouseWeb.Gettext
-
+  
   def init(opts), do: opts
 
   def call(conn, opts) do
     principal = current_resource(conn)
     is_admin = Gatehouse.AdministrationManager.is_admin(principal)
-    case {is_admin, opts} do
-      {false, [redirect: path]} -> conn
-                                    |> put_flash(:error, gettext "Not allowed!")
-                                    |> redirect(to: path)
-                                    |> halt()
-      {false, [redirect: path]} -> conn
-                                    |> put_status(:forbidden) 
-                                    |> json(%{error: "Forbidden"})
-                                    |> halt()
-      {true, _}                 -> conn
-    end
+    conn |> handle_request(is_admin, opts)
+  end
+
+  defp handle_request(conn, false, [redirect: path]) do
+    conn
+      |> put_flash(:error, gettext "Not allowed!")
+      |> redirect(to: path)
+      |> halt()
+  end
+
+  defp handle_request(conn, true, _opts), do: conn
+
+  defp handle_request(conn, _is_admin, _opts) do
+    conn
+      |> put_status(:forbidden) 
+      |> json(%{error: "Forbidden"})
+      |> halt()
   end
 
 end
