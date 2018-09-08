@@ -36,7 +36,7 @@ export default class Principal extends React.Component {
   }
 
   update(principalId) {
-    server.get(`principal/${principalId}/roles_selection_list`).then( 
+    server.get(`principal/${principalId}`).then( 
       principal => {
       if(this.principalSelectedCallback) {
         this.setState({ principal: principal })
@@ -61,7 +61,7 @@ export default class Principal extends React.Component {
                 <Password principalId={principal.id}/>
               </div>
               <div className="col-xs-6">
-                <Roles roles={principal.roles_selection_list} principalId={principal.id}/>
+                <Roles roles={principal.roles} principalId={principal.id}/>
               </div>
             </div>
             <div className="row">

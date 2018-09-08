@@ -1,19 +1,12 @@
 defmodule Gatehouse.AdministrationManager do
     import Ecto.Changeset, only: [put_change: 3, validate_length: 3, put_assoc: 3]
     require Logger
-    import Ecto.Query, only: [from: 2]
     alias Gatehouse.Principal
     alias Gatehouse.Role
     alias Gatehouse.Repo
 
-    defp map_principal(p) do
-        %{ id: p.id, 
-            email: p.email
-         } 
-    end
-
     def get_principals() do
-        Repo.all(Principal) |> Enum.map(&map_principal/1)
+        Repo.all(Principal) |> Enum.map(fn (p) -> %{ id: p.id, email: p.email } end)
     end
 
     def is_admin(principal) do
@@ -64,7 +57,7 @@ defmodule Gatehouse.AdministrationManager do
         case changeset
                 |> put_change(:crypted_password, Principal.pwhash(changeset.params["password"]))
                 |> Repo.insert() do
-            {:ok, principal} -> {:ok, map_principal(principal) |> Map.put("password", password) }
+            {:ok, principal} -> {:ok,  %{ id: principal.id, email: principal.email, password: password } }
             {:error, %{ errors: errors }}  -> {:error, errors}
         end    
     end
@@ -91,15 +84,13 @@ defmodule Gatehouse.AdministrationManager do
         end
     end
 
-    def principal_with_roles_selection_list(id) do
-        principal = map_principal(Repo.get_by(Principal, id: id))
-        roles = Repo.all(from r in Role, preload: [:principals])
-                    |> Enum.map(fn r -> %{id: r.id, 
-                                name: r.name, 
-                                active: r.principals 
-                                |> Enum.count(fn p -> p.id == String.to_integer(id) end) > 0 } 
-                    end)
-        Map.put(principal, :roles_selection_list, roles) 
+    def get_principal(id) do
+        principal = Repo.get_by(Principal, id: id) |> Repo.preload(:roles)
+        %{ 
+            id: principal.id, 
+            email: principal.email,
+            roles: principal.roles |> Enum.map(fn (r) -> %{id: r.id, name: r.name } end)
+        }
     end
 
     def generate_random_password(length \\ 16), do: RandomBytes.base62(length)

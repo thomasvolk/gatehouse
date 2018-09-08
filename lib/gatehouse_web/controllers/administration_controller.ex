@@ -11,8 +11,8 @@ defmodule GatehouseWeb.AdministrationController do
     json conn, principals
   end
 
-  def principal_with_roles_selection_list(conn, %{"id" => id} = _params) do
-    principal = AdministrationManager.principal_with_roles_selection_list(id)
+  def get_principal(conn, %{"principal_id" => principal_id} = _params) do
+    principal = AdministrationManager.get_principal(principal_id)
     json conn, principal
   end
 

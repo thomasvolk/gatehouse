@@ -15,13 +15,11 @@ export default class Roles extends React.Component {
     const principalId = this.props.principalId
     return (
       <div>
+        <label>Roles</label>
         <ul className="list-group">
           {roles.map(r => <li className="list-group-item"
                key={r.id}>
-            <input className="form-check-input" type="checkbox" checked={r.active} onChange={() => this.onChange(r.id, !r.active)}/>
-            <label className="form-check-label">
-               {r.name}
-            </label>    
+               {r.name}    
           </li>)}
         </ul>
       </div>
