@@ -26,7 +26,13 @@ export default class Roles extends React.Component {
     this.mounted = false;
   }
 
-  onChange(event) {
+  onRemoveRole(rid) {
+    Server.put(`principal/${this.props.principalId}/role/${rid}`, 
+      { active: false })
+    Dispatcher.principalChanged.update(this.props.principalId)
+  }
+
+  onAddRole(event) {
     const rid = event.target.value
     Server.put(`principal/${this.props.principalId}/role/${rid}`, 
       { active: true })
@@ -44,10 +50,13 @@ export default class Roles extends React.Component {
         <ul className="list-group">
           {roles.map(r => <li className="list-group-item"
                key={r.id}>
-               {r.name}    
+               <span>{r.name}</span>
+               <button type="button" 
+                  onClick={(e) => this.onRemoveRole(r.id)}
+                  className="btn btn-secondary btn-sm">x</button>    
           </li>)}
         </ul>
-        <select value={UNSELECTED} onChange={(e) => this.onChange(e)} className="form-control form-control-sm">
+        <select value={UNSELECTED} onChange={(e) => this.onAddRole(e)} className="form-control form-control-sm">
         <option value={UNSELECTED}></option>
         {allRoles.map(r =>
           <option key={r.id} value={r.id}>{r.name}</option>
