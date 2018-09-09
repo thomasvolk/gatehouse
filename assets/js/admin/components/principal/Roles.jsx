@@ -26,13 +26,15 @@ export default class Roles extends React.Component {
     this.mounted = false;
   }
 
-  onChange(rid, newState) {
+  onChange(event) {
+    const rid = event.target.value
     Server.put(`principal/${this.props.principalId}/role/${rid}`, 
-      { active: newState })
+      { active: true })
     Dispatcher.principalChanged.update(this.props.principalId)
   }
 
   render() {
+    const UNSELECTED = "UNSELECTED"
     const allRoles = this.state.roles
     const roles = this.props.roles
     const principalId = this.props.principalId
@@ -45,10 +47,10 @@ export default class Roles extends React.Component {
                {r.name}    
           </li>)}
         </ul>
-        <select className="form-control form-control-sm">
-        <option selected></option>
+        <select value={UNSELECTED} onChange={(e) => this.onChange(e)} className="form-control form-control-sm">
+        <option value={UNSELECTED}></option>
         {allRoles.map(r =>
-          <option>{r.name}</option>
+          <option key={r.id} value={r.id}>{r.name}</option>
         )}
         </select>
       </div>
