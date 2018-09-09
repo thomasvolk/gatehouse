@@ -4,6 +4,28 @@ import Dispatcher from "../../dispatcher"
 
 export default class Roles extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.state = { roles: [] }
+  }
+
+  componentDidMount() {
+    this.mounted = true;
+    this.loadRoles()
+  }
+
+  loadRoles() {
+    Server.get('role').then( roles => {
+      if(this.mounted) {
+        this.setState({ roles: roles })
+      }
+    })
+  }
+
+  componentWillUnmount(){
+    this.mounted = false;
+  }
+
   onChange(rid, newState) {
     Server.put(`principal/${this.props.principalId}/role/${rid}`, 
       { active: newState })
@@ -11,6 +33,7 @@ export default class Roles extends React.Component {
   }
 
   render() {
+    const allRoles = this.state.roles
     const roles = this.props.roles
     const principalId = this.props.principalId
     return (
@@ -22,6 +45,12 @@ export default class Roles extends React.Component {
                {r.name}    
           </li>)}
         </ul>
+        <select className="form-control form-control-sm">
+        <option selected></option>
+        {allRoles.map(r =>
+          <option>{r.name}</option>
+        )}
+        </select>
       </div>
     )
   }

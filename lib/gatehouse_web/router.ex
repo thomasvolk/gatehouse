@@ -59,12 +59,13 @@ defmodule GatehouseWeb.Router do
 
   scope "/api", GatehouseWeb do
     pipe_through [:api]
-    get    "/principal",      AdministrationController, :principal_list
+    get    "/principal",      AdministrationController, :get_principals
     get    "/principal/:principal_id",  AdministrationController, :get_principal
     put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
     put    "/principal/:principal_id/password", AdministrationController, :update_password
     post   "/principal", AdministrationController, :create_principal
     delete "/principal/:principal_id", AdministrationController, :delete_principal
+    get    "/role", AdministrationController, :get_roles
   end
 
 end

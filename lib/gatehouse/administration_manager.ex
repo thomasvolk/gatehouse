@@ -39,7 +39,7 @@ defmodule Gatehouse.AdministrationManager do
                 principal = Repo.get_by(Principal, id: principal_id)
                 principal = principal |> Repo.preload(:roles)
                 roles = if active do
-                    Enum.concat(principal.roles, [role])
+                    Enum.concat(principal.roles, [role]) |> Enum.uniq
                 else
                     Enum.filter(principal.roles, fn r -> r.id != role.id end)
                 end
@@ -49,6 +49,10 @@ defmodule Gatehouse.AdministrationManager do
             end
         end)
         success
+    end
+
+    def get_roles() do
+        Repo.all(Role) |> Enum.map(fn (r) -> %{ id: r.id, name: r.name } end)
     end
 
     def create_principal(email) do

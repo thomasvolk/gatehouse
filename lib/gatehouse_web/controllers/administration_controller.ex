@@ -6,7 +6,7 @@ defmodule GatehouseWeb.AdministrationController do
     render conn, "index.html", layout: {GatehouseWeb.LayoutView, "administration.html"}
   end
 
-  def principal_list(conn, _params) do
+  def get_principals(conn, _params) do
     principals = AdministrationManager.get_principals()
     json conn, principals
   end
@@ -44,6 +44,10 @@ defmodule GatehouseWeb.AdministrationController do
     success = AdministrationManager.delete_principal(currnet_principal, 
                 String.to_integer(principal_id))
     json conn, success
+  end
+
+  def get_roles(conn, _params) do
+    json conn, AdministrationManager.get_roles()
   end
 
   defp handle_error(conn, [email: {msg, _values}]) do
