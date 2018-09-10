@@ -48,6 +48,11 @@ defmodule GatehouseWeb.AdministrationController do
     json conn, success
   end
 
+  def get_roles(conn, %{"notAssignedForPrincipal" => principal_id}) do
+    id = String.to_integer(principal_id)
+    json conn, AdministrationManager.get_roles(:not_assigned_for_principal, id)
+  end
+
   def get_roles(conn, _params) do
     json conn, AdministrationManager.get_roles()
   end

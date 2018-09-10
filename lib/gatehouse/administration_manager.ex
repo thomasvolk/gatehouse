@@ -59,6 +59,15 @@ defmodule Gatehouse.AdministrationManager do
         Repo.all(Role) |> Enum.map(fn (r) -> %{ id: r.id, name: r.name } end)
     end
 
+
+    def get_roles(:not_assigned_for_principal, principal_id) do
+        all_roles = get_roles()
+        principal = Repo.get_by(Principal, id: principal_id) |> Repo.preload(:roles)
+        role_filter = fn(r) -> Enum.find(principal.roles , fn(pr) -> pr.id == r.id end) == nil end
+        all_roles |> Enum.filter( role_filter )
+    end
+
+
     def create_principal(email) do
         password = generate_random_password()
         changeset = Principal.changeset(%Principal{}, %{email: email, password: password})

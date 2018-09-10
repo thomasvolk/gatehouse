@@ -3,14 +3,14 @@ import Email from "./principal/Email"
 import Password from "./principal/Password"
 import Roles from "./principal/Roles"
 import DeletePrincipal from "./principal/DeletePrincipal"
-import server from "../server"
-import Dispatcher from "../dispatcher";
+import Server from "../server"
+import Dispatcher from "../dispatcher"
 
 export default class Principal extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = { principal: undefined }
+    this.state = { principal: undefined, unassignedRoles: [] }
   }
   
   componentDidMount() {
@@ -36,15 +36,20 @@ export default class Principal extends React.Component {
   }
 
   update(principalId) {
-    server.get(`principal/${principalId}`).then( 
+    Server.get(`principal/${principalId}`).then( 
       principal => {
       if(this.principalSelectedCallback) {
         this.setState({ principal: principal })
       }
     })
+    Server.get(`role?notAssignedForPrincipal=${principalId}`).then( roles => {
+      if(this.principalSelectedCallback) {
+        this.setState({ unassignedRoles: roles })
+      }
+    })    
   }
 
-  renderDetails(principal) {
+  renderDetails(principal, unassignedRoles) {
     return (
       <div className="card">
         <div className="card-body">
@@ -61,7 +66,9 @@ export default class Principal extends React.Component {
                 <Password principalId={principal.id}/>
               </div>
               <div className="col-xs-6">
-                <Roles roles={principal.roles} principalId={principal.id}/>
+                <Roles principalId={principal.id}
+                       roles={principal.roles}
+                       unassignedRoles={unassignedRoles}/>
               </div>
             </div>
             <div className="row">
@@ -78,9 +85,10 @@ export default class Principal extends React.Component {
   
   render() {
     const principal = this.state.principal
+    const unassignedRoles = this.state.unassignedRoles
     if(principal === undefined) {
       return (<div></div>)
     }
-    return (this.renderDetails(principal)) 
+    return (this.renderDetails(principal, unassignedRoles)) 
   }
 }
