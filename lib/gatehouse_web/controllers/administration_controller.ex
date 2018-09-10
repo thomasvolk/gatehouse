@@ -1,5 +1,6 @@
 defmodule GatehouseWeb.AdministrationController do
   use GatehouseWeb, :controller
+  import ErrorHandler
   alias Gatehouse.AdministrationManager
 
   def index(conn, _params) do
@@ -49,18 +50,6 @@ defmodule GatehouseWeb.AdministrationController do
 
   def get_roles(conn, _params) do
     json conn, AdministrationManager.get_roles()
-  end
-
-  defp handle_error(conn, [email: {msg, _values}]) do
-    conn |> put_status(:bad_request) |> json(%{error: msg})
-  end
-
-  defp handle_error(conn, [password: {msg, _values}]) do
-    conn |> put_status(:bad_request) |> json(%{error: msg})
-  end
-
-  defp handle_error(conn, _errors) do
-    conn |> put_status(:internal_server_error) |> json(%{error: "unknown error"})
   end
   
 end
