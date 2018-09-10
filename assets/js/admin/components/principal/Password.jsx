@@ -2,8 +2,6 @@ import React from "react"
 import Server from "../../server"
 import Dispatcher from "../../dispatcher"
 
-const MIN_PASSWORD_LENGTH = 8
-
 export default class Password extends React.Component {
   
   constructor(props) {
@@ -19,22 +17,12 @@ export default class Password extends React.Component {
     this.setState({passwordRepeat: event.target.value})
   }
 
-  handleSubmit(event) {
-    if(this.state.password != this.state.passwordRepeat) {
-      Dispatcher.onError.update("passwords do not match!")
-    }
-    else if(this.state.password.length < MIN_PASSWORD_LENGTH) {
-      Dispatcher.onError.update("password must habe 8 characters")
-    }
-    else if(this.state.password == this.state.passwordRepeat 
-       && this.state.password.length >= MIN_PASSWORD_LENGTH) {
-      Server.put(`principal/${this.props.principalId}/password`, 
-        { password: this.state.password }).catch((err) => {
-          err.json().then( errorMessage => Dispatcher.onError.update(errorMessage) )
-        })
-      Dispatcher.principalChanged.update(this.props.principalId)
-      this.setState({password: "", passwordRepeat: ""})
-    }
+  handleSubmit(event) {  
+    Server.put(`principal/${this.props.principalId}/password`, 
+      { password: this.state.password,
+        passwordRepeat: this.state.passwordRepeat })
+    Dispatcher.principalChanged.update(this.props.principalId)
+    this.setState({password: "", passwordRepeat: ""})
     event.preventDefault()
   }
 

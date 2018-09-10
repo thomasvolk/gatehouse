@@ -25,8 +25,9 @@ defmodule GatehouseWeb.AdministrationController do
   end
 
   def update_password(conn, %{"principal_id" => principal_id, 
-                              "password" => password}) do
-    case AdministrationManager.update_password(principal_id, password) do
+                              "password" => password,
+                              "passwordRepeat" => password_repeat}) do
+    case AdministrationManager.update_password(principal_id, password, password_repeat) do
       {:ok, success} -> json conn, success
       {:error, errors} -> handle_error(conn, errors)
     end

@@ -2,7 +2,7 @@ import Dispatcher from "./dispatcher"
 
 const BASE_PATH = "/api"
 
-function url(path) {
+function toUrl(path) {
     return `${BASE_PATH}/${path}`
 }
 
@@ -16,28 +16,34 @@ function getCSRFToken() {
 
 function handleErrors(response) {
     if (!response.ok) {
-        if(response.status == 401 || response.status == 403) {
-            Dispatcher.onError.update("Unauthorized!")
-        }
         throw response
     }
     Dispatcher.onError.update(undefined)
     return response
 }
 
-function handleRespose(response) {
+function setCSRFTokenFromResponse(response) {
     setCSRFToken(response.headers.get("x-csrf-token"))
+    return response
+}
+
+function getJsonBody(response) {
     return response.json()
 }
 
-function get(path) {
-    return fetch(url(path))
+function request(path, data = undefined) {
+    const url = toUrl(path)
+    return fetch(url, data)
+        .then(setCSRFTokenFromResponse)
         .then(handleErrors)
-        .then(handleRespose)
-}
+        .then(getJsonBody)
+        .catch( (response) => {
+            response.json().then((resp) => Dispatcher.onError.update(resp.error)) 
+        } )
+} 
 
 function sendData(method, path, body) {
-    return fetch(url(path), {
+    return request(path, {
             method: method,
             headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -45,8 +51,10 @@ function sendData(method, path, body) {
             },
             body: JSON.stringify(body)
         })
-        .then(handleErrors)
-        .then(handleRespose)
+}
+
+function get(path) {
+    return request(path)
 }
 
 function put(path, body) {
@@ -58,15 +66,13 @@ function post(path, body) {
 }
 
 function del(path) {
-    return fetch(url(path), {
+    return request(path, {
         method: "DELETE",
         headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'x-csrf-token': getCSRFToken()
         }
     })
-    .then(handleErrors)
-    .then(handleRespose)
 }
 
 export default {
