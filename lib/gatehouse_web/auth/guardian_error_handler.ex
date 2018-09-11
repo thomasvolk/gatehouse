@@ -1,5 +1,4 @@
 defmodule GatehouseWeb.GuardianErrorHandler do
-  import GatehouseWeb.Router.Helpers
   import GatehouseWeb.Gettext
   import Phoenix.Controller
   import Plug.Conn
@@ -15,11 +14,12 @@ defmodule GatehouseWeb.GuardianErrorHandler do
   end
 
   defp handle_error(conn, message) do
-    [ root | _ ] = conn.path_info
-    if root == to_string(@api_root_path) do
-      send_unauthorized(conn, message)
-    else
-      send_redirect(conn, message)
+    api_root_path = to_string(@api_root_path)
+    case conn.path_info do
+      [ root | _ ] when root == api_root_path -> 
+          send_unauthorized(conn, message)
+      _ ->
+          send_redirect(conn, message)
     end
   end
 
@@ -33,6 +33,6 @@ defmodule GatehouseWeb.GuardianErrorHandler do
   defp send_redirect(conn, message) do
     conn
       |> put_flash(:error, message)
-      |> redirect(to: session_path(conn, :error))
+      |> redirect(to: "/login")
   end
 end

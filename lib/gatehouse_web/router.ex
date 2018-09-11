@@ -15,7 +15,7 @@ defmodule GatehouseWeb.Router do
   end
 
   pipeline :administration do
-    plug GatehouseWeb.AdminAccessPlug, redirect: "/"
+    plug GatehouseWeb.AdminAccessPlug, redirect: "/login"
     plug GatehouseWeb.CSRFToken
   end
 
@@ -34,17 +34,16 @@ defmodule GatehouseWeb.Router do
   scope "/", GatehouseWeb do
     pipe_through [:browser]
 
-    get    "/",              SessionController, :index
+    get    "/login",         SessionController, :login
     get    "/create_admin",  CreateAdminController, :index
     post   "/create_admin",  CreateAdminController, :create
-    get    "/error",         SessionController, :error
     post   "/login",         SessionController, :create
 
     scope "/" do
       pipe_through [:login_required]
 
+      get    "/",         SessionController, :index
       get    "/goto",     SessionController, :goto
-      get    "/session",  SessionController, :session
       delete "/logout",   SessionController, :delete
       get    "/logout",   SessionController, :delete
 

@@ -5,25 +5,25 @@ defmodule GatehouseWeb.SessionController do
   alias Gatehouse.AdministrationManager
   alias Gatehouse.Session
 
-  def index(conn, %{ "target" => target }) do
+  def login(conn, %{ "target" => target }) do
     if CreateAdminManager.has_admin() do
-      render conn, "index.html", target: target
+      render conn, "login.html", target: target
     else
       conn |> redirect(to: "/create_admin")
     end
   end
 
-  def index(conn, params) do
-    index conn, Map.put(params, "target", "/session" )
+  def login(conn, params) do
+    login conn, Map.put(params, "target", "/" )
   end
 
-  def session(conn, %{ "access_token" => token }) do
+  def index(conn, %{ "access_token" => token }) do
     {:ok, claims} = Gatehouse.Guardian.decode_and_verify(token)
     currnet_principal = Gatehouse.Guardian.Plug.current_resource(conn)  
     render conn, "session_with_token.html", claims: inspect(claims), is_admin: AdministrationManager.is_admin(currnet_principal)
   end
 
-  def session(conn, _params) do
+  def index(conn, _params) do
     currnet_principal = Gatehouse.Guardian.Plug.current_resource(conn)  
     render conn, "session.html", is_admin: AdministrationManager.is_admin(currnet_principal)
   end
@@ -53,11 +53,7 @@ defmodule GatehouseWeb.SessionController do
     conn
     |> Gatehouse.Guardian.Plug.sign_out()
     |> put_flash(:info, gettext("Logged out"))
-    |> redirect(to: "/")
-  end
-
-  def error(conn, params) do
-    index conn, params
+    |> redirect(to: "/login")
   end
 
 end
