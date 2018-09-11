@@ -26,22 +26,22 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
+### test
+
+Start the integrationtest application:
+
+    ./test/webserver.py
+
+Open the url [`localhost:8000`](http://localhost:8000) from your browser.
+
+ATTENTION: Use the 'dev' environment for testing only!
+
 ### create migration script
 
 If you change the database model, you have to create a migration script:
 
     mix ecto.gen.migration {{ my_change_description }}
     mix ecto.migrate
-
-### test
-
-Start the integrationtest application:
-
-    ./integration-test/webserver.py
-
-Open the url [`localhost:8000`](http://localhost:8000) from your browser.
-
-ATTENTION: Use the 'dev' environment for testing only!
 
 ## release
 
