@@ -20,7 +20,12 @@ defmodule GatehouseWeb.SessionController do
   def session(conn, %{ "access_token" => token }) do
     {:ok, claims} = Gatehouse.Guardian.decode_and_verify(token)
     currnet_principal = Gatehouse.Guardian.Plug.current_resource(conn)  
-    render conn, "session.html", claims: inspect(claims), is_admin: AdministrationManager.is_admin(currnet_principal)
+    render conn, "session_with_token.html", claims: inspect(claims), is_admin: AdministrationManager.is_admin(currnet_principal)
+  end
+
+  def session(conn, _params) do
+    currnet_principal = Gatehouse.Guardian.Plug.current_resource(conn)  
+    render conn, "session.html", is_admin: AdministrationManager.is_admin(currnet_principal)
   end
 
   def goto(conn, %{"target" => target}) do

@@ -16,4 +16,11 @@
     <textarea rows="4" cols="30"><%= @session.token %></textarea>
     </div>
   </div>
+
+  <div>
+    <label><%= gettext "Decoded token form URL" %>: </label>
+    <div>
+    <textarea rows="4" cols="30"><%= @claims %></textarea>
+    </div>
+  </div>
 </p>
