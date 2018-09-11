@@ -42,29 +42,27 @@ defmodule GatehouseWeb.Router do
     scope "/" do
       pipe_through [:login_required]
 
-      get    "/",         SessionController, :index
-      get    "/goto",     SessionController, :goto
-      delete "/logout",   SessionController, :delete
-      get    "/logout",   SessionController, :delete
+      get    "/",                                     SessionController, :index
+      get    "/goto",                                 SessionController, :goto
+      delete "/logout",                               SessionController, :delete
+      get    "/logout",                               SessionController, :delete
 
       scope "/administration" do
         pipe_through [:administration]
-        get    "/",           AdministrationController, :index
+        get    "/",                                   AdministrationController, :index
       end
-
     end
-
   end
 
   scope "/api", GatehouseWeb do
     pipe_through [:api]
-    get    "/principal",      AdministrationController, :get_principals
-    get    "/principal/:principal_id",  AdministrationController, :get_principal
+    get    "/principal",                              AdministrationController, :get_principals
+    get    "/principal/:principal_id",                AdministrationController, :get_principal
     put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
-    put    "/principal/:principal_id/password", AdministrationController, :update_password
-    post   "/principal", AdministrationController, :create_principal
-    delete "/principal/:principal_id", AdministrationController, :delete_principal
-    get    "/role", AdministrationController, :get_roles
+    put    "/principal/:principal_id/password",       AdministrationController, :update_password
+    post   "/principal",                              AdministrationController, :create_principal
+    delete "/principal/:principal_id",                AdministrationController, :delete_principal
+    get    "/role",                                   AdministrationController, :get_roles
   end
 
 end

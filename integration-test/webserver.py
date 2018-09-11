@@ -4,17 +4,18 @@ import re, sys
 from http import cookies
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
-from jwt.exceptions import InvalidTokenError
 try:
     import jwt
+    from jwt.exceptions import InvalidTokenError
 except ImportError:
     print("ERROR: JWT library not found, install pyjwt")
     print("    pip3 install pyjwt")
     sys.exit(1)
+
 JWT_SECRET="dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8"
-AUDIENCE='Gatehouse.prod'
+AUDIENCE='Gatehouse'
 ISSUER='Gatehouse'
-URL='http://0.0.0.0:4000'
+URL='http://0.0.0.0:4000/login'
 
 class Token(object):
     @staticmethod
@@ -77,6 +78,7 @@ class TestRequestHandler(SimpleHTTPRequestHandler):
 
 def run(server_class=HTTPServer, handler_class=TestRequestHandler):
     server_address = ('0.0.0.0', 8000)
+    print("open http://%s:%s" % server_address)
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
 
