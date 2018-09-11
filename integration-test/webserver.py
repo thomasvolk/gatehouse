@@ -15,7 +15,7 @@ except ImportError:
 JWT_SECRET="dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8"
 AUDIENCE='Gatehouse'
 ISSUER='Gatehouse'
-URL='http://0.0.0.0:4000/login'
+URL='http://0.0.0.0:4000'
 
 class Token(object):
     @staticmethod

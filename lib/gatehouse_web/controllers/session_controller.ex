@@ -2,7 +2,6 @@ defmodule GatehouseWeb.SessionController do
   use GatehouseWeb, :controller
   alias Gatehouse.Target
   alias Gatehouse.CreateAdminManager
-  alias Gatehouse.AdministrationManager
   alias Gatehouse.Session
 
   def login(conn, %{ "target" => target }) do
@@ -15,6 +14,10 @@ defmodule GatehouseWeb.SessionController do
 
   def login(conn, params) do
     login conn, Map.put(params, "target", "/" )
+  end
+
+  def index(conn, %{ "target" => target }) do
+    conn |> redirect(to: "/goto?target=#{target}")  
   end
 
   def index(conn, %{ "access_token" => token }) do

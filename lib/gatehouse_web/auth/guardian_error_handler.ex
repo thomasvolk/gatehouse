@@ -2,7 +2,6 @@ defmodule GatehouseWeb.GuardianErrorHandler do
   import GatehouseWeb.Gettext
   import Phoenix.Controller
   import Plug.Conn
-
   @api_root_path :api
 
   def auth_error(conn, {type, _reason}, _opts) do
@@ -31,8 +30,13 @@ defmodule GatehouseWeb.GuardianErrorHandler do
   end
 
   defp send_redirect(conn, message) do
+    parameter = case conn.query_string do
+      "" -> ""
+      query -> "?#{query}"
+      _ -> ""
+    end
     conn
       |> put_flash(:error, message)
-      |> redirect(to: "/login")
+      |> redirect(to: "/login#{parameter}"  )
   end
 end
