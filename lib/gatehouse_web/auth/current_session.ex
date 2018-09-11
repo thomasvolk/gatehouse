@@ -6,8 +6,10 @@ defmodule Gatehouse.CurrentSession do
 
   def call(conn, _opts) do
     principal = current_resource(conn)
+    is_admin = Gatehouse.AdministrationManager.is_admin(principal)
     {:ok, token, _claims} = Gatehouse.Guardian.encode_and_sign(principal)
-    assign(conn, :session, %{ principal: principal, token: token })
+    conn |> assign(:is_admin, is_admin) 
+         |> assign(:session, %{ principal: principal, token: token })
   end
 
   def token(conn) do
