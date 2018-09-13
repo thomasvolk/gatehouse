@@ -33,7 +33,7 @@ defmodule GatehouseWeb.Router do
 
   pipeline :test_api do
     plug :accepts, ["json"]
-    plug Guardian.Plug.VerifyHeader, module: Gatehouse.Guardian, claims: %{"typ" => "access"}
+    plug Guardian.Plug.VerifyHeader, module: Gatehouse.Guardian, error_handler: GatehouseWeb.GuardianErrorHandler, claims: %{"typ" => "access"}
     plug Guardian.Plug.EnsureAuthenticated, module: Gatehouse.Guardian, error_handler: GatehouseWeb.GuardianErrorHandler
   end
 
