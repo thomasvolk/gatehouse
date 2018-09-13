@@ -1,6 +1,6 @@
 import Dispatcher from "./dispatcher"
 
-const BASE_PATH = "/api"
+const BASE_PATH = "/api/admin"
 
 function toUrl(path) {
     return `${BASE_PATH}/${path}`

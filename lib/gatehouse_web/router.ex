@@ -19,7 +19,7 @@ defmodule GatehouseWeb.Router do
     plug GatehouseWeb.CSRFToken
   end
 
-  pipeline :api do
+  pipeline :admin_api do
     plug :accepts, ["json"]
     plug :fetch_session
     plug :fetch_flash
@@ -29,6 +29,12 @@ defmodule GatehouseWeb.Router do
     plug Gatehouse.CurrentSession
     plug GatehouseWeb.AdminAccessPlug
     plug GatehouseWeb.CSRFToken
+  end
+
+  pipeline :test_api do
+    plug :accepts, ["json"]
+    plug Guardian.Plug.VerifyHeader, module: Gatehouse.Guardian, claims: %{"typ" => "access"}
+    plug Guardian.Plug.EnsureAuthenticated, module: Gatehouse.Guardian, error_handler: GatehouseWeb.GuardianErrorHandler
   end
 
   scope "/", GatehouseWeb do
@@ -53,16 +59,24 @@ defmodule GatehouseWeb.Router do
       end
     end
   end
-
+  
   scope "/api", GatehouseWeb do
-    pipe_through [:api]
-    get    "/principal",                              AdministrationController, :get_principals
-    get    "/principal/:principal_id",                AdministrationController, :get_principal
-    put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
-    put    "/principal/:principal_id/password",       AdministrationController, :update_password
-    post   "/principal",                              AdministrationController, :create_principal
-    delete "/principal/:principal_id",                AdministrationController, :delete_principal
-    get    "/role",                                   AdministrationController, :get_roles
-  end
+  
+    scope "/admin" do
+      pipe_through [:admin_api]
+      get    "/principal",                              AdministrationController, :get_principals
+      get    "/principal/:principal_id",                AdministrationController, :get_principal
+      put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
+      put    "/principal/:principal_id/password",       AdministrationController, :update_password
+      post   "/principal",                              AdministrationController, :create_principal
+      delete "/principal/:principal_id",                AdministrationController, :delete_principal
+      get    "/role",                                   AdministrationController, :get_roles
+    end
 
+    scope "/test" do
+      pipe_through [:test_api]
+      get    "/token",                                  TestTokenController, :index
+    end
+
+  end
 end
