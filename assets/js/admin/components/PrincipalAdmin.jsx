@@ -6,7 +6,7 @@ import CreatePrincipal from "./CreatePrincipal"
 import Principal from "./Principal"
 import AlertBox from "./AlertBox"
 
-export default class AdminApp extends React.Component {
+export default class PrincipalAdmin extends React.Component {
   constructor(props) {
     super(props)
     this.state = { createPrincipal: false }

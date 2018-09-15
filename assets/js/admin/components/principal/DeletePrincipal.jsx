@@ -36,7 +36,7 @@ export default class DeletePrincipal extends React.Component {
       }
       else {
         return (<div>
-          <a href="#" className="btn btn-secundary"
+          <a href="#/principal" className="btn btn-secundary"
             onClick={() => this.onRequest()}>Delete Principal</a>
         </div>)
       }

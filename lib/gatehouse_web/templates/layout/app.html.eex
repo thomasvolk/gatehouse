@@ -23,7 +23,7 @@
             <% end %>
             <%= if is_admin?(@conn) do %>
             <li>
-              <a href="/administration">Administration</a>
+              <a href="/administration#/principal">Administration</a>
             </li>
             <% end %>
             <%= if logged_in?(@conn) do %>

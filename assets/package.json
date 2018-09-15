@@ -8,12 +8,14 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-preset-react": "^6.24.1",
+    "history": "^4.7.2",
     "i18n-react": "^0.6.4",
     "isomorphic-fetch": "^2.2.1",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "react-router": "^4.3.1"
   },
   "devDependencies": {
     "babel-brunch": "6.1.1",
