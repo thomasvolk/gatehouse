@@ -10,12 +10,11 @@ defmodule GatehouseWeb.Router do
   end
 
   pipeline :login_required do
-    plug Gatehouse.AuthAccessPipeline
-    plug Gatehouse.CurrentSession
+    plug GatehouseWeb.AuthAccessPipeline
   end
 
   pipeline :administration do
-    plug GatehouseWeb.AdminAccessPlug, redirect: "/login"
+    plug GatehouseWeb.AdminAccessPlug, redirect: "/"
     plug GatehouseWeb.CSRFToken
   end
 
@@ -25,16 +24,14 @@ defmodule GatehouseWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Gatehouse.AuthAccessPipeline
-    plug Gatehouse.CurrentSession
+    plug GatehouseWeb.ApiAuthAccessPipeline
     plug GatehouseWeb.AdminAccessPlug
     plug GatehouseWeb.CSRFToken
   end
 
   pipeline :test_api do
     plug :accepts, ["json"]
-    plug Guardian.Plug.VerifyHeader, module: Gatehouse.Guardian, error_handler: GatehouseWeb.GuardianErrorHandler, claims: %{"typ" => "access"}
-    plug Guardian.Plug.EnsureAuthenticated, module: Gatehouse.Guardian, error_handler: GatehouseWeb.GuardianErrorHandler
+    plug GatehouseWeb.TestApiAuthAccessPipeline
   end
 
   scope "/", GatehouseWeb do

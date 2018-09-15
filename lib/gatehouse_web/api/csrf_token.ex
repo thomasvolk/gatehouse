@@ -1,6 +1,5 @@
 defmodule GatehouseWeb.CSRFToken do
   import Plug.Conn
-  import Guardian.Plug
 
   def init(opts), do: opts
 
