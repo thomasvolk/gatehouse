@@ -15,7 +15,7 @@ defmodule Gatehouse.Role do
 
     timestamps()
 
-    many_to_many :principals, Principal, join_through: "principals_to_roles"
+    many_to_many :principals, Principal, join_through: "principals_to_roles", on_replace: :delete
   end
 
   @required_fields ~w(name)

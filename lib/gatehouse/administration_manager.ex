@@ -5,6 +5,8 @@ defmodule Gatehouse.AdministrationManager do
     alias Gatehouse.Role
     alias Gatehouse.Repo
 
+    defp generate_random_password(length \\ 16), do: RandomBytes.base62(length)
+
     def get_principals() do
         Repo.all(Principal) |> Enum.map(fn (p) -> %{ id: p.id, email: p.email } end)
     end
@@ -108,6 +110,25 @@ defmodule Gatehouse.AdministrationManager do
         }
     end
 
-    defp generate_random_password(length \\ 16), do: RandomBytes.base62(length)
+    def create_role(role_name) do
+        {:ok,  role} = Role.changeset(%Role{}, %{name: role_name}) |> Repo.insert()
+        role
+    end
 
+    def delete_role(role_id) do
+        {:ok, success} = Repo.transaction(fn ->
+            role = Repo.get_by(Role, id: role_id)
+            if Role.is_admin_role(role.name) do
+                Logger.info "admin role can not be removed!"
+                false
+            else
+                role = role |> Repo.preload(:principals)
+                changeset = Ecto.Changeset.change(role) |> put_assoc(:principals, [])
+                Repo.update!(changeset)
+                {:ok, _role} = role |> Repo.delete
+                true
+            end
+        end)
+        success
+    end
 end
