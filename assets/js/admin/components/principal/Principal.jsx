@@ -1,10 +1,10 @@
 import React from "react"
-import Email from "./principal/Email"
-import Password from "./principal/Password"
-import Roles from "./principal/Roles"
-import DeletePrincipal from "./principal/DeletePrincipal"
-import Server from "../server"
-import Dispatcher from "../dispatcher"
+import Email from "./detail/Email"
+import Password from "./detail/Password"
+import Roles from "./detail/Roles"
+import DeletePrincipal from "./detail/DeletePrincipal"
+import Server from "../../server"
+import Dispatcher from "../../dispatcher"
 
 export default class Principal extends React.Component {
 

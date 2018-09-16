@@ -1,8 +1,8 @@
 
 import React from "react"
 import Link from "react-router"
-import server from "../server"
-import Dispatcher from "../dispatcher"
+import server from "../../server"
+import Dispatcher from "../../dispatcher"
 
 export default class PrincipalList extends React.Component {
 

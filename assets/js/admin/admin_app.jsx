@@ -3,7 +3,7 @@ import React from "react"
 import "./i18n"
 import { Router, Route, Redirect } from 'react-router'
 import createHashHistory from "history/createHashHistory"
-import PrincipalAdmin from "./components/PrincipalAdmin"
+import PrincipalAdmin from "./components/principal/PrincipalAdmin"
 
 const history = createHashHistory({ queryKey: false })
 

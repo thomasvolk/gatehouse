@@ -1,6 +1,6 @@
 import React from "react"
-import Server from "../../server"
-import Dispatcher from "../../dispatcher"
+import Server from "../../../server"
+import Dispatcher from "../../../dispatcher"
 
 export default class Roles extends React.Component {
 

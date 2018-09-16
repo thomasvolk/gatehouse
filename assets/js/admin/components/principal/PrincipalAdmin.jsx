@@ -1,10 +1,9 @@
-
 import React from "react"
 import T from 'i18n-react'
 import PrincipalList from "./PrincipalList"
 import CreatePrincipal from "./CreatePrincipal"
 import Principal from "./Principal"
-import AlertBox from "./AlertBox"
+import AlertBox from "../AlertBox"
 
 export default class PrincipalAdmin extends React.Component {
   constructor(props) {
