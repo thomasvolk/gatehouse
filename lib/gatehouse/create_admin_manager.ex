@@ -26,17 +26,18 @@ defmodule Gatehouse.CreateAdminManager do
     def create_admin(email, password) do
         role_name = Role.admin_role
         Repo.transaction(fn ->
-        role = case Repo.get_by(Role, name: role_name) do
-            nil ->
-            {:ok,  role} = Role.changeset(%Role{}, %{name: role_name}) |> Repo.insert()
-            role
-            role -> role
-        end
-        {:ok, admin} = create_principal(email, password)
-        role = role |> Repo.preload(:principals)
-        admin = admin |> Repo.preload(:roles)
-        changeset = Ecto.Changeset.change(admin) |> Ecto.Changeset.put_assoc(:roles, [role])
-        Repo.update(changeset)
+            role = case Repo.get_by(Role, name: role_name) do
+                nil ->
+                    {:ok,  role} = Role.changeset(%Role{}, %{name: role_name}) |> Repo.insert()
+                    role
+                role -> 
+                    role
+            end
+            {:ok, admin} = create_principal(email, password)
+            role = role |> Repo.preload(:principals)
+            admin = admin |> Repo.preload(:roles)
+            changeset = Ecto.Changeset.change(admin) |> Ecto.Changeset.put_assoc(:roles, [role])
+            Repo.update(changeset)
         end)
     end
 
