@@ -68,6 +68,9 @@ defmodule GatehouseWeb.Router do
       post   "/principal",                              AdministrationController, :create_principal
       delete "/principal/:principal_id",                AdministrationController, :delete_principal
       get    "/role",                                   AdministrationController, :get_roles
+      get    "/role/:role_id",                          AdministrationController, :get_role
+      post   "/role",                                   AdministrationController, :create_role
+      delete "/role/:role_id",                          AdministrationController, :delete_role
     end
 
     scope "/test" do
