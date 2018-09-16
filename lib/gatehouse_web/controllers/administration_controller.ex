@@ -1,6 +1,6 @@
 defmodule GatehouseWeb.AdministrationController do
   use GatehouseWeb, :controller
-  import ErrorHandler
+  import GatehouseWeb.ApiErrorHandler
   alias Gatehouse.AdministrationManager
 
   def index(conn, _params) do

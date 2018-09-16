@@ -1,4 +1,4 @@
-defmodule ErrorHandler do
+defmodule GatehouseWeb.ApiErrorHandler do
     import Phoenix.Controller
     import Plug.Conn
 
