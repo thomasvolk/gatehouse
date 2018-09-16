@@ -21,7 +21,7 @@
             </li>
             <%= if is_admin?(@conn) do %>
             <li>
-              <a href="/administration#/principal">Administration</a>
+              <a href="/administration">Administration</a>
             </li>
             <% end %>
             <%= if logged_in?(@conn) do %>
