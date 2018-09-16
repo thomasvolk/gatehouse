@@ -38,8 +38,12 @@ function request(path, data = undefined) {
         .then(handleErrors)
         .then(getJsonBody)
         .catch( (response) => {
-            response.json().then((resp) => Dispatcher.onError.update(resp.error)) 
-        } )
+            response.json()
+                .then((resp) => Dispatcher.onError.update(resp.error))
+                .catch( (error) => {
+                    Dispatcher.onError.update("unknown error") 
+                })
+        })
 } 
 
 function sendData(method, path, body) {
