@@ -3,7 +3,6 @@ import T from 'i18n-react'
 import PrincipalList from "./PrincipalList"
 import CreatePrincipal from "./CreatePrincipal"
 import Principal from "./Principal"
-import AlertBox from "../AlertBox"
 
 export default class PrincipalAdmin extends React.Component {
   constructor(props) {
@@ -21,20 +20,17 @@ export default class PrincipalAdmin extends React.Component {
 
   renderPrincipalList() {
     return (
-      <div>
-        <AlertBox/>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-xs-4">
-              <div>
-                <button type="button" className="btn btn-primary"
-                  onClick={() => this.onCreatePrincipal()}>Create Principal</button>
-              </div>
-              <PrincipalList/>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-xs-4">
+            <div>
+              <button type="button" className="btn btn-primary"
+                onClick={() => this.onCreatePrincipal()}>Create Principal</button>
             </div>
-            <div className="col-xs-8">
-              <Principal/>
-            </div>
+            <PrincipalList/>
+          </div>
+          <div className="col-xs-8">
+            <Principal/>
           </div>
         </div>
       </div>
@@ -44,10 +40,7 @@ export default class PrincipalAdmin extends React.Component {
   renderCreatePrincipal() {
     return (
       <div>
-        <AlertBox/>
-        <div>
-          <CreatePrincipal close={() => this.onCloseCreatePrincipal()}/>
-        </div>
+        <CreatePrincipal close={() => this.onCloseCreatePrincipal()}/>
       </div>
     )
   }

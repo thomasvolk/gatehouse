@@ -4,12 +4,14 @@ import "./i18n"
 import { Router, Route, Redirect } from 'react-router'
 import createHashHistory from "history/createHashHistory"
 import PrincipalAdmin from "./components/principal/PrincipalAdmin"
+import AlertBox from "./components/AlertBox"
 
 const history = createHashHistory({ queryKey: false })
 
 ReactDOM.render(
   <Router history={history}>
     <div>
+      <AlertBox/>
       <Route path="/principal" component={PrincipalAdmin}/>
     </div>
   </Router>,
