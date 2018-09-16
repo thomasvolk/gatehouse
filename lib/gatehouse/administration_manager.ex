@@ -106,15 +106,16 @@ defmodule Gatehouse.AdministrationManager do
         %{ 
             id: principal.id, 
             email: principal.email,
-            roles: principal.roles |> Enum.map(fn (r) -> %{id: r.id, name: r.name } end)
+            roles: principal.roles |> Enum.map(fn (r) -> %{ id: r.id, name: r.name } end)
         }
     end
 
     def get_role(id) do
-        role = Repo.get_by(Role, id: id)
+        role = Repo.get_by(Role, id: id) |> Repo.preload(:principals)
         %{
             id: role.id,
-            name: role.name
+            name: role.name,
+            principals: role.principals |> Enum.map( fn(p) -> %{ id: p.id, email: p.email } end)
         }
     end
 
