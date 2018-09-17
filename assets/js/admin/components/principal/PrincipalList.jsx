@@ -19,17 +19,16 @@ export default class PrincipalList extends React.Component {
   }
 
   componentDidMount() {
-    this.mounted = true;
+    this.mounted = true
     this.loadList()
     this.principalCreatedCallback = Dispatcher.principalCreated.addObserver(() => this.loadList())
     this.principalDeletedCallback = Dispatcher.principalDeleted.addObserver(() => this.loadList())
   }
 
   componentWillUnmount(){
-    this.mounted = false;
+    this.mounted = false
     Dispatcher.principalCreated.removeObserver(this.principalCreatedCallback)
     Dispatcher.principalDeleted.removeObserver( this.principalDeletedCallback )
-    this.principalDeletedCallback = undefined
   }
 
   onItemClicked(principalId) {

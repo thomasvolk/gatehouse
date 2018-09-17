@@ -14,12 +14,14 @@ export default class Principal extends React.Component {
   }
   
   componentDidMount() {
+    this.mounted = true
     this.principalSelectedCallback = Dispatcher.principalSelected.addObserver((pid) => this.update(pid))
     this.principalChangedCallback = Dispatcher.principalChanged.addObserver((pid) => this.update(pid))
     this.principalDeletedCallback = Dispatcher.principalDeleted.addObserver((pid) => this.setState({ principal: undefined }))
   }
 
   componentWillUnmount(){
+    this.mounted = false
     Dispatcher.principalSelected.removeObserver( this.principalSelectedCallback )
     Dispatcher.principalChanged.removeObserver( this.principalChangedCallback )
     Dispatcher.principalDeleted.removeObserver( this.principalDeletedCallback )
@@ -28,12 +30,12 @@ export default class Principal extends React.Component {
   update(principalId) {
     Server.get(`principal/${principalId}`).then( 
       principal => {
-      if(this.principalSelectedCallback) {
+      if(this.mounted) {
         this.setState({ principal: principal })
       }
     })
     Server.get(`role?notAssignedForPrincipal=${principalId}`).then( roles => {
-      if(this.principalSelectedCallback) {
+      if(this.mounted) {
         this.setState({ unassignedRoles: roles })
       }
     })    

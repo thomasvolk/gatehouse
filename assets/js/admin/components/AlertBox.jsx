@@ -16,10 +16,7 @@ export default class AlertBox extends React.Component {
     }
 
     componentWillUnmount(){
-        if(this.onErrorCallback) {
-            Dispatcher.onError.removeObserver( this.onErrorCallback )
-        }
-        this.onErrorCallback = undefined
+        Dispatcher.onError.removeObserver( this.onErrorCallback )
     }
 
     render() {
