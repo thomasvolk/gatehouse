@@ -20,18 +20,9 @@ export default class Principal extends React.Component {
   }
 
   componentWillUnmount(){
-    if(this.principalSelectedCallback) {
-      Dispatcher.principalSelected.removeObserver( this.principalSelectedCallback )
-    }
-    this.principalSelectedCallback = undefined
-
-    if(this.principalChangedCallback) {
-      Dispatcher.principalChanged.removeObserver( this.principalChangedCallback )
-    }
-    this.principalChangedCallback = undefined
-    if(this.principalDeletedCallback) {
-      Dispatcher.principalDeleted.removeObserver( this.principalDeletedCallback )
-    }
+    Dispatcher.principalSelected.removeObserver( this.principalSelectedCallback )
+    Dispatcher.principalChanged.removeObserver( this.principalChangedCallback )
+    Dispatcher.principalDeleted.removeObserver( this.principalDeletedCallback )
     this.principalDeletedCallback = undefined
   }
 

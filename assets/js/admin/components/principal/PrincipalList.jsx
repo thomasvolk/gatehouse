@@ -1,6 +1,5 @@
 
 import React from "react"
-import Link from "react-router"
 import server from "../../server"
 import Dispatcher from "../../dispatcher"
 
@@ -28,13 +27,8 @@ export default class PrincipalList extends React.Component {
 
   componentWillUnmount(){
     this.mounted = false;
-    if(this.principalCreatedCallback) {
-      Dispatcher.principalCreated.removeObserver(this.principalCreatedCallback)
-    }
-    this.principalCreatedCallback = undefined
-    if(this.principalDeletedCallback) {
-      Dispatcher.principalDeleted.removeObserver( this.principalDeletedCallback )
-    }
+    Dispatcher.principalCreated.removeObserver(this.principalCreatedCallback)
+    Dispatcher.principalDeleted.removeObserver( this.principalDeletedCallback )
     this.principalDeletedCallback = undefined
   }
 
