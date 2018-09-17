@@ -21,12 +21,14 @@ export default class RoleList extends React.Component {
   componentDidMount() {
     this.mounted = true
     this.loadList()
-    this.rolesUpdatedCallback = Dispatcher.rolesUpdated.addObserver(() => this.loadList())
+    this.roleCreatedCallback = Dispatcher.roleCreated.addObserver(() => this.loadList())
+    this.roleDeletedCallback = Dispatcher.roleDeleted.addObserver(() => this.loadList())
   }
 
   componentWillUnmount(){
     this.mounted = false
-    Dispatcher.rolesUpdated.removeObserver(this.rolesUpdatedCallback)
+    Dispatcher.roleCreated.removeObserver(this.roleCreatedCallback)
+    Dispatcher.roleDeleted.removeObserver(this.roleDeletedCallback)
   }
 
   onItemClicked(roleId) {

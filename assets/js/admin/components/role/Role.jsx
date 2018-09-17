@@ -1,6 +1,7 @@
 import React from "react"
 import Server from "../../server"
 import Dispatcher from "../../dispatcher"
+import DeleteRole from "./details/DeleteRole"
 
 export default class Role extends React.Component {
 
@@ -12,11 +13,13 @@ export default class Role extends React.Component {
   componentDidMount() {
     this.mounted = true
     this.roleSelectedCallback = Dispatcher.roleSelected.addObserver((rid) => this.update(rid))
+    this.roleDeletedCallback = Dispatcher.roleDeleted.addObserver((pid) => this.setState({ role: undefined }))
   }
 
   componentWillUnmount(){
     this.mounted = false
     Dispatcher.roleSelected.removeObserver( this.roleSelectedCallback )
+    Dispatcher.roleDeleted.removeObserver( this.roleDeletedCallback )
   }
 
   update(roleId) {
@@ -33,6 +36,7 @@ export default class Role extends React.Component {
       <div className="card">
         <div className="card-body">
           <h3 className="card-title">{role.name}</h3>
+          <DeleteRole roleId={role.id}/>
         </div>
       </div>)
   }

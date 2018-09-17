@@ -20,7 +20,7 @@ export default class CreateRole extends React.Component {
   handleSubmit(event) {
     Server.post(`role`, 
         { name: this.state.name }).then((role) => {
-          Dispatcher.rolesUpdated.update(role.id)
+          Dispatcher.roleCreated.update(role.id)
           this.props.close()
         })
     event.preventDefault();

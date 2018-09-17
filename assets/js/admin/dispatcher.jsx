@@ -25,7 +25,8 @@ export default {
     principalChanged: new Observable(),
     principalCreated: new Observable(),
     principalDeleted: new Observable(),
-    rolesUpdated: new Observable(),
+    roleCreated: new Observable(),
+    roleDeleted: new Observable(),
     roleSelected: new Observable(),
     onError: new Observable()
 }
