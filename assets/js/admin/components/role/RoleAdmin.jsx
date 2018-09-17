@@ -1,6 +1,7 @@
 import React from "react"
 import RoleList from "./RoleList"
 import Role from "./Role"
+import CreateRole from "./CreateRole"
 
 export default class RoleAdmin extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ export default class RoleAdmin extends React.Component {
   renderCreateRole() {
     return (
       <div>
-        
+        <CreateRole close={() => this.onCloseCreateRole()}/>
       </div>
     )
   }

@@ -2,25 +2,25 @@ import React from "react"
 import Server from "../../server"
 import Dispatcher from "../../dispatcher"
 
-export default class CreatePrincipal extends React.Component {
+export default class CreateRole extends React.Component {
   
   constructor(props) {
     super(props)
-    this.state = { email: "" }
+    this.state = { name: "" }
   }
   
   onCancel() {
     this.props.close()
   }
 
-  updateEmail(event) {
-    this.setState({email: event.target.value})
+  updateName(event) {
+    this.setState({name: event.target.value})
   }
 
   handleSubmit(event) {
-    Server.post(`principal`, 
-        { email: this.state.email }).then((principal) => {
-          Dispatcher.principalCreated.update(principal.id)
+    Server.post(`role`, 
+        { name: this.state.name }).then((role) => {
+          Dispatcher.rolesUpdated.update(role.id)
           this.props.close()
         })
     event.preventDefault();
@@ -29,11 +29,11 @@ export default class CreatePrincipal extends React.Component {
   render() {
     return (
       <div>
-        <h2>Create Principal</h2>
+        <h2>Create Role</h2>
         <form onSubmit={(e) => this.handleSubmit(e)}>
-        <label htmlFor="email">Email</label>
-            <input type="text" id="email" className="form-control" 
-              placeholder="Email" onChange={(e) => this.updateEmail(e)}>
+        <label htmlFor="name">Name</label>
+            <input type="text" id="name" className="form-control" 
+              placeholder="Name" onChange={(e) => this.updateName(e)}>
             </input>
             <button type="button" className="btn btn-secundary"
               onClick={() => this.onCancel()}>Cancel</button>
