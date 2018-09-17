@@ -23,7 +23,6 @@ export default class Principal extends React.Component {
     Dispatcher.principalSelected.removeObserver( this.principalSelectedCallback )
     Dispatcher.principalChanged.removeObserver( this.principalChangedCallback )
     Dispatcher.principalDeleted.removeObserver( this.principalDeletedCallback )
-    this.principalDeletedCallback = undefined
   }
 
   update(principalId) {
