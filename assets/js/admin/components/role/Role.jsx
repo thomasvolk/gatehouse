@@ -2,6 +2,7 @@ import React from "react"
 import Server from "../../server"
 import Dispatcher from "../../dispatcher"
 import DeleteRole from "./details/DeleteRole"
+import Principals from "./details/Principals"
 
 export default class Role extends React.Component {
 
@@ -36,6 +37,7 @@ export default class Role extends React.Component {
       <div className="card">
         <div className="card-body">
           <h3 className="card-title">{role.name}</h3>
+          <Principals principals={role.principals}/>
           <DeleteRole roleId={role.id}/>
         </div>
       </div>)
