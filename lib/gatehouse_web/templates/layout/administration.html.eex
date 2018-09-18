@@ -20,8 +20,11 @@
               <a href="/">Home</a>
             </li>
             <%= if is_admin?(@conn) do %>
-            <li>
-              <a href="/administration">Administration</a>
+           <li>
+              <a href="/administration#/principal">Principals</a>
+            </li>
+             <li>
+              <a href="/administration#/role">Roles</a>
             </li>
             <% end %>
             <%= if logged_in?(@conn) do %>
