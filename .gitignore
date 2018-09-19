@@ -10,6 +10,7 @@ package-lock.json
 rel/plugins
 gatehouse.tar.gz
 *.deb
+.elixir_ls/
 
 # Generated on crash by the VM
 erl_crash.dump

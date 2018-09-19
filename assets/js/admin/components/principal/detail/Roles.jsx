@@ -10,15 +10,17 @@ export default class Roles extends React.Component {
 
   onRemoveRole(rid) {
     Server.put(`principal/${this.props.principalId}/role/${rid}`, 
-      { active: false })
-    Dispatcher.principalChanged.update(this.props.principalId)
+      { active: false }).then( response => {
+      Dispatcher.principalChanged.update(this.props.principalId)
+    })
   }
 
   onAddRole(event) {
     const rid = event.target.value
     Server.put(`principal/${this.props.principalId}/role/${rid}`, 
-      { active: true })
-    Dispatcher.principalChanged.update(this.props.principalId)
+      { active: true }).then( response => {
+        Dispatcher.principalChanged.update(this.props.principalId)
+      })
   }
 
   render() {

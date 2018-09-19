@@ -23,7 +23,7 @@ export default class CreateRole extends React.Component {
           Dispatcher.roleCreated.update(role.id)
           this.props.close()
         })
-    event.preventDefault();
+    event.preventDefault()
   }
   
   render() {

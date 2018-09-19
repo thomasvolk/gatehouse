@@ -20,9 +20,12 @@ export default class Password extends React.Component {
   handleSubmit(event) {  
     Server.put(`principal/${this.props.principalId}/password`, 
       { password: this.state.password,
-        passwordRepeat: this.state.passwordRepeat })
-    Dispatcher.principalChanged.update(this.props.principalId)
-    this.setState({password: "", passwordRepeat: ""})
+        passwordRepeat: this.state.passwordRepeat }).then( response => {
+          if(response) {
+            Dispatcher.principalChanged.update(this.props.principalId)
+            this.setState({password: "", passwordRepeat: ""})
+          }
+    })
     event.preventDefault()
   }
 

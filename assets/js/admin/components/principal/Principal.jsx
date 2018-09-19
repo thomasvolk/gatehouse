@@ -28,17 +28,16 @@ export default class Principal extends React.Component {
   }
 
   update(principalId) {
-    Server.get(`principal/${principalId}`).then( 
-      principal => {
+    Server.get(`principal/${principalId}`).then( principal => {
       if(this.mounted) {
-        this.setState({ principal: principal })
+        Server.get(`role?notAssignedForPrincipal=${principalId}`).then( roles => {
+          if(this.mounted) {
+            this.setState({ unassignedRoles: roles })
+            this.setState({ principal: principal })
+          }
+        })    
       }
     })
-    Server.get(`role?notAssignedForPrincipal=${principalId}`).then( roles => {
-      if(this.mounted) {
-        this.setState({ unassignedRoles: roles })
-      }
-    })    
   }
 
   renderDetails(principal, unassignedRoles) {
