@@ -22,7 +22,8 @@ export default class CreatePrincipal extends React.Component {
         { email: this.state.email }).then((principal) => {
           Dispatcher.principalCreated.update(principal.id)
           this.props.close()
-        }).then((response) => event.preventDefault() )
+        })
+        event.preventDefault()
   }
   
   render() {
