@@ -1,28 +1,40 @@
 import React from "react"
-import Dispatcher from "../dispatcher"
+import Alert from "../alert"
 
 export default class AlertBox extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {errorMessage: undefined}
+        this.state = {errorMessage: undefined, alertTye: undefined}
     }
 
     componentDidMount() {
-        this.onErrorCallback = Dispatcher.onError.addObserver((message) => this.update(message))
+        this.successCallback = Alert.onSuccess.addObserver((message) => this.update('success' ,message))
+        this.dangerCallback = Alert.onDanger.addObserver((message) => this.update('danger' ,message))
+        this.warningCallback = Alert.onWarning.addObserver((message) => this.update('warning' ,message))
+        this.clearCallback = Alert.onClear.addObserver((e) => this.clear())
     }
 
-    update(message) {
-        this.setState({errorMessage: message})
+    componentWillUnmount() {
+        Alert.onSuccess.removeObserver( this.successCallback )
+        Alert.onDanger.removeObserver( this.dangerCallback )
+        Alert.onWarning.removeObserver( this.warningCallback )
+        Alert.onClear.removeObserver( this.clearCallback )
+    }
+    
+    update(alertTye, message) {
+        this.setState({errorMessage: message, alertTye: alertTye})
     }
 
-    componentWillUnmount(){
-        Dispatcher.onError.removeObserver( this.onErrorCallback )
+    clear() {
+        this.setState({errorMessage: undefined})
     }
 
     render() {
         const errorMessage = this.state.errorMessage
+        const alertTye = this.state.alertTye
+        const alertStyle = `alert alert-${alertTye}`
         if(errorMessage) {
-          return (<div className="alert alert-warning" role="alert">{errorMessage}</div>)
+          return (<div className={alertStyle} role="alert">{errorMessage}</div>)
         }
         return (<div></div>)
       }

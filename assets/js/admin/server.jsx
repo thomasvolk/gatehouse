@@ -1,4 +1,4 @@
-import Dispatcher from "./dispatcher"
+import Alerter from "./alert"
 
 const BASE_PATH = "/api/admin"
 
@@ -18,7 +18,6 @@ function handleErrors(response) {
     if (!response.ok) {
         throw response
     }
-    Dispatcher.onError.update(undefined)
     return response
 }
 
@@ -39,9 +38,9 @@ function request(path, data = undefined) {
         .then(getJsonBody)
         .catch( (response) => {
             response.json()
-                .then((resp) => Dispatcher.onError.update(resp.error))
+                .then((resp) => Alerter.warning(resp.error))
                 .catch( (error) => {
-                    Dispatcher.onError.update("unknown error") 
+                    Alerter.danger("unknown error") 
                 })
         })
 } 
