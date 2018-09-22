@@ -30,6 +30,12 @@ export default class CreatePrincipal extends React.Component {
   onShowPassword(showPassword) {
     this.setState({showPassword: showPassword})
   }
+
+  onCopy(id) {
+    var copyText = document.getElementById(id)
+    copyText.select()
+    document.execCommand("copy")
+  }
   
   renderEmailForm() {
     return (
@@ -49,15 +55,21 @@ export default class CreatePrincipal extends React.Component {
   }
 
   renderPasswordView(showPassword, password) {
-    let pwd = showPassword ? password : ""
-    let showPwdButtonText = showPassword ? "Hide password" : "Show password"
+    const showPwdButtonText = showPassword ? "Hide password" : "Show password"
+    const password_field_id = "principal_password"
+    const pwd = showPassword ? <div>
+        <input type="text" readOnly value={password} id={password_field_id}></input>
+        <button type="button" className="btn btn-secundary"
+                onClick={() => this.onCopy(password_field_id)}>copy</button>
+      </div> : <div></div>
+
     return (
       <div>
          <button type="button" className="btn btn-secundary"
               onClick={() => this.onClose()}>Close</button>
          <button type="button" className="btn btn-primary"
                 onClick={() => this.onShowPassword(!showPassword)}>{showPwdButtonText}</button>
-         <div id="principal_password">{pwd}</div>
+         {pwd}
       </div>
     )
   }
