@@ -6,27 +6,32 @@ export default class CreatePrincipal extends React.Component {
   
   constructor(props) {
     super(props)
-    this.state = { email: "" }
+    this.state = { password: undefined, showPassword: false, email: "" }
   }
   
-  onCancel() {
+  onClose() {
+    this.setState({ password: undefined })
     this.props.close()
   }
 
   updateEmail(event) {
-    this.setState({email: event.target.value})
+    this.setState({email: event.target.value, showPassword: false})
   }
 
   handleSubmit(event) {
     Server.post(`principal`, 
         { email: this.state.email }).then((principal) => {
           Dispatcher.principalCreated.update(principal.id)
-          this.props.close()
+          this.setState({password: principal.password})
         })
-        event.preventDefault()
+    event.preventDefault()
+  }
+
+  onShowPassword(showPassword) {
+    this.setState({showPassword: showPassword})
   }
   
-  render() {
+  renderEmailForm() {
     return (
       <div>
         <h2>Create Principal</h2>
@@ -36,10 +41,35 @@ export default class CreatePrincipal extends React.Component {
               placeholder="Email" onChange={(e) => this.updateEmail(e)}>
             </input>
             <button type="button" className="btn btn-secundary"
-              onClick={() => this.onCancel()}>Cancel</button>
+              onClick={() => this.onClose()}>Cancel</button>
             <button type="submit" className="btn btn-primary">Create</button>
         </form>
       </div>
     )
+  }
+
+  renderPasswordView(showPassword, password) {
+    let pwd = showPassword ? password : ""
+    let showPwdButtonText = showPassword ? "Hide password" : "Show password"
+    return (
+      <div>
+         <button type="button" className="btn btn-secundary"
+              onClick={() => this.onClose()}>Close</button>
+         <button type="button" className="btn btn-primary"
+                onClick={() => this.onShowPassword(!showPassword)}>{showPwdButtonText}</button>
+         <div id="principal_password">{pwd}</div>
+      </div>
+    )
+  }
+
+  render() {
+    const password = this.state.password
+    const showPassword = this.state.showPassword
+    if(password) {
+      return this.renderPasswordView(showPassword, password)
+    }
+    else {
+      return this.renderEmailForm()
+    }
   }
 }
