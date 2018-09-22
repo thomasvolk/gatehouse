@@ -1,6 +1,7 @@
 import React from "react"
 import Server from "../../../server"
 import Dispatcher from "../../../dispatcher"
+import Alert from "../../../alert"
 
 export default class Password extends React.Component {
   
@@ -24,6 +25,7 @@ export default class Password extends React.Component {
           if(response) {
             Dispatcher.principalChanged.update(this.props.principalId)
             this.setState({password: "", passwordRepeat: ""})
+            Alert.success("Password successfully changed")
           }
     })
     event.preventDefault()
