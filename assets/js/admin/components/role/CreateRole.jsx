@@ -1,6 +1,7 @@
 import React from "react"
 import Server from "../../server"
 import Dispatcher from "../../dispatcher"
+import T from 'i18n-react'
 
 export default class CreateRole extends React.Component {
   
@@ -29,7 +30,7 @@ export default class CreateRole extends React.Component {
   render() {
     return (
       <div>
-        <h2>Create Role</h2>
+        <T.text tag="h2" text="create_role"/>
         <form onSubmit={(e) => this.handleSubmit(e)}>
         <label htmlFor="name">Name</label>
             <input type="text" id="name" className="form-control" 

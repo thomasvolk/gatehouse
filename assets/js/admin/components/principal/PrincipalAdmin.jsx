@@ -21,6 +21,7 @@ export default class PrincipalAdmin extends React.Component {
   renderPrincipalList() {
     return (
       <div className="container-fluid">
+        <T.text tag='h2' text="principals"/>
         <div className="row">
           <div className="col-xs-4">
             <div>

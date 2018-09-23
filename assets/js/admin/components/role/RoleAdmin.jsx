@@ -2,6 +2,7 @@ import React from "react"
 import RoleList from "./RoleList"
 import Role from "./Role"
 import CreateRole from "./CreateRole"
+import T from 'i18n-react'
 
 export default class RoleAdmin extends React.Component {
   constructor(props) {
@@ -20,11 +21,12 @@ export default class RoleAdmin extends React.Component {
   renderRoleList() {
     return (
       <div className="container-fluid">
+        <T.text tag='h2' text="roles"/>
         <div className="row">
           <div className="col-xs-4">
             <div>
               <button type="button" className="btn btn-primary"
-                onClick={() => this.onCreateRole()}>Create Role</button>
+                onClick={() => this.onCreateRole()}><T.text text="create_role"/></button>
             </div>
             <RoleList/>
           </div>

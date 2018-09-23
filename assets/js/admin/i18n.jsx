@@ -1,6 +1,8 @@
 
-import T from 'i18n-react';
+import T from 'i18n-react'
 
 T.setTexts({
-    title: "Gateouse Administration",
-});
+    principals: "Principals",
+    roles: "Roles",
+    create_role: "Create Role"
+})
