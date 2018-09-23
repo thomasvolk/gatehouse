@@ -1,5 +1,5 @@
 import React from "react"
-import T from 'i18n-react'
+import i18n from '../../i18n'
 import PrincipalList from "./PrincipalList"
 import CreatePrincipal from "./CreatePrincipal"
 import Principal from "./Principal"
@@ -21,7 +21,7 @@ export default class PrincipalAdmin extends React.Component {
   renderPrincipalList() {
     return (
       <div className="container-fluid">
-        <T.text tag='h2' text="principals"/>
+        <h2>{i18n.t('principals')}</h2>
         <div className="row">
           <div className="col-xs-4">
             <div>

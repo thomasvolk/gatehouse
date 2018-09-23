@@ -1,8 +1,21 @@
 
-import T from 'i18n-react'
+import i18next from 'i18next'
 
-T.setTexts({
-    principals: "Principals",
-    roles: "Roles",
-    create_role: "Create Role"
-})
+i18next
+  .init({
+    interpolation: {
+      escapeValue: false,
+    },
+    lng: 'en',
+    resources: {
+      en: {
+        translation: {
+            principals: 'Principals',
+            roles: 'Roles',
+            create_role: 'Create Role',
+        },
+      }
+    }
+  })
+
+export default i18next
