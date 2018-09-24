@@ -1,8 +1,8 @@
 import React from "react"
-import i18n from '../../i18n'
 import PrincipalList from "./PrincipalList"
 import CreatePrincipal from "./CreatePrincipal"
 import Principal from "./Principal"
+import { I18n } from 'react-i18next'
 
 export default class PrincipalAdmin extends React.Component {
   constructor(props) {
@@ -20,21 +20,27 @@ export default class PrincipalAdmin extends React.Component {
 
   renderPrincipalList() {
     return (
-      <div className="container-fluid">
-        <h2>{i18n.t('principals')}</h2>
-        <div className="row">
-          <div className="col-xs-4">
-            <div>
-              <button type="button" className="btn btn-primary"
-                onClick={() => this.onCreatePrincipal()}>Create Principal</button>
+      <I18n>
+        {
+          (t, { i18n }) => (
+            <div className="container-fluid">
+              <h2>{t('principals')}</h2>
+              <div className="row">
+                <div className="col-xs-4">
+                  <div>
+                    <button type="button" className="btn btn-primary"
+                      onClick={() => this.onCreatePrincipal()}>{t('create_principal')}</button>
+                  </div>
+                  <PrincipalList/>
+                </div>
+                <div className="col-xs-8">
+                  <Principal/>
+                </div>
+              </div>
             </div>
-            <PrincipalList/>
-          </div>
-          <div className="col-xs-8">
-            <Principal/>
-          </div>
-        </div>
-      </div>
+          )
+        }
+      </I18n>
     )
   }
 

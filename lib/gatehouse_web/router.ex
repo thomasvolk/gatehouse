@@ -62,6 +62,7 @@ defmodule GatehouseWeb.Router do
     scope "/admin" do
       pipe_through [:admin_api]
 
+      get    "/locale/:language/translation",          LocaleController,         :get_translation
       get    "/principal",                              AdministrationController, :get_principals
       get    "/principal/:principal_id",                AdministrationController, :get_principal
       put    "/principal/:principal_id/role/:role_id",  AdministrationController, :update_role_relation
