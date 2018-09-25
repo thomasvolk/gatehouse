@@ -1,9 +1,9 @@
 import React from "react"
 import Server from "../../server"
 import Dispatcher from "../../dispatcher"
-import { I18n } from 'react-i18next'
+import { translate } from 'react-i18next'
 
-export default class CreateRole extends React.Component {
+class CreateRole extends React.Component {
   
   constructor(props) {
     super(props)
@@ -28,25 +28,22 @@ export default class CreateRole extends React.Component {
   }
   
   render() {
+    const { t } = this.props
     return (
-      <I18n>
-        {
-          (t, { i18n }) => (
-            <div>
-              <h2>{t('create_role')}</h2>
-              <form onSubmit={(e) => this.handleSubmit(e)}>
-              <label htmlFor="name">Name</label>
-                  <input type="text" id="name" className="form-control" 
-                    placeholder="Name" onChange={(e) => this.updateName(e)}>
-                  </input>
-                  <button type="button" className="btn btn-secundary"
-                    onClick={() => this.onCancel()}>Cancel</button>
-                  <button type="submit" className="btn btn-primary">Create</button>
-              </form>
-            </div>
-          )
-        }
-      </I18n>
+      <div>
+        <h2>{t('create_role')}</h2>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
+        <label htmlFor="name">Name</label>
+            <input type="text" id="name" className="form-control" 
+              placeholder="Name" onChange={(e) => this.updateName(e)}>
+            </input>
+            <button type="button" className="btn btn-secundary"
+              onClick={() => this.onCancel()}>Cancel</button>
+            <button type="submit" className="btn btn-primary">Create</button>
+        </form>
+      </div>
     )
   }
 }
+
+export default translate()(CreateRole)

@@ -2,9 +2,9 @@ import React from "react"
 import RoleList from "./RoleList"
 import Role from "./Role"
 import CreateRole from "./CreateRole"
-import { I18n } from 'react-i18next'
+import { translate } from 'react-i18next'
 
-export default class RoleAdmin extends React.Component {
+class RoleAdmin extends React.Component {
   constructor(props) {
     super(props)
     this.state = { createRole: false }
@@ -19,28 +19,23 @@ export default class RoleAdmin extends React.Component {
   }
 
   renderRoleList() {
+    const { t } = this.props
     return (
-      <I18n>
-      {
-        (t, { i18n }) => (
-          <div className="container-fluid">
-            <h2>{t('roles')}</h2>
-            <div className="row">
-              <div className="col-xs-4">
-                <div>
-                  <button type="button" className="btn btn-primary"
-                    onClick={() => this.onCreateRole()}>{t('create_role')}</button>
-                </div>
-                <RoleList/>
-              </div>
-              <div className="col-xs-8">
-                <Role/>
-              </div>
+      <div className="container-fluid">
+        <h2>{t('roles')}</h2>
+        <div className="row">
+          <div className="col-xs-4">
+            <div>
+              <button type="button" className="btn btn-primary"
+                onClick={() => this.onCreateRole()}>{t('create_role')}</button>
             </div>
+            <RoleList/>
           </div>
-        )
-      }
-      </I18n>
+          <div className="col-xs-8">
+            <Role/>
+          </div>
+        </div>
+      </div>
     )
   }
 
@@ -59,3 +54,5 @@ export default class RoleAdmin extends React.Component {
     return this.renderRoleList()
   }
 }
+
+export default translate()(RoleAdmin)
