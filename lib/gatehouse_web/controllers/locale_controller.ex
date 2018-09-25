@@ -6,7 +6,9 @@ defmodule GatehouseWeb.LocaleController do
             principals: gettext("Principals"),
             create_principal: gettext("Create Principal"),
             roles: gettext("Roles"),
-            create_role: gettext("Create Role")
+            create_role: gettext("Create Role"),
+            cancel: gettext("Cancel"),
+            create: gettext("Create")
         }
         json conn, translation
     end

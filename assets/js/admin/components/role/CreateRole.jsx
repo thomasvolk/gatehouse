@@ -38,8 +38,8 @@ class CreateRole extends React.Component {
               placeholder="Name" onChange={(e) => this.updateName(e)}>
             </input>
             <button type="button" className="btn btn-secundary"
-              onClick={() => this.onCancel()}>Cancel</button>
-            <button type="submit" className="btn btn-primary">Create</button>
+              onClick={() => this.onCancel()}>{t('cancel')}</button>
+            <button type="submit" className="btn btn-primary">{t('create')}</button>
         </form>
       </div>
     )
