@@ -24,7 +24,7 @@ defmodule GatehouseWeb.AdminAccessPlug do
   defp handle_request(conn, _is_admin, _opts) do
     conn
       |> put_status(:forbidden) 
-      |> json(%{error: "Forbidden"})
+      |> json(%{error: gettext("Forbidden")})
       |> halt()
   end
 
