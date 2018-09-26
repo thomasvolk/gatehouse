@@ -2,8 +2,9 @@ import React from "react"
 import ShowPassword from './detail/ShowPassword'
 import Server from "../../server"
 import Dispatcher from "../../dispatcher"
+import { translate } from 'react-i18next'
 
-export default class CreatePrincipal extends React.Component {
+class CreatePrincipal extends React.Component {
   
   constructor(props) {
     super(props)
@@ -29,6 +30,7 @@ export default class CreatePrincipal extends React.Component {
   }
   
   renderEmailForm() {
+    const { t } = this.props
     return (
       <div>
         <h2>Create Principal</h2>
@@ -38,18 +40,19 @@ export default class CreatePrincipal extends React.Component {
               placeholder="Email" onChange={(e) => this.updateEmail(e)}>
             </input>
             <button type="button" className="btn btn-secundary"
-              onClick={() => this.onClose()}>Cancel</button>
-            <button type="submit" className="btn btn-primary">Create</button>
+              onClick={() => this.onClose()}>{t("cancel")}</button>
+            <button type="submit" className="btn btn-primary">{t("create")}</button>
         </form>
       </div>
     )
   }
 
   renderPasswordView(password) {
+    const { t } = this.props 
     return (
       <div>
          <button type="button" className="btn btn-secundary"
-              onClick={() => this.onClose()}>Close</button>
+              onClick={() => this.onClose()}>{t("close")}</button>
          <ShowPassword password={password}/>
       </div>
     )
@@ -65,3 +68,5 @@ export default class CreatePrincipal extends React.Component {
     }
   }
 }
+
+export default translate()(CreatePrincipal)
