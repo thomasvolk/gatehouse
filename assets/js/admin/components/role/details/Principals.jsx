@@ -1,11 +1,13 @@
 import React from "react"
+import { translate } from 'react-i18next'
 
-export default class Principals extends React.Component {
+class Principals extends React.Component {
     render() {
+        const { t } = this.props
         const principals = this.props.principals
         return (
             <div>
-                <span>Principals:</span>
+                <span>{t('principals')}:</span>
                 <ul className="list-group">
                     {principals.map(p => <li className="list-group-item" key={p.id}>
                     {p.email}
@@ -15,3 +17,5 @@ export default class Principals extends React.Component {
         )
     }
 }
+
+export default translate()(Principals)

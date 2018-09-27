@@ -1,6 +1,7 @@
 import React from "react"
+import { translate } from 'react-i18next'
 
-export default class ShowPassword extends React.Component {
+class ShowPassword extends React.Component {
   
   constructor(props) {
     super(props)
@@ -18,9 +19,10 @@ export default class ShowPassword extends React.Component {
   }
 
   render() {
+    const { t } = this.props
     const password = this.props.password
     const showPassword = this.state.showPassword
-    const showPwdButtonText = showPassword ? "Hide password" : "Show password"
+    const showPwdButtonText = showPassword ? t('hide_password') : t('show_password')
     const password_field_id = "principal_password"
     const pwd = showPassword ? <div>
         <input type="text" readOnly value={password} id={password_field_id}></input>
@@ -37,3 +39,5 @@ export default class ShowPassword extends React.Component {
     )
   }
 }
+
+export default translate()(ShowPassword)
