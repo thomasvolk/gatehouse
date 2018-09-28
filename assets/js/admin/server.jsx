@@ -38,10 +38,13 @@ function request(path, data = undefined) {
         .then(getJsonBody)
         .catch( (response) => {
             response.json()
-                .then((resp) => Alerter.warning(resp.error))
+                .then((resp) => {
+                    Alerter.warning(resp.error)
+                })
                 .catch( (error) => {
                     Alerter.danger("unknown error") 
                 })
+            throw new Error("server fetch error!")
         })
 } 
 
