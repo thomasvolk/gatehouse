@@ -9,4 +9,5 @@ RUN export MIX_ENV=prod && \
     mix local.rebar --force && \
     mix deps.get && \
     (cd assets && npm install && ./node_modules/brunch/bin/brunch build -p) && \
-    mix release
+    mix release && \
+    ln -s _build/prod/rel/gatehouse/releases/$(cat mix.exs | grep -P 'version: \".+\"' | grep -Po '(?<=)(\d+\.\d\.\d)')/ _dist
