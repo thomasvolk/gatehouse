@@ -5,7 +5,7 @@ defmodule Gatehouse.Mixfile do
     [
       app: :gatehouse,
       version: "0.0.1",
-      elixir: "~> 1.4",
+      elixir: "~> 1.8",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -34,7 +34,7 @@ defmodule Gatehouse.Mixfile do
   defp deps do
     [
       {:distillery, "~> 1.5", runtime: false},
-      {:phoenix, "~> 1.3.0"},
+      {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:mariaex, "~> 0.8.2"},
