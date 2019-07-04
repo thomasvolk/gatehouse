@@ -5,7 +5,6 @@
 /deps
 /*.ez
 mix.lock
-package-lock.json
 *.swp
 rel/plugins
 gatehouse.tar.gz

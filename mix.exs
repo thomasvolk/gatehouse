@@ -5,7 +5,7 @@ defmodule Gatehouse.Mixfile do
     [
       app: :gatehouse,
       version: "0.0.1",
-      elixir: "~> 1.8",
+      elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
@@ -34,8 +34,8 @@ defmodule Gatehouse.Mixfile do
   defp deps do
     [
       {:distillery, "~> 1.5", runtime: false},
-      {:phoenix, "~> 1.4.0"},
-      {:phoenix_pubsub, "~> 1.0"},
+      {:phoenix, "~> 1.4.9"},
+      {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 3.2"},
       {:mariaex, "~> 0.8.2"},
       {:phoenix_html, "~> 2.10"},
@@ -59,7 +59,7 @@ defmodule Gatehouse.Mixfile do
     [
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate", "test"]
     ]
   end
 end
