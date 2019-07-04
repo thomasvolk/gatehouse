@@ -46,7 +46,8 @@ defmodule Gatehouse.Mixfile do
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:random_bytes, "~> 1.0"}
+      {:random_bytes, "~> 1.0"},
+      {:jason, "~> 1.0"}
     ]
   end
 

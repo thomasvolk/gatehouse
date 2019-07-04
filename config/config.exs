@@ -9,6 +9,9 @@ use Mix.Config
 config :gatehouse,
   ecto_repos: [Gatehouse.Repo]
 
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
+
 # Configures the endpoint
 config :gatehouse, GatehouseWeb.Endpoint,
   url: [host: "localhost"],
