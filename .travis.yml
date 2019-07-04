@@ -10,9 +10,9 @@ jobs:
         - docker-compose start
       language: elixir
       elixir:
-        - 1.5
+        - 1.8
       otp_release:
-        - 20.0
+        - 22.0
       env:
         - MIX_ENV=test
       script: mix test
