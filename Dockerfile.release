@@ -1,11 +1,16 @@
 FROM ubuntu:18.04
 COPY gatehouse.tar.gz /tmp/
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends openssl \
+    && apt-get install -y --no-install-recommends openssl locales \
     && rm -rf /var/lib/apt/lists/*
+RUN export LANG=en_US.UTF-8 \
+    && echo $LANG UTF-8 > /etc/locale.gen \
+    && locale-gen \
+    && update-locale LANG=$LANG
 RUN cd /usr/local/lib/ \
        && mkdir gatehouse \
        && cd gatehouse \
        && tar xfz /tmp/gatehouse.tar.gz
+ENV LC_ALL=en_US.UTF-8
 CMD [ "sh", "-c", "/usr/local/lib/gatehouse/bin/gatehouse command Elixir.Gatehouse.Release.Tasks migrate \
                    && /usr/local/lib/gatehouse/bin/gatehouse foreground" ]
