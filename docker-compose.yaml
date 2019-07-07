@@ -2,7 +2,7 @@
 version: "2"
 
 services:
-  db:
+  gatehouse-db:
     image: mysql:5
     restart: always
     environment:
@@ -10,5 +10,18 @@ services:
       MYSQL_DATABASE: gatehouse
       MYSQL_USER: gatehouse
       MYSQL_PASSWORD: gatehouse
+  gatehouse-app:
+    image: gatehouse-release
     ports:
-      - "13306:3306"
+      - "9998:9998"
+    environment:
+      REPLACE_OS_VARS: 'true'
+      PORT: 9998
+      GATEHOUSE_WEB_SECRET_KEY_BASE: Dn0MUHCWLaC1zC6JnAWqZrl5hs2M71f8F6PxXTPfJXAc8Lv82OYcV/uwuB42YA9K
+      GATEHOUSE_DB_HOST: gatehouse-db
+      GATEHOUSE_DB_NAME: gatehouse
+      GATEHOUSE_DB_USER: gatehouse
+      GATEHOUSE_DB_PASSWORD: gatehouse
+      GATEHOUSE_DB_PORT: 3306
+      GATEHOUSE_AUTH_SECRET_KEY: dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8
+      GATEHOUSE_AUTH_TOKEN_TTL: 3600

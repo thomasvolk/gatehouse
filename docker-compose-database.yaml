@@ -1,0 +1,14 @@
+---
+version: "2"
+
+services:
+  db:
+    image: mysql:5
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: gatehouse
+      MYSQL_DATABASE: gatehouse
+      MYSQL_USER: gatehouse
+      MYSQL_PASSWORD: gatehouse
+    ports:
+      - "13306:3306"

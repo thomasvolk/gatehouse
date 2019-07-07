@@ -16,7 +16,7 @@ Install Node.js dependencies with
 
 Start the database with
 
-    docker-compose up
+    docker-compose -f docker-compose-database.yaml up
 
 Start Phoenix endpoint with
 
@@ -45,7 +45,7 @@ If you change the database model, you have to create a migration script:
 
 ## release
 
-### build the docker container
+### build and run the docker container
 
 Run the build script to compile and pack the gatehouse archive file:
 
@@ -55,7 +55,13 @@ To create the docker container run the release script:
 
     ./release.sh
 
-### run the container
+Yous can test the release with the local test database:
+
+    docker-compose up
+
+Open gatehose with http://localhost:9998
+
+### docker container environment variables
 
 To run the release you must set the following environment variables:
 
@@ -69,31 +75,6 @@ To run the release you must set the following environment variables:
 | GATEHOUSE_WEB_SECRET_KEY_BASE    |  webserver secret key base         |
 | GATEHOUSE_AUTH_SECRET_KEY        |  authentication secret key         |
 | GATEHOUSE_AUTH_TOKEN_TTL         |  authentication token time to live |
-
-
-Yous can test the release with the local test databse:
-
-    docker-compose up
-
-Run the gatehouse container as server:
-
-    docker run \
-    --network host \
-    -e REPLACE_OS_VARS=true \
-    -e PORT=9998 \
-    -e GATEHOUSE_WEB_SECRET_KEY_BASE=Dn0MUHCWLaC1zC6JnAWqZrl5hs2M71f8F6PxXTPfJXAc8Lv82OYcV/uwuB42YA9K \
-    -e GATEHOUSE_DB_HOST=localhost \
-    -e GATEHOUSE_DB_NAME=gatehouse \
-    -e GATEHOUSE_DB_USER=gatehouse \
-    -e GATEHOUSE_DB_PASSWORD=gatehouse \
-    -e GATEHOUSE_DB_PORT=13306 \
-    -e GATEHOUSE_AUTH_SECRET_KEY=dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8 \
-    -e GATEHOUSE_AUTH_TOKEN_TTL=3600 \
-    -p 9998:9998 \
-    gatehouse-release
-
-Open gatehose with http://localhost:9998
-
 
 ## Learn more
 
