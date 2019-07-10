@@ -1,8 +1,9 @@
 ---
-version: "2"
+version: "2.1"
 
 services:
   gatehouse-db:
+    container_name: gatehouse-db
     image: mysql:5
     restart: always
     environment:
@@ -10,10 +11,17 @@ services:
       MYSQL_DATABASE: gatehouse
       MYSQL_USER: gatehouse
       MYSQL_PASSWORD: gatehouse
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "--password=gatehouse", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 10s
   gatehouse-app:
+    container_name: gatehouse-app
     image: gatehouse-release
     ports:
       - "9998:9998"
+    restart: always
     environment:
       REPLACE_OS_VARS: 'true'
       PORT: 9998
@@ -25,3 +33,6 @@ services:
       GATEHOUSE_DB_PORT: 3306
       GATEHOUSE_AUTH_SECRET_KEY: dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8
       GATEHOUSE_AUTH_TOKEN_TTL: 3600
+    depends_on:
+      gatehouse-db:
+        condition: service_healthy
