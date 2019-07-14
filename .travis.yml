@@ -5,9 +5,9 @@ jobs:
         - docker
       before_install:
         - docker network create gatehouse_default
-        - docker-compose pull
-        - docker-compose create
-        - docker-compose start
+        - docker-compose -f docker-compose-database.yaml pull
+        - docker-compose -f docker-compose-database.yaml create
+        - docker-compose -f docker-compose-database.yaml start
       language: elixir
       elixir:
         - 1.8
