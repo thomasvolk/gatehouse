@@ -30,7 +30,7 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
 
 Start the integrationtest application:
 
-    ./test/webserver.py
+    ./example/python/webserver.py
 
 Open the url [`localhost:8000`](http://localhost:8000) from your browser.
 

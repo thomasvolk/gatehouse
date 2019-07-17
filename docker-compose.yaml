@@ -36,3 +36,9 @@ services:
     depends_on:
       gatehouse-db:
         condition: service_healthy
+  example-python-app:
+    container_name: example-python-app
+    build: ./example/python/
+    ports:
+      - "8000:8000"
+    

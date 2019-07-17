@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-import re, sys
+import re, sys, os
 from http import cookies
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
@@ -15,7 +15,8 @@ except ImportError:
 JWT_SECRET="dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8"
 AUDIENCE='Gatehouse'
 ISSUER='Gatehouse'
-URL='http://0.0.0.0:4000'
+GATEHOUSE_URL=os.environ.get('GATEHOUSE_URL', 'http://0.0.0.0:4000')
+PORT=int(os.environ.get('PORT', 8000))
 
 class Token(object):
     @staticmethod
@@ -54,7 +55,7 @@ class TestRequestHandler(SimpleHTTPRequestHandler):
         (host, port) = self.server.server_address
         target = "http://%s:%s%s" % (host, port, self.path)
         self.send_response(302)
-        self.send_header('Location', "%s?target=%s" % (URL, target))
+        self.send_header('Location', "%s?target=%s" % (GATEHOUSE_URL, target))
         self.end_headers()
 
     def _do_response(self, cookie = None):
@@ -77,8 +78,10 @@ class TestRequestHandler(SimpleHTTPRequestHandler):
                 self._redirect_to_auth_server()
 
 def run(server_class=HTTPServer, handler_class=TestRequestHandler):
-    server_address = ('0.0.0.0', 8000)
-    print("open http://%s:%s" % server_address)
+    server_address = ('0.0.0.0', PORT)
+    print("python example app")
+    print("url: http://%s:%s" % server_address)
+    print("gatehouse_url: %s" % GATEHOUSE_URL)
     httpd = server_class(server_address, handler_class)
     httpd.serve_forever()
 

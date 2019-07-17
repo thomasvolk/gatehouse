@@ -3,6 +3,7 @@ version: "2"
 
 services:
   db:
+    container_name: gatehouse-dev-db
     image: mysql:5
     restart: always
     environment:
