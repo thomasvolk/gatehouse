@@ -3,7 +3,7 @@ version: "2"
 
 services:
   db:
-    container_name: gatehouse-dev-db
+    container_name: dev-gatehouse-db
     image: mysql:5
     restart: always
     environment:
@@ -13,3 +13,11 @@ services:
       MYSQL_PASSWORD: gatehouse
     ports:
       - "13306:3306"
+  example-python-app:
+    container_name: dev-example-python-app
+    build: ./example/python/
+    environment:
+      GATEHOUSE_URL: http://localhost:4000
+      PORT: 8001
+    ports:
+      - "8001:8001"

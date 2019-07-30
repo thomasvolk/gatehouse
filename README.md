@@ -16,13 +16,15 @@ Install Node.js dependencies with
 
 Start the database with
 
-    docker-compose -f docker-compose-database.yaml up
+    docker-compose -f docker-compose-development.yaml up
 
 Start Phoenix endpoint with
 
     mix phx.server
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser and register the admin user.
+
+You can test the sso function by open the demo server on [`localhost:8001`](http://localhost:8001).
 
 Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
 
