@@ -18,7 +18,7 @@ services:
       interval: 10s
   gatehouse-app:
     container_name: gatehouse-app
-    image: thomasvolk-docker-public.bintray.io/gatehouse/gatehouse:latest
+    image: thomasvolk-docker-pdr.bintray.io/gatehouse/gatehouse:latest
     ports:
       - "9998:9998"
     restart: always
