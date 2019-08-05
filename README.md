@@ -55,7 +55,7 @@ Run the build script to compile and pack the gatehouse archive file:
 
 To create the docker container run the release script:
 
-    ./release.sh
+    ./build-docker-release.sh
 
 Yous can test the release with the local test database:
 

@@ -22,8 +22,8 @@ jobs:
         - docker
       script:
         - ./build.sh
-        - ./release.sh
-        - ./deploy.sh
+        - ./build-docker-release.sh
+        - ./deploy-to-docker-repo.sh
 
 stages:
   - test
