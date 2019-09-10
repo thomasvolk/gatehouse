@@ -7,11 +7,17 @@ defmodule Gatehouse.SessionManager do
 
     def get_principal_by_email(email) do
         principal = Repo.get_by(Principal, email: String.downcase(email))
-        role_names = get_roles_for_principal(principal.id) |> Enum.map(fn r -> r.name end)
-        %{id: principal.id, 
-          crypted_password: principal.crypted_password,
-          email: principal.email, 
-          roles: role_names}
+        if principal != nil do
+            role_names = get_roles_for_principal(principal.id) |> Enum.map(fn r -> r.name end)
+            %{
+                id: principal.id, 
+                crypted_password: principal.crypted_password,
+                email: principal.email, 
+                roles: role_names
+            }
+        else
+            nil
+        end
     end
 
     defp get_roles_for_principal(principal_id) do

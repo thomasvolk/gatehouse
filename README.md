@@ -2,6 +2,10 @@
 
 To start your Phoenix server:
 
+Start the database with
+
+    docker-compose -f docker-compose-development.yaml up
+
 Install dependencies with
 
     mix deps.get
@@ -14,13 +18,13 @@ Install Node.js dependencies with
 
     (cd assets && npm install)
 
-Start the database with
-
-    docker-compose -f docker-compose-development.yaml up
-
-Start Phoenix endpoint with
+Start Phoenix endpoint standalone
 
     mix phx.server
+
+or within the console
+
+    iex -S mix
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser and register the admin user.
 
