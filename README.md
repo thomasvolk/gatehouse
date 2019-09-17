@@ -1,5 +1,22 @@
 # Gatehouse
 
+## quickstart
+
+To try out gatehouse you can run it within a docker container:
+
+    docker-compose up
+
+now you can add an adminstration user:
+
+* http://localhost:9998
+
+after that you can test the login function by opening the 
+example application:
+
+* http://localhost:8000
+
+## development
+
 To start your Phoenix server:
 
 Start the database with
