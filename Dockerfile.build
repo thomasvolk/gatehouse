@@ -11,4 +11,4 @@ RUN export MIX_ENV=prod && \
     mix clean && \
     (cd assets && npm install && ./node_modules/brunch/bin/brunch build -p) && \
     mix release && \
-    (cd _build/prod/rel/gatehouse/ && tar cfz ../../../gatehouse.tar.gz .)
+    (cd _build/prod/rel/gatehouse/ && tar cfz ../../../../gatehouse.tar.gz .)
