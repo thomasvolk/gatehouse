@@ -4,7 +4,7 @@ version: "2.1"
 services:
   gatehouse-db:
     container_name: gatehouse-db
-    image: mysql:5
+    image: mariadb:10.5.9
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: gatehouse
