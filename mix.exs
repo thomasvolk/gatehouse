@@ -33,16 +33,16 @@ defmodule Gatehouse.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:distillery, "~> 1.5", runtime: false},
-      {:phoenix, "~> 1.4.9"},
-      {:phoenix_pubsub, "~> 1.1"},
+      {:distillery, "~> 2.1", runtime: false},
+      {:phoenix, "~> 1.5.8"},
+      {:phoenix_pubsub, "~> 2.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:mariaex, "~> 0.8.2"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
+      {:gettext, "~> 0.18.2"},
       {:cowboy, "~> 2.5"},
-      {:plug_cowboy, "~> 2.1.0"},
+      {:plug_cowboy, "~> 2.3"},
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
