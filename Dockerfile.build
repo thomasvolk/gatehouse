@@ -1,4 +1,4 @@
-FROM library/elixir:1.8
+FROM library/elixir:1.9
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get update && \
     apt-get install -y nodejs

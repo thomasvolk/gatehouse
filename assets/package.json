@@ -10,7 +10,7 @@
     "babel-preset-react": "^6.24.1",
     "braces": ">=3.0.2",
     "clean-css": "^5.1.1",
-    "history": "^5.0.0",
+    "history": "^4.7.2",
     "i18next": "^19.9.1",
     "i18next-xhr-backend": "^3.2.2",
     "isomorphic-fetch": "^3.0.0",
@@ -23,8 +23,8 @@
     "react-router": "^5.2.0"
   },
   "devDependencies": {
-    "babel-brunch": "7.0.1",
-    "brunch": "^4.0.0",
+    "babel-brunch": "6.1.1",
+    "brunch": "^2.10.17",
     "clean-css-brunch": "3.0.0",
     "uglify-js-brunch": "2.10.0"
   }
