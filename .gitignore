@@ -1,10 +1,10 @@
 # App artifacts
+.DS_Store
 .vscode
 /_build
 /db
 /deps
 /*.ez
-mix.lock
 *.swp
 rel/plugins
 gatehouse.tar.gz
