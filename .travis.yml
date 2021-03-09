@@ -22,7 +22,6 @@ jobs:
         - docker
       script:
         - ./build.sh
-        - ./deploy-to-generic-repo.sh
         - ./build-docker-release.sh
         - ./deploy-to-docker-repo.sh
 
