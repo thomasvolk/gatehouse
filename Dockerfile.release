@@ -12,5 +12,5 @@ RUN cd /usr/local/lib/ \
        && cd gatehouse \
        && tar xfz /tmp/gatehouse.tar.gz
 ENV LC_ALL=en_US.UTF-8
-CMD [ "sh", "-c", "/usr/local/lib/gatehouse/bin/gatehouse eval Elixir.Gatehouse.Release.Tasks migrate \
+CMD [ "sh", "-c", "/usr/local/lib/gatehouse/bin/gatehouse eval Elixir.Gatehouse.Release.Tasks.migrate \
                    && /usr/local/lib/gatehouse/bin/gatehouse start" ]
