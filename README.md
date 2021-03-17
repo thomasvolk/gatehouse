@@ -1,5 +1,7 @@
 # Gatehouse
 
+![build-status](https://travis-ci.com/thomasvolk/gatehouse.svg?branch=master)
+
 ## quickstart
 
 To try out gatehouse you can run it within a docker container:
