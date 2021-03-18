@@ -19,7 +19,7 @@
     "phoenix_html": "file:../deps/phoenix_html",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-i18next": "^11.8.8",
+    "react-i18next": "^11.8.10",
     "react-router": "^5.2.0"
   },
   "devDependencies": {
