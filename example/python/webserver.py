@@ -12,10 +12,10 @@ except ImportError:
     print("    pip3 install pyjwt")
     sys.exit(1)
 
-JWT_SECRET="dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8"
 AUDIENCE='Gatehouse'
 ISSUER='Gatehouse'
 GATEHOUSE_URL=os.environ.get('GATEHOUSE_URL', 'http://0.0.0.0:4000')
+SECRET_KEY=s.environ.get('SECRET_KEY', "dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8")
 PORT=int(os.environ.get('PORT', 8000))
 
 class Token(object):
@@ -23,7 +23,7 @@ class Token(object):
     def decode(token):
         if token != None:
             try:
-                decoded = jwt.decode(token, JWT_SECRET, issuer=ISSUER, audience=AUDIENCE, algorithms=['HS512'])
+                decoded = jwt.decode(token, SECRET_KEY, issuer=ISSUER, audience=AUDIENCE, algorithms=['HS512'])
                 return Token(token, decoded)
             except InvalidTokenError as e:
                 print("InvalidTokenError: ", e)

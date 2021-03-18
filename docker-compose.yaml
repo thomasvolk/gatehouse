@@ -39,6 +39,10 @@ services:
   example-python-app:
     container_name: example-python-app
     build: ./example/python/
+    environment:
+      PORT: 8000
+      SECRET_KEY: dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8
+      GATEHOUSE_URL: http://localhost:9998
     ports:
       - "8000:8000"
     

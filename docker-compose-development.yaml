@@ -18,6 +18,8 @@ services:
     build: ./example/python/
     environment:
       GATEHOUSE_URL: http://localhost:4000
+      SECRET_KEY: dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8
       PORT: 8001
     ports:
-      - "8001:8001"
+      - "8001:8001"    
+    
