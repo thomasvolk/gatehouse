@@ -23,8 +23,8 @@
     "react-router": "^5.2.0"
   },
   "devDependencies": {
-    "babel-brunch": "6.1.1",
-    "brunch": "^2.10.17",
+    "babel-brunch": "7.0.1",
+    "brunch": "^4.0.0",
     "clean-css-brunch": "3.0.0",
     "uglify-js-brunch": "2.10.0"
   }
