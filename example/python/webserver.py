@@ -15,7 +15,7 @@ except ImportError:
 AUDIENCE='Gatehouse'
 ISSUER='Gatehouse'
 GATEHOUSE_URL=os.environ.get('GATEHOUSE_URL', 'http://0.0.0.0:4000')
-SECRET_KEY=s.environ.get('SECRET_KEY', "dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8")
+SECRET_KEY=os.environ.get('SECRET_KEY', "dev_A1yzSKfmfiQgwZ08vIeuXUQqkG8")
 PORT=int(os.environ.get('PORT', 8000))
 
 class Token(object):
