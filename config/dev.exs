@@ -7,7 +7,7 @@ use Mix.Config
 config :gatehouse, Gatehouse.Guardian,
   issuer: "Gatehouse",
   secret_key: to_string(Mix.env) <> "_A1yzSKfmfiQgwZ08vIeuXUQqkG8",
-  ttl: {10, :minute}
+  ttl: {60, :minute}
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
