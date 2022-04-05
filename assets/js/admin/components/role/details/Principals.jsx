@@ -1,5 +1,5 @@
 import React from "react"
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class Principals extends React.Component {
     render() {
@@ -18,4 +18,4 @@ class Principals extends React.Component {
     }
 }
 
-export default translate()(Principals)
+export default withTranslation()(Principals)

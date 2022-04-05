@@ -2,7 +2,7 @@ import React from "react"
 import RoleList from "./RoleList"
 import Role from "./Role"
 import CreateRole from "./CreateRole"
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class RoleAdmin extends React.Component {
   constructor(props) {
@@ -55,4 +55,4 @@ class RoleAdmin extends React.Component {
   }
 }
 
-export default translate()(RoleAdmin)
+export default withTranslation()(RoleAdmin)

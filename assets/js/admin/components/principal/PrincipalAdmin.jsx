@@ -2,7 +2,7 @@ import React from "react"
 import PrincipalList from "./PrincipalList"
 import CreatePrincipal from "./CreatePrincipal"
 import Principal from "./Principal"
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class PrincipalAdmin extends React.Component {
   constructor(props) {
@@ -55,4 +55,4 @@ class PrincipalAdmin extends React.Component {
   }
 }
 
-export default translate()(PrincipalAdmin)
+export default withTranslation()(PrincipalAdmin)

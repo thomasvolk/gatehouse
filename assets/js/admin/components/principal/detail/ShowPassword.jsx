@@ -1,5 +1,5 @@
 import React from "react"
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class ShowPassword extends React.Component {
   
@@ -40,4 +40,4 @@ class ShowPassword extends React.Component {
   }
 }
 
-export default translate()(ShowPassword)
+export default withTranslation()(ShowPassword)

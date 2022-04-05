@@ -2,7 +2,7 @@ import React from "react"
 import Server from "../../../server"
 import Dispatcher from "../../../dispatcher"
 import Alert from "../../../alert"
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class Password extends React.Component {
   
@@ -55,4 +55,4 @@ class Password extends React.Component {
   }
 }
 
-export default translate()(Password)
+export default withTranslation()(Password)

@@ -1,7 +1,7 @@
 import React from "react"
 import Server from "../../../server"
 import Dispatcher from "../../../dispatcher"
-import { translate } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 class DeletePrincipal extends React.Component {
   
@@ -45,4 +45,4 @@ class DeletePrincipal extends React.Component {
     }
   }
   
-  export default translate()(DeletePrincipal)
+  export default withTranslation()(DeletePrincipal)
