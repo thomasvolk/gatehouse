@@ -21,14 +21,6 @@
               <a href="/">Home</a>
             </li>
             <% end %>
-            <%= if is_admin?(@conn) do %>
-            <li>
-              <a href="/administration#/principal">Principals</a>
-            </li>
-             <li>
-              <a href="/administration#/role">Roles</a>
-            </li>
-            <% end %>
             <%= if logged_in?(@conn) do %>
               <li><%= link "#{gettext "Logout"} - #{current_user(@conn).email}", to: session_path(@conn, :delete), method: :delete %></li>
             <% else %>
